@@ -1,0 +1,11 @@
+
+
+platform :ios, '12.1'
+
+target 'HelloCpp-mobile' do
+  pod 'Firebase'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
+
+end
