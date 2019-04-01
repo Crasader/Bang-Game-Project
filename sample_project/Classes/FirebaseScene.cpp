@@ -157,6 +157,7 @@ void FirebaseScene::logMessage(std::string format, ...) {
           scrollView->setInnerContainerSize(newScrollViewContainerSize);
           scrollViewContainerSize = scrollView->getInnerContainerSize();
         }
+        logTextWidget->setFontName("fonts/GenSanMaru/GenSenMaruGothicTW-Regular.ttf");
         logTextWidget->setPosition(cocos2d::Point(
             scrollViewContainerSize.width -
                 logTextWidget->getContentSize().width / 2,

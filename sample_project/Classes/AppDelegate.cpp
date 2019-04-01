@@ -26,6 +26,7 @@
 #include "AppDelegate.h"
 
 #include "FirebaseScene.h"
+#include "StartScene.hpp"
 //#include "FacebookLogin.h"
 
 #include "firebase/app.h"
@@ -128,8 +129,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
   // Create a scene. Scenes are reference counted and will auto-release on exit.
   // Currently doesn't compile on desktop. b/34988588
   
-auto scene = CreateFirebaseScene();
+//auto scene = CreateFirebaseScene();
 //auto scene = HelloWorld::createScene();
+    
+    auto scene = StartScene::createScene();
   // Run the scene.
   director->runWithScene(scene);
 

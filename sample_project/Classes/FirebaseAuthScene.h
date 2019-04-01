@@ -29,7 +29,7 @@
 #include "firebase/auth.h"
 #include "firebase/future.h"
 
-#include "PluginFacebook/PluginFacebook.h"
+#include "PluginFacebook/PluginFacebook.h"  //Facebook SDK
 
 class FirebaseAuthScene : public FirebaseScene, sdkbox::FacebookListener{
  public:
