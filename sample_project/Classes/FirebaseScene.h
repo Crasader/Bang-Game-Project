@@ -47,7 +47,7 @@ class FirebaseScene : public cocos2d::Layer{
 
   /// Called just before the app closes. This is where cleanup and shutdown
   /// logic should go.
-  virtual void menuCloseAppCallback(cocos2d::Ref* pSender) = 0;
+  //virtual void menuCloseAppCallback(cocos2d::Ref* pSender) = 0;
 
   /// Updates the log text in the Firebase scene's TextWidget.
   void logMessage(std::string format, ...);

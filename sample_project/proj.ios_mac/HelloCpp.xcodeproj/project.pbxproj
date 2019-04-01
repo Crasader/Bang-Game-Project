@@ -202,6 +202,7 @@
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		6F019F31225276A100356A3E /* mySdkboxWrap.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = mySdkboxWrap.hpp; sourceTree = "<group>"; };
 		6F351158224FA95700D206EC /* PluginFacebook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PluginFacebook.framework; sourceTree = "<group>"; };
 		6F35115A224FA95700D206EC /* sdkbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = sdkbox.framework; sourceTree = "<group>"; };
 		6F35115D224FA99700D206EC /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
@@ -442,6 +443,7 @@
 				4A05661D1DB70C58009CE39C /* FirebaseScene.h */,
 				6F9219682251F467006AD610 /* StartScene.cpp */,
 				6F9219692251F467006AD610 /* StartScene.hpp */,
+				6F019F31225276A100356A3E /* mySdkboxWrap.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;

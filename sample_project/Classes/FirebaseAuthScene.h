@@ -30,51 +30,52 @@
 #include "firebase/future.h"
 
 #include "PluginFacebook/PluginFacebook.h"  //Facebook SDK
+#include "mySdkboxWrap.hpp"
 
-class FirebaseAuthScene : public FirebaseScene, sdkbox::FacebookListener{
- public:
-  static cocos2d::Scene *createScene();
-
-  bool init() override;
-
-  void update(float delta) override;
-
-  void menuCloseAppCallback(cocos2d::Ref *pSender) override;
-
-  CREATE_FUNC(FirebaseAuthScene);
- private:
+class FirebaseAuthScene : public FirebaseScene, MySdkbox{
+public:
+    static cocos2d::Scene *createScene();
     
-  
-  /// A text field where a login email address may be entered.
-  cocos2d::ui::TextField* email_text_field_;
-
-  /// A text field where a login password may be entered.
-  cocos2d::ui::TextField* password_text_field_;
-
-  /// A button that uses the given email and password to register a user.
-  cocos2d::ui::Button* register_user_button_;
-
-  /// A button that uses the given email and password to log in.
-  cocos2d::ui::Button* credentialed_sign_in_button_;
-
-cocos2d::ui::Button* facebook_sign_in_button_;
-  /// A button that logs in anonymously.
-  cocos2d::ui::Button* anonymous_sign_in_button_;
-
-  /// A button that logs the user out regardless of how they logged in.
-  cocos2d::ui::Button* sign_out_button_;
-
-  /// A future that completes some time after attempting to create a new user.
-  firebase::Future<firebase::auth::User*> create_user_future_;
-
-  /// A future that completes some time after one of the login buttons is
-  /// pressed.
-  firebase::Future<firebase::auth::User*> sign_in_future_;
+    bool init() override;
     
-  /// Keeps track of whether or not the sign in attempt was made anonymously.
-  bool anonymous_sign_in_;
+    void update(float delta) override;
     
-    //Facebook callback
+    //void menuCloseAppCallback(cocos2d::Ref *pSender) override;
+    
+    CREATE_FUNC(FirebaseAuthScene);
+private:
+    
+    
+    /// A text field where a login email address may be entered.
+    cocos2d::ui::TextField* email_text_field_;
+    
+    /// A text field where a login password may be entered.
+    cocos2d::ui::TextField* password_text_field_;
+    
+    /// A button that uses the given email and password to register a user.
+    cocos2d::ui::Button* register_user_button_;
+    
+    /// A button that uses the given email and password to log in.
+    cocos2d::ui::Button* credentialed_sign_in_button_;
+    
+    cocos2d::ui::Button* facebook_sign_in_button_;
+    /// A button that logs in anonymously.
+    cocos2d::ui::Button* anonymous_sign_in_button_;
+    
+    /// A button that logs the user out regardless of how they logged in.
+    cocos2d::ui::Button* sign_out_button_;
+    
+    /// A future that completes some time after attempting to create a new user.
+    firebase::Future<firebase::auth::User*> create_user_future_;
+    
+    /// A future that completes some time after one of the login buttons is
+    /// pressed.
+    firebase::Future<firebase::auth::User*> sign_in_future_;
+    
+    /// Keeps track of whether or not the sign in attempt was made anonymously.
+    bool anonymous_sign_in_;
+    
+    //Facebook lisenter callback
     void onLogin(bool isLogin, const std::string& msg);
     void onSharedSuccess(const std::string& message);
     void onSharedFailed(const std::string& message);

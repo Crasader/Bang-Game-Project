@@ -28,7 +28,7 @@
 #include "platform/android/jni/JniHelper.h"
 #endif
 
-#include "PluginFacebook/PluginFacebook.h"
+//#include "PluginFacebook/PluginFacebook.h"
 #include "picojson.h"
 
 
@@ -86,8 +86,11 @@ bool FirebaseAuthScene::init() {
     CCLOG("Initializing the Auth with Firebase API.");
     
     firebase::auth::Auth* auth = firebase::auth::Auth::GetAuth(app);
-    sdkbox::PluginFacebook::setListener(this);
-    sdkbox::PluginFacebook::init(); //initialize sdkbox
+    //sdkbox::PluginFacebook::setListener(this); //set facebook listrner
+    //sdkbox::PluginFacebook::init(); //initialize sdkbox
+    
+    MySdkbox::setListener(this);
+    MySdkbox::init();
     
     // Create the Firebase label.
     auto firebaseLabel =
@@ -193,24 +196,19 @@ bool FirebaseAuthScene::init() {
                                                         switch (type) {
                                                             case cocos2d::ui::Widget::TouchEventType::ENDED: {
                                                                 
-                                                                if (!sdkbox::PluginFacebook::isLoggedIn()) {
+                                                                if ( !MySdkbox::isLoggedIn()) {
                                                                     this->logMessage("FB Signing in...");
-                                                                    sdkbox::PluginFacebook::login();
-                                                                    auto FBAccessToken = sdkbox::PluginFacebook::getAccessToken();
-                                                                    Credential FB_cred = firebase::auth::FacebookAuthProvider::GetCredential(FBAccessToken.c_str());
-                                                                    sign_in_future_ = auth->SignInWithCredential(FB_cred);
-                                                                    
+                                                                    //sdkbox::PluginFacebook::login();
+                                                                    MySdkbox::login();
                                                                 }
                                                                 else{
-                                                                    this->logMessage("FB already Signing in...");
-                                                                    auto FBAccessToken = sdkbox::PluginFacebook::getAccessToken();
+                                                                    this->logMessage("FB already Signing in, Signing in firebase automatically...");
+                                                                    auto FBAccessToken = MySdkbox::getAccessToken();
                                                                     Credential FB_cred = firebase::auth::FacebookAuthProvider::GetCredential(FBAccessToken.c_str());
                                                                     sign_in_future_ = auth->SignInWithCredential(FB_cred);
                                                                     
-                                                                    
                                                                 }
-                                                                //const char* email = email_text_field_->getString().c_str();
-                                                                //const char* password = password_text_field_->getString().c_str();
+                                                                
                                                                 
                                                                 this->credentialed_sign_in_button_->setEnabled(false);
                                                                 this->sign_out_button_->setEnabled(true);
@@ -230,8 +228,8 @@ bool FirebaseAuthScene::init() {
                                                 switch (type) {
                                                     case cocos2d::ui::Widget::TouchEventType::ENDED: {
                                                         this->logMessage("Signed out");
-                                                        if(sdkbox::PluginFacebook::isLoggedIn()){
-                                                            sdkbox::PluginFacebook::logout();
+                                                        if(MySdkbox::isLoggedIn()){
+                                                            MySdkbox::logout();
                                                         }
                                                         auth->SignOut();
                                                         this->credentialed_sign_in_button_->setEnabled(true);
@@ -245,6 +243,7 @@ bool FirebaseAuthScene::init() {
                                             });
     this->addChild(sign_out_button_);
     
+    /*
     // Create the close app menu item.
     auto closeAppItem = MenuItemImage::create(
                                               "CloseNormal.png", "CloseSelected.png",
@@ -257,7 +256,7 @@ bool FirebaseAuthScene::init() {
     auto menu = Menu::create(closeAppItem, NULL);
     menu->setPosition(cocos2d::Vec2::ZERO);
     this->addChild(menu, 1);
-    
+    */
     
     // Schedule the update method for this scene.
     this->scheduleUpdate();
@@ -307,6 +306,7 @@ void FirebaseAuthScene::update(float /*delta*/) {
 }
 
 /// Handles the user tapping on the close app menu item.
+/*
 void FirebaseAuthScene::menuCloseAppCallback(Ref* pSender) {
     CCLOG("Cleaning up Auth C++ resources.");
     
@@ -317,6 +317,7 @@ void FirebaseAuthScene::menuCloseAppCallback(Ref* pSender) {
     exit(0);
 #endif
 }
+*/
 
 /*********************
  * Facebook callbacks
@@ -327,9 +328,7 @@ void FirebaseAuthScene::onLogin(bool isLogin, const std::string& error)
     if (isLogin)
     {
         firebase::auth::Auth* auth = firebase::auth::Auth::GetAuth(app);
-        auto FBAccessToken = sdkbox::PluginFacebook::getAccessToken();
-        //auto cre = CCUserDefault::sharedUserDefault()->getStringForKey("AccessToken");
-        
+        auto FBAccessToken = MySdkbox::getAccessToken();
         firebase::auth::Credential FB_cred = firebase::auth::FacebookAuthProvider::GetCredential(FBAccessToken.c_str());
         sign_in_future_ = auth->SignInWithCredential(FB_cred);
     }
