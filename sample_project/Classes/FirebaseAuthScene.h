@@ -44,7 +44,10 @@ public:
     
     CREATE_FUNC(FirebaseAuthScene);
 private:
-    
+    cocos2d::Color3B c3Black = cocos2d::ccc3(0, 0, 0);
+    cocos2d::Color3B c3White = cocos2d::ccc3(255, 255, 255);
+    cocos2d::Color4B c4Black = cocos2d::ccc4(0, 0, 0, 255);
+    cocos2d::Color4B c4White = cocos2d::ccc4(255, 255, 255, 255);
     
     /// A text field where a login email address may be entered.
     cocos2d::ui::TextField* email_text_field_;

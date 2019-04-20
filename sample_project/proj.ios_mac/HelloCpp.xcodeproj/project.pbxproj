@@ -71,7 +71,8 @@
 		6F351162224FA99700D206EC /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115E224FA99700D206EC /* StoreKit.framework */; };
 		6F351163224FA99700D206EC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115F224FA99700D206EC /* Security.framework */; };
 		6F351164224FA99700D206EC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F351160224FA99700D206EC /* SystemConfiguration.framework */; };
-		6F58A0EA224DF59100830EF2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F58A0E9224DF59000830EF2 /* GoogleService-Info.plist */; };
+		6F4DCE432269A20400FC7278 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F4DCE412269A20400FC7278 /* GoogleService-Info.plist */; };
+		6F4DCE5A226B151E00FC7278 /* TextFieldImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F4DCE58226B151E00FC7278 /* TextFieldImage.png */; };
 		6F81F855224DFBF1004ED01A /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81F853224DFBF1004ED01A /* GameKit.framework */; };
 		6F9155D6225081F400634354 /* FBSDKMarketingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9155CF225081F300634354 /* FBSDKMarketingKit.framework */; };
 		6F9155D7225081F400634354 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9155D0225081F300634354 /* FBSDKLoginKit.framework */; };
@@ -84,6 +85,10 @@
 		6F921973225243AF006AD610 /* NormalButtonImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F921972225243AF006AD610 /* NormalButtonImage.png */; };
 		6F9C9A38224E9052007834B7 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F9C9A37224E9052007834B7 /* Storyboard.storyboard */; };
 		6F9C9A3D224E95B6007834B7 /* LaunchScreenBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9C9A3B224E95B5007834B7 /* LaunchScreenBackground.png */; };
+		6FA0ED94226B215E0090FD52 /* ButtonS2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA0ED92226B215D0090FD52 /* ButtonS2.png */; };
+		6FA0ED95226B215E0090FD52 /* ButtonS1.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA0ED93226B215E0090FD52 /* ButtonS1.png */; };
+		6FA0ED9A226B269A0090FD52 /* emptyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA0ED98226B269A0090FD52 /* emptyImage.png */; };
+		6FA0ED9E226B2AF90090FD52 /* FacebookButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA0ED9C226B2AF90090FD52 /* FacebookButton.png */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		861EF612DEA82AE64357BCE6 /* libPods-HelloCpp-mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2520D6EB3049AB436A7E4B23 /* libPods-HelloCpp-mobile.a */; };
 		984CE8671E81F58A00A6F405 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 984CE8661E81F58A00A6F405 /* MediaPlayer.framework */; };
@@ -145,7 +150,7 @@
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D6058910D05DD3D006BFB54 /* HelloCpp-mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HelloCpp-mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* Bang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2520D6EB3049AB436A7E4B23 /* libPods-HelloCpp-mobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HelloCpp-mobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -210,7 +215,8 @@
 		6F35115F224FA99700D206EC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		6F351160224FA99700D206EC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		6F35116B224FB2A500D206EC /* HelloCpp-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HelloCpp-mobile.entitlements"; sourceTree = "<group>"; };
-		6F58A0E9224DF59000830EF2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6F4DCE412269A20400FC7278 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ios/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6F4DCE58226B151E00FC7278 /* TextFieldImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextFieldImage.png; sourceTree = "<group>"; };
 		6F81F853224DFBF1004ED01A /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
 		6F9155CC2250817800634354 /* FBSDK */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FBSDK; sourceTree = "<group>"; };
 		6F9155CF225081F300634354 /* FBSDKMarketingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKMarketingKit.framework; path = FBSDK/FBSDKMarketingKit.framework; sourceTree = "<group>"; };
@@ -225,6 +231,10 @@
 		6F921972225243AF006AD610 /* NormalButtonImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NormalButtonImage.png; sourceTree = "<group>"; };
 		6F9C9A37224E9052007834B7 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		6F9C9A3B224E95B5007834B7 /* LaunchScreenBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LaunchScreenBackground.png; path = ios/LaunchScreenBackground.png; sourceTree = SOURCE_ROOT; };
+		6FA0ED92226B215D0090FD52 /* ButtonS2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonS2.png; sourceTree = "<group>"; };
+		6FA0ED93226B215E0090FD52 /* ButtonS1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonS1.png; sourceTree = "<group>"; };
+		6FA0ED98226B269A0090FD52 /* emptyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyImage.png; sourceTree = "<group>"; };
+		6FA0ED9C226B2AF90090FD52 /* FacebookButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FacebookButton.png; sourceTree = "<group>"; };
 		706F4029ACC95B174F44A28D /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = SOURCE_ROOT; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8FD64FADB77DFB3B6C7C42D8 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = SOURCE_ROOT; };
@@ -330,7 +340,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* HelloCpp-mobile.app */,
+				1D6058910D05DD3D006BFB54 /* Bang.app */,
 				5087E76F17EB910900C73F5D /* HelloCpp-desktop.app */,
 			);
 			name = Products;
@@ -358,7 +368,7 @@
 				6F9155D5225081F400634354 /* FBSDKShareKit.framework */,
 				6F351158224FA95700D206EC /* PluginFacebook.framework */,
 				6F35115A224FA95700D206EC /* sdkbox.framework */,
-				6F58A0E9224DF59000830EF2 /* GoogleService-Info.plist */,
+				6F4DCE412269A20400FC7278 /* GoogleService-Info.plist */,
 				46880B8319C43A87006E1F66 /* Classes */,
 				46880B7519C43A67006E1F66 /* Resources */,
 				1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */,
@@ -421,10 +431,15 @@
 				521A8EA819F11F5000D177D7 /* fonts */,
 				3EACC98E19EE6D4300EB3C5E /* res */,
 				46880B7619C43A67006E1F66 /* CloseNormal.png */,
+				6F4DCE58226B151E00FC7278 /* TextFieldImage.png */,
 				46880B7719C43A67006E1F66 /* CloseSelected.png */,
 				6F921972225243AF006AD610 /* NormalButtonImage.png */,
 				6F921970225243A4006AD610 /* SelectedButtonImage.png */,
 				46880B7A19C43A67006E1F66 /* HelloWorld.png */,
+				6FA0ED93226B215E0090FD52 /* ButtonS1.png */,
+				6FA0ED92226B215D0090FD52 /* ButtonS2.png */,
+				6FA0ED9C226B2AF90090FD52 /* FacebookButton.png */,
+				6FA0ED98226B269A0090FD52 /* emptyImage.png */,
 				B36B421FB393D1A749DC816F /* sdkbox_config.json */,
 			);
 			name = Resources;
@@ -524,7 +539,7 @@
 			);
 			name = "HelloCpp-mobile";
 			productName = iphone;
-			productReference = 1D6058910D05DD3D006BFB54 /* HelloCpp-mobile.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* Bang.app */;
 			productType = "com.apple.product-type.application";
 		};
 		5087E73D17EB910900C73F5D /* HelloCpp-desktop */ = {
@@ -555,6 +570,7 @@
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = H5K5LNWG53;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -630,24 +646,29 @@
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
+				6FA0ED9A226B269A0090FD52 /* emptyImage.png in Resources */,
+				6FA0ED94226B215E0090FD52 /* ButtonS2.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
-				6F58A0EA224DF59100830EF2 /* GoogleService-Info.plist in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
+				6F4DCE432269A20400FC7278 /* GoogleService-Info.plist in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				3EACC98F19EE6D4300EB3C5E /* res in Resources */,
 				6F9C9A38224E9052007834B7 /* Storyboard.storyboard in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
+				6F4DCE5A226B151E00FC7278 /* TextFieldImage.png in Resources */,
 				6F9C9A3D224E95B6007834B7 /* LaunchScreenBackground.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 				6F921971225243A4006AD610 /* SelectedButtonImage.png in Resources */,
+				6FA0ED9E226B2AF90090FD52 /* FacebookButton.png in Resources */,
 				68EE4014B4496DA13CC9D837 /* sdkbox_config.json in Resources */,
+				6FA0ED95226B215E0090FD52 /* ButtonS1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,6 +783,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_ENTITLEMENTS = "HelloCpp-mobile.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = H5K5LNWG53;
 				ENABLE_BITCODE = NO;
@@ -799,6 +821,9 @@
 					"$(_COCOS_LIB_IOS_END)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "OOP-Project.team";
+				PRODUCT_MODULE_NAME = "OOP-Project.team";
+				PRODUCT_NAME = Bang;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -814,6 +839,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_ENTITLEMENTS = "HelloCpp-mobile.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = H5K5LNWG53;
 				ENABLE_BITCODE = NO;
@@ -849,6 +875,9 @@
 					"$(_COCOS_LIB_IOS_END)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "OOP-Project.team";
+				PRODUCT_MODULE_NAME = "OOP-Project.team";
+				PRODUCT_NAME = Bang;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";

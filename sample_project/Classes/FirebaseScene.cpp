@@ -33,9 +33,11 @@
 USING_NS_CC;
 
 // The images for the Firebase buttons.
-static const std::string kNormalButtonImage = "NormalButtonImage.png";
-static const std::string kSelectedButtonImage = "SelectedButtonImage.png";
-static const std::string kDisabledButtonImage = "SelectedButtonImage.png";
+static const std::string kNormalButtonImage = "ButtonS1.png";
+static const std::string kSelectedButtonImage = "ButtonS2.png";
+static const std::string kDisabledButtonImage = "ButtonS1.png";
+static const std::string emptyButtonImage = "emptyImage.png";
+static const std::string FBButtonImage = "FacebookButton.png";
 
 /// Padding for the UI elements.
 static const float kUIElementPadding = 10.0;
@@ -44,7 +46,7 @@ static const float kUIElementPadding = 10.0;
 static const float kButtonTitleFontSize = 12.0;
 
 /// The content size for the Firebase buttons.
-static const cocos2d::Size kButtonContentSize = cocos2d::Size(300, 100);
+static const cocos2d::Size kButtonContentSize = cocos2d::Size(400, 100);
 
 /// The factor used to determine when to resize the ScrollView's inner container
 /// height.
@@ -78,10 +80,73 @@ cocos2d::ui::Button* FirebaseScene::createButton(
     
     return button;
 }
-
+cocos2d::ui::Button* FirebaseScene::createTextButton(
+                                                 bool buttonEnabled, const std::string& buttonTitleText,
+                                                 const cocos2d::Color3B& buttonColor) {
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    cocos2d::Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    cocos2d::ui::Button* button = cocos2d::ui::Button::create(
+                                                              emptyButtonImage, emptyButtonImage, emptyButtonImage);
+    button->setEnabled(buttonEnabled);
+    button->setColor(buttonColor);
+    button->setTitleText(buttonTitleText);
+    button->setTitleFontSize(kButtonTitleFontSize);
+    button->ignoreContentAdaptWithSize(false);
+    button->setContentSize(kButtonContentSize);
+    nextYPosition -= button->getContentSize().height + kUIElementPadding;
+    button->setPosition(
+                        cocos2d::Vec2(origin.x + visibleSize.width / 4, nextYPosition));
+    
+    return button;
+}
+cocos2d::ui::Button* FirebaseScene::createFbButton(
+                                                     bool buttonEnabled, const std::string& buttonTitleText,
+                                                     const cocos2d::Color3B& buttonColor) {
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    cocos2d::Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    cocos2d::ui::Button* button = cocos2d::ui::Button::create(
+                                                              FBButtonImage, FBButtonImage, FBButtonImage);
+    button->setEnabled(buttonEnabled);
+    button->setColor(buttonColor);
+    button->setTitleText(buttonTitleText);
+    button->setTitleFontSize(kButtonTitleFontSize);
+    button->ignoreContentAdaptWithSize(false);
+    button->setContentSize(kButtonContentSize);
+    nextYPosition -= button->getContentSize().height + kUIElementPadding;
+    button->setPosition(
+                        cocos2d::Vec2(origin.x + visibleSize.width / 4, nextYPosition));
+    
+    return button;
+}
+/*
 cocos2d::ui::Button* FirebaseScene::createButton(
                                                  bool buttonEnabled, const std::string& buttonTitleText) {
     return createButton(buttonEnabled, buttonTitleText, cocos2d::Color3B::WHITE);
+}
+cocos2d::ui::Button* FirebaseScene::createTextButton(
+                                                 bool buttonEnabled, const std::string& buttonTitleText) {
+    return createTextButton(buttonEnabled, buttonTitleText, ccc3(236, 207, 177));
+}
+cocos2d::ui::Button* FirebaseScene::createFbButton(
+                                                     bool buttonEnabled, const std::string& buttonTitleText) {
+    return createFbButton(buttonEnabled, buttonTitleText, ccc3(236, 207, 177));
+}
+*/
+cocos2d::ui::Button* FirebaseScene::createButton(
+                                                   ButtonType bt, bool buttonEnabled, const std::string& buttonTitleText) {
+    switch (bt.getType()) {
+        case 1:
+            return createButton(buttonEnabled, buttonTitleText, cocos2d::Color3B::WHITE);
+            break;
+        case 2:
+            return createTextButton(buttonEnabled, buttonTitleText, ccc3(236, 207, 177));
+            break;
+        case 3:
+            return createFbButton(buttonEnabled, buttonTitleText, ccc3(236, 207, 177));
+            break;
+        default:
+            break;
+    }
 }
 
 cocos2d::ui::TextField* FirebaseScene::createTextField(
@@ -157,7 +222,7 @@ void FirebaseScene::logMessage(std::string format, ...) {
             scrollView->setInnerContainerSize(newScrollViewContainerSize);
             scrollViewContainerSize = scrollView->getInnerContainerSize();
         }
-        logTextWidget->setFontName("fonts/GenSanMaru/GenSenMaruGothicTW-Regular.ttf");
+        logTextWidget->setFontName("fonts/GenSanMaru/GenSenMaruGothicTW-Regular.ttf");//可以顯示中文的字體
         logTextWidget->setPosition(cocos2d::Point(
                                                   scrollViewContainerSize.width -
                                                   logTextWidget->getContentSize().width / 2,

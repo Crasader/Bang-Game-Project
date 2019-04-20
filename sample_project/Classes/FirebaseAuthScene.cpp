@@ -44,8 +44,8 @@ USING_NS_CC;
 static const float kUIElementPadding = 10.0;
 
 /// Placeholder labels for the text fields.
-static const char* kEmailPlaceholderText = "Account : email";
-static const char* kPasswordPlaceholderText = "Password: ";
+static const char* kEmailPlaceholderText = "Email";
+static const char* kPasswordPlaceholderText = "Password";
 
 
 //In your initialization code, create a firebase::App class.
@@ -92,17 +92,22 @@ bool FirebaseAuthScene::init() {
     MySdkbox::setListener(this);
     MySdkbox::init();
     
+    //Set background
+    auto backGroundColor = CCLayerColor::create(ccc4(236, 207, 177, 255)); //RGBA
+    this->addChild(backGroundColor, 0);
+    
     // Create the Firebase label.
-    auto firebaseLabel =
-    Label::createWithTTF("Firebase Auth", "fonts/Marker Felt.ttf", 40);
+    auto BangLabel =
+    Label::createWithTTF("Bang!", "fonts/Marker Felt.ttf", 100); //Top Bang Label
     nextYPosition =
-    origin.y + visibleSize.height - firebaseLabel->getContentSize().height;
-    firebaseLabel->setPosition(
+    origin.y + visibleSize.height - BangLabel->getContentSize().height-50;
+    BangLabel->setPosition(
                                cocos2d::Vec2(origin.x + visibleSize.width / 2, nextYPosition));
-    this->addChild(firebaseLabel, 1);
+    BangLabel->setColor(ccc3(0, 0, 0));
+    this->addChild(BangLabel, 1);
     
     const float scrollViewYPosition = nextYPosition -
-    firebaseLabel->getContentSize().height -
+    BangLabel->getContentSize().height -
     kUIElementPadding * 2;
     // Create the ScrollView on the Cocos2d thread.
     cocos2d::Director::getInstance()
@@ -121,21 +126,58 @@ bool FirebaseAuthScene::init() {
     } else {
         logMessage("Current user %s already signed in.",
                    auth->current_user()->display_name().c_str());
-        
     }
     
     email_text_field_ = createTextField(kEmailPlaceholderText);
-    
-    this->addChild(email_text_field_);
+    email_text_field_ -> setPlaceHolderColor(c3Black);
+    email_text_field_ -> setColor(c3Black);
+    this->addChild(email_text_field_, 1);
+    auto Textbackground = Sprite::create("TextFieldImage.png");
+    Textbackground -> setPosition(email_text_field_->getPosition());
+    this->addChild(Textbackground ,0);
     
     password_text_field_ = createTextField(kPasswordPlaceholderText);
+    password_text_field_ -> setPlaceHolderColor(c3Black);
+    password_text_field_ -> setColor(c3Black);
+    password_text_field_ -> setPasswordEnabled(true);
+    this->addChild(password_text_field_, 1);
+    auto Textbackground2 = Sprite::create("TextFieldImage.png");;
+    Textbackground2->setPosition(password_text_field_->getPosition());
+    this->addChild(Textbackground2 ,0);
     
-    this->addChild(password_text_field_);
+    credentialed_sign_in_button_ = createButton( ButtonType(ButtonType::Normal) , true, "Log in");
+    credentialed_sign_in_button_->setTitleFontSize(40);
+    credentialed_sign_in_button_->addTouchEventListener(
+                                                        [this, auth](Ref* /*sender*/, cocos2d::ui::Widget::TouchEventType type) {
+                                                            switch (type) {
+                                                                case cocos2d::ui::Widget::TouchEventType::ENDED: {
+                                                                    this->logMessage("Logging in...");
+                                                                    const char* email = email_text_field_->getString().c_str();
+                                                                    const char* password = password_text_field_->getString().c_str();
+                                                                    Credential email_cred =
+                                                                    EmailAuthProvider::GetCredential(email, password);
+                                                                    this->sign_in_future_ = auth->SignInWithCredential(email_cred);
+                                                                    this->credentialed_sign_in_button_->setEnabled(false);
+                                                                    //this->sign_out_button_->setEnabled(true);
+                                                                    this->anonymous_sign_in_ = false;
+                                                                    break;
+                                                                }
+                                                                default: {
+                                                                    break;
+                                                                }
+                                                            }
+                                                        });
+    this->addChild(credentialed_sign_in_button_);
     
-    register_user_button_ = createButton(true, "Register user");
-    register_user_button_->setTitleFontSize(40);
+
+    
+    register_user_button_ = createButton(ButtonType(ButtonType::Text),true, "Register");
+    register_user_button_->setTitleFontSize(30);
+    register_user_button_->setTitleColor(cocos2d::Color3B::BLACK);
+    auto reg_pos = register_user_button_->getPosition();
+    register_user_button_->setPosition(Vec2(reg_pos.x+100, reg_pos.y+50));
     register_user_button_->addTouchEventListener(
-                                                 [this, auth](Ref* /*sender*/, cocos2d::ui::Widget::TouchEventType type) {
+                                                 [this, auth](Ref* /**/ , cocos2d::ui::Widget::TouchEventType type) {
                                                      switch (type) {
                                                          case cocos2d::ui::Widget::TouchEventType::ENDED: {
                                                              this->logMessage("Registering user...");
@@ -163,33 +205,11 @@ bool FirebaseAuthScene::init() {
                                                  });
     this->addChild(register_user_button_);
     
-    credentialed_sign_in_button_ = createButton(true, "Sign in");
-    credentialed_sign_in_button_->setTitleFontSize(40);
-    credentialed_sign_in_button_->addTouchEventListener(
-                                                        [this, auth](Ref* /*sender*/, cocos2d::ui::Widget::TouchEventType type) {
-                                                            switch (type) {
-                                                                case cocos2d::ui::Widget::TouchEventType::ENDED: {
-                                                                    this->logMessage("Signing in...");
-                                                                    const char* email = email_text_field_->getString().c_str();
-                                                                    const char* password = password_text_field_->getString().c_str();
-                                                                    Credential email_cred =
-                                                                    EmailAuthProvider::GetCredential(email, password);
-                                                                    this->sign_in_future_ = auth->SignInWithCredential(email_cred);
-                                                                    this->credentialed_sign_in_button_->setEnabled(false);
-                                                                    this->sign_out_button_->setEnabled(true);
-                                                                    this->anonymous_sign_in_ = false;
-                                                                    break;
-                                                                }
-                                                                default: {
-                                                                    break;
-                                                                }
-                                                            }
-                                                        });
-    this->addChild(credentialed_sign_in_button_);
     
     
     
-    facebook_sign_in_button_ = createButton(true, "FB Sign in");
+    
+    facebook_sign_in_button_ = createButton(ButtonType(ButtonType::FB), true, "Log in with FB");
     facebook_sign_in_button_->setTitleFontSize(40);
     facebook_sign_in_button_->addTouchEventListener(
                                                     [this, auth](Ref* /*sender*/, cocos2d::ui::Widget::TouchEventType type) {
@@ -211,7 +231,7 @@ bool FirebaseAuthScene::init() {
                                                                 
                                                                 
                                                                 this->credentialed_sign_in_button_->setEnabled(false);
-                                                                this->sign_out_button_->setEnabled(true);
+                                                                //this->sign_out_button_->setEnabled(true);
                                                                 break;
                                                             }
                                                             default: {
@@ -220,11 +240,11 @@ bool FirebaseAuthScene::init() {
                                                         }
                                                     });
     this->addChild(facebook_sign_in_button_);
-    
+    /*
     sign_out_button_ = createButton(false, "Sign out");
     sign_out_button_->setTitleFontSize(40);
     sign_out_button_->addTouchEventListener(
-                                            [this, auth](Ref* /*sender*/, cocos2d::ui::Widget::TouchEventType type) {
+                                            [this, auth](Ref* , cocos2d::ui::Widget::TouchEventType type) {
                                                 switch (type) {
                                                     case cocos2d::ui::Widget::TouchEventType::ENDED: {
                                                         this->logMessage("Signed out");
@@ -242,6 +262,7 @@ bool FirebaseAuthScene::init() {
                                                 }
                                             });
     this->addChild(sign_out_button_);
+    */
     
     /*
     // Create the close app menu item.
@@ -269,13 +290,14 @@ void FirebaseAuthScene::update(float /*delta*/) {
     
     using firebase::auth::AuthError;
     firebase::auth::Auth *auth = firebase::auth::Auth::GetAuth(app);
-    
+    /*
     if (auth->current_user() == nullptr) {
         this->sign_out_button_->setEnabled(false);
     }
     else{
         this->sign_out_button_->setEnabled(true);
     }
+    */
     
     if (create_user_future_.status() == firebase::kFutureStatusComplete) {
         const AuthError error = static_cast<AuthError>(create_user_future_.error());

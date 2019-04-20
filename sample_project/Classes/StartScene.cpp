@@ -35,6 +35,10 @@ bool StartScene::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
+    //add backbround
+    auto backGroundColor = CCLayerColor::create(ccc4(236, 207, 177, 255)); //RGBA
+    this->addChild(backGroundColor, 0);
+    
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
     //    you may modify it.
@@ -45,7 +49,8 @@ bool StartScene::init()
                                            "CloseSelected.png",
                                            CC_CALLBACK_1(StartScene::menuCloseAppCallback, this));
     
-    auto LoginButton = MenuItemFont::create("登入", CC_CALLBACK_0(StartScene::Login_callback, this));
+    auto LoginButton = MenuItemFont::create("START", CC_CALLBACK_0(StartScene::Login_callback, this));
+    LoginButton->setColor(cocos2d::Color3B::BLACK);
     if(LoginButton != nullptr){
         LoginButton->setFontSizeObj(60);
         float x = origin.x + visibleSize.width/2;
@@ -79,7 +84,8 @@ bool StartScene::init()
     // add a label shows "Hello World"
     // create and initialize a label
     
-    auto label = Label::createWithTTF("Bang", "fonts/Marker Felt.ttf", 100);
+    auto label = Label::createWithTTF("Bang!", "fonts/Marker Felt.ttf", 100);
+    label->setTextColor(cocos2d::Color4B::BLACK);
     if (label == nullptr)
     {
         problemLoading("'fonts/Marker Felt.ttf'");
