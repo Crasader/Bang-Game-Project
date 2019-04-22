@@ -82,6 +82,9 @@ public:
                           const std::string& selectedImage = "",
                           const std::string& disableImage = "",
                           TextureResType texType = TextureResType::LOCAL);
+    
+    //menual add set title offset method
+    void setTitleOffset(float offsetX, float offsetY);
 
     /**
      * Load textures for button.
@@ -349,6 +352,9 @@ protected:
 
     virtual Size getNormalSize() const;
 protected:
+    
+    float _titleOffsetX, _titleOffsetY;
+    
     Scale9Sprite* _buttonNormalRenderer;
     Scale9Sprite* _buttonClickedRenderer;
     Scale9Sprite* _buttonDisabledRenderer;

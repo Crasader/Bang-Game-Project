@@ -134,14 +134,14 @@ cocos2d::ui::Button* FirebaseScene::createFbButton(
 */
 cocos2d::ui::Button* FirebaseScene::createButton(
                                                    ButtonType bt, bool buttonEnabled, const std::string& buttonTitleText) {
-    switch (bt.getType()) {
-        case 1:
+    switch (bt) {
+        case ButtonType::Normal:
             return createButton(buttonEnabled, buttonTitleText, cocos2d::Color3B::WHITE);
             break;
-        case 2:
+        case ButtonType::Text:
             return createTextButton(buttonEnabled, buttonTitleText, ccc3(236, 207, 177));
             break;
-        case 3:
+        case ButtonType::Fb:
             return createFbButton(buttonEnabled, buttonTitleText, ccc3(236, 207, 177));
             break;
         default:

@@ -139,6 +139,7 @@ bool Button::init()
 
 void Button::initRenderer()
 {
+    
     _buttonNormalRenderer = Scale9Sprite::create();
     _buttonClickedRenderer = Scale9Sprite::create();
     _buttonDisabledRenderer = Scale9Sprite::create();
@@ -576,9 +577,15 @@ void Button::onPressStateChangedToDisabled()
 
 void Button::updateTitleLocation()
 {
-    _titleRenderer->setPosition(_contentSize.width * 0.5f, _contentSize.height * 0.5f);
+    _titleRenderer->setPosition(_contentSize.width * 0.5f + _titleOffsetX, _contentSize.height * 0.5f + _titleOffsetY);
 }
 
+void Button::setTitleOffset(float offsetX, float offsetY){
+    _titleOffsetX = offsetX;
+    _titleOffsetY = offsetY;
+    updateTitleLocation();
+}
+    
 void Button::updateContentSize()
 {
     if (_unifySize)

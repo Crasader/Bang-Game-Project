@@ -32,23 +32,8 @@
 /// associated with that sample.
 cocos2d::Scene* CreateFirebaseScene();
 
-class ButtonType{
-public:
-    static constexpr int Normal = 1, Text = 2, FB = 3;
-    ButtonType(int type){
-        type_ = type;
-    }
-    bool setButtonType(int type){
-        if(type <= 0 || type >=4)
-            return false;
-        type_ = type;
-        return true;
-    }
-    int getType(){
-        return type_;
-    }
-private:
-    int type_;
+enum class ButtonType{
+    Normal, Text, Fb
 };
 
 class FirebaseScene : public cocos2d::Layer{

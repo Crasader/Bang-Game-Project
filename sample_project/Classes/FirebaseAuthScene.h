@@ -78,19 +78,18 @@ private:
     /// Keeps track of whether or not the sign in attempt was made anonymously.
     bool anonymous_sign_in_;
     
-    //Facebook lisenter callback
-    void onLogin(bool isLogin, const std::string& msg);
-    void onSharedSuccess(const std::string& message);
-    void onSharedFailed(const std::string& message);
-    void onSharedCancel();
-    void onAPI(const std::string& key, const std::string& jsonData);
-    void onPermission(bool isLogin, const std::string& msg);
-    void onFetchFriends(bool ok, const std::string& msg);
-    void onRequestInvitableFriends( const sdkbox::FBInvitableFriendsInfo& friends );
-    void onInviteFriendsWithInviteIdsResult( bool result, const std::string& msg );
-    void onInviteFriendsResult( bool result, const std::string& msg );
-    void onGetUserInfo( const sdkbox::FBGraphUser& userInfo );
-    
+    //Facebook lisenter callback (overvride the FB lisneter callback)
+    void onLogin(bool isLogin, const std::string& msg) override;
+    void onSharedSuccess(const std::string& message) override;
+    void onSharedFailed(const std::string& message) override;
+    void onSharedCancel() override;
+    void onAPI(const std::string& key, const std::string& jsonData) override;
+    void onPermission(bool isLogin, const std::string& msg) override;
+    void onFetchFriends(bool ok, const std::string& msg) override;
+    void onRequestInvitableFriends( const sdkbox::FBInvitableFriendsInfo& friends ) override;
+    void onInviteFriendsWithInviteIdsResult( bool result, const std::string& msg ) override;
+    void onInviteFriendsResult( bool result, const std::string& msg ) override;
+    void onGetUserInfo( const sdkbox::FBGraphUser& userInfo ) override;
 };
 
 #endif  // FIREBASE_COCOS_CLASSES_FIREBASE_AUTH_SCENE_H_

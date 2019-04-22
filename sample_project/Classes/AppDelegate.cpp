@@ -27,7 +27,7 @@
 
 #include "FirebaseScene.h"
 #include "StartScene.hpp"
-
+#include "LobbyScene.hpp"
 
 #include "firebase/app.h"
 
@@ -132,7 +132,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 //auto scene = CreateFirebaseScene();
 //auto scene = HelloWorld::createScene();
     
-    auto scene = StartScene::createScene();
+    //auto scene = StartScene::createScene();
+    
+    auto scene = LobbyScene::createScene();
   // Run the scene.
   director->runWithScene(scene);
 
