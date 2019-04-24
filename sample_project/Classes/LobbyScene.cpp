@@ -95,6 +95,16 @@ bool LobbyScene::init()
     
     this->addChild(UsernameLabel);
     
+    //UID Label
+    
+    std::string UID = CCUserDefault::sharedUserDefault()->getStringForKey("firebaseUID");
+    auto UIDLabel = Label::createWithTTF(UID, "fonts/arial.ttf", 30);
+    UIDLabel->setAnchorPoint(Vec2(0,1)); //以左上角為緢點
+    UIDLabel->setColor(Color3B::BLACK);
+    UIDLabel->setPosition(Vec2(origin.x + 20, origin.y + visibleSize.height - 65));
+    
+    this->addChild(UIDLabel);
+    
     //User W/L information
     
     int win = 0, lose= 0;

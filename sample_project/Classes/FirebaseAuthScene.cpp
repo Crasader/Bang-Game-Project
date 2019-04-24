@@ -19,6 +19,8 @@
 // SOFTWARE.
 
 #include "FirebaseAuthScene.h"
+#include "LobbyScene.hpp"
+
 
 #include <stdarg.h>
 
@@ -124,15 +126,16 @@ bool FirebaseAuthScene::init() {
     // left us in a signed-in state.
     if (auth->current_user() == nullptr) {
         logMessage("No user signed in at creation time.");
-    } else {
-        logMessage("Current user %s already signed in.",
-                   auth->current_user()->display_name().c_str());
     }
+    else{
+        logMessage("Current user %s already signed in.",auth->current_user()->display_name().c_str());
+    }
+    
     
     //Email text field
     email_text_field_ = createTextField(kEmailPlaceholderText);
-    email_text_field_ -> setPlaceHolderColor(c3Black);
-    email_text_field_ -> setColor(c3Black);
+    email_text_field_ -> setPlaceHolderColor(Color3B::BLACK);
+    email_text_field_ -> setColor(Color3B::BLACK);
     this->addChild(email_text_field_, 1);
     auto Textbackground = Sprite::create("TextFieldImage.png");
     Textbackground -> setPosition(email_text_field_->getPosition());
@@ -140,8 +143,8 @@ bool FirebaseAuthScene::init() {
     
     //Password text field
     password_text_field_ = createTextField(kPasswordPlaceholderText);
-    password_text_field_ -> setPlaceHolderColor(c3Black);
-    password_text_field_ -> setColor(c3Black);
+    password_text_field_ -> setPlaceHolderColor(Color3B::BLACK);
+    password_text_field_ -> setColor(Color3B::BLACK);
     password_text_field_ -> setPasswordEnabled(true);
     this->addChild(password_text_field_, 1);
     auto Textbackground2 = Sprite::create("TextFieldImage.png");;
@@ -293,56 +296,58 @@ void FirebaseAuthScene::update(float /*delta*/) {
     
     using firebase::auth::AuthError;
     firebase::auth::Auth *auth = firebase::auth::Auth::GetAuth(app);
+    
     /*
-    if (auth->current_user() == nullptr) {
-        this->sign_out_button_->setEnabled(false);
-    }
-    else{
-        this->sign_out_button_->setEnabled(true);
-    }
-    */
+    if(auth->current_user() != nullptr){
+        std::string firebaseUID = auth->current_user()->uid();
+        CCUserDefault::sharedUserDefault()->setStringForKey("firebaseUID", firebaseUID);
+        
+        auto scene = LobbyScene::createScene();
+        auto directer = Director::getInstance();
+        directer->replaceScene(scene);
+        
+    }*/
     
     if (create_user_future_.status() == firebase::kFutureStatusComplete) {
         const AuthError error = static_cast<AuthError>(create_user_future_.error());
         if (error == firebase::auth::kAuthErrorNone) {
             logMessage("Created new user successfully.");
+            AllreadySignin();
         } else {
             logMessage("ERROR: User creation failed: %d, `%s`", error, //error msg == 8 email was used.
                        sign_in_future_.error_message());
         }
-        //this->register_user_button_->setEnabled(true);
         create_user_future_.Release();
     }
     if (sign_in_future_.status() == firebase::kFutureStatusComplete) {
         const AuthError error = static_cast<AuthError>(sign_in_future_.error());
         if (error == firebase::auth::kAuthErrorNone) {
             logMessage("Signed in successfully.");
-            //this->sign_out_button_->setEnabled(true);
+            AllreadySignin(); // jump to Lobby
         }
         else {
             logMessage("ERROR: Sign in failed: %d, `%s`", error,
                        sign_in_future_.error_message());
             
             this->credentialed_sign_in_button_->setEnabled(true);
-            //this->sign_out_button_->setEnabled(false);
         }
         sign_in_future_.Release();
     }
 }
 
-/// Handles the user tapping on the close app menu item.
-/*
-void FirebaseAuthScene::menuCloseAppCallback(Ref* pSender) {
-    CCLOG("Cleaning up Auth C++ resources.");
-    
-    // Close the cocos2d-x game scene and quit the application.
-    Director::getInstance()->end();
-    
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
+
+void FirebaseAuthScene::AllreadySignin(){//Jump to Lobby
+
+    firebase::auth::Auth *auth = firebase::auth::Auth::GetAuth(app);
+    if(auth->current_user() != nullptr){
+        std::string firebaseUID = auth->current_user()->uid();
+        CCUserDefault::sharedUserDefault()->setStringForKey("firebaseUID", firebaseUID);
+        auto scene = LobbyScene::createScene();
+        auto directer = Director::getInstance();
+        directer->replaceScene(scene);
+        
+    }
 }
-*/
 
 /*********************
  * Facebook callbacks

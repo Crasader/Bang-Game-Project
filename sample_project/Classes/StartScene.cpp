@@ -6,6 +6,7 @@
 //
 
 #include "StartScene.hpp"
+#include "LobbyScene.hpp"
 #include "FirebaseAuthScene.h"
 
 USING_NS_CC;
@@ -128,8 +129,30 @@ void StartScene::menuCloseAppCallback(Ref* pSender) {
     exit(0);
 #endif
 }
+
+//firebase::App* app = firebase::App::Create(firebase::AppOptions());
+
 void StartScene::Login_callback(){
-    auto scene = FirebaseAuthScene::createScene();
-    auto director = Director::getInstance();
-    director->replaceScene(scene);
+    
+    
+    firebase::auth::Auth *auth = firebase::auth::Auth::GetAuth(firebase::App::GetInstance());
+    if(auth->current_user() != nullptr){ //allready singin
+        std::string firebaseUID = auth->current_user()->uid();
+        CCUserDefault::sharedUserDefault()->setStringForKey("firebaseUID", firebaseUID);
+        auto scene = LobbyScene::createScene();
+        auto directer = Director::getInstance();
+        directer->replaceScene(scene);
+        
+    }
+    else{ // jump to singin scene
+        auto scene = FirebaseAuthScene::createScene();
+        auto director = Director::getInstance();
+        director->replaceScene(scene);
+    }
 }
+    
+    
+
+
+
+
