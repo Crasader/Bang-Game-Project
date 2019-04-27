@@ -136,6 +136,8 @@ bool FirebaseAuthScene::init() {
     email_text_field_ = createTextField(kEmailPlaceholderText);
     email_text_field_ -> setPlaceHolderColor(Color3B::BLACK);
     email_text_field_ -> setColor(Color3B::BLACK);
+
+    
     this->addChild(email_text_field_, 1);
     auto Textbackground = Sprite::create("TextFieldImage.png");
     Textbackground -> setPosition(email_text_field_->getPosition());

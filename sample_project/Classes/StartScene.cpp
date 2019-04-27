@@ -130,7 +130,6 @@ void StartScene::menuCloseAppCallback(Ref* pSender) {
 #endif
 }
 
-//firebase::App* app = firebase::App::Create(firebase::AppOptions());
 
 void StartScene::Login_callback(){
     

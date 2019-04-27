@@ -6,7 +6,7 @@
 //
 
 #include "LobbyScene.hpp"
-
+#include "SettingScene.hpp"
 
 USING_NS_CC;
 
@@ -77,6 +77,7 @@ bool LobbyScene::init()
     //Setting button
     auto SettingButton = createButton(true, "Setting", cocos2d::Color3B::WHITE, kNormalButtonImage, kSelectedButtonImage, kDisabledButtonImage);
     this->addChild(SettingButton);
+    SettingButton->addTouchEventListener(CC_CALLBACK_2(LobbyScene::SettingCallback, this));
     //==============================================================================================================
     
     //Username Label
@@ -157,4 +158,18 @@ cocos2d::ui::Button* LobbyScene::createButton(
     button->setTitleOffset(-100, 0);
     
     return button;
+}
+void LobbyScene::SettingCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){
+    switch (type) {
+        case ui::Widget::TouchEventType::ENDED:{
+            auto scene = SettingScene::createScene();
+            auto director = Director::getInstance();
+            director->replaceScene(scene);
+            break;
+        }
+        
+        default:
+            break;
+       
+    }
 }

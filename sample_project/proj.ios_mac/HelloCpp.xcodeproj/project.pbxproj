@@ -71,6 +71,7 @@
 		6F351162224FA99700D206EC /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115E224FA99700D206EC /* StoreKit.framework */; };
 		6F351163224FA99700D206EC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115F224FA99700D206EC /* Security.framework */; };
 		6F351164224FA99700D206EC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F351160224FA99700D206EC /* SystemConfiguration.framework */; };
+		6F43B6552271AA6300CA5A6C /* SettingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F43B6532271AA6300CA5A6C /* SettingScene.cpp */; };
 		6F4DCE432269A20400FC7278 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F4DCE412269A20400FC7278 /* GoogleService-Info.plist */; };
 		6F4DCE5A226B151E00FC7278 /* TextFieldImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F4DCE58226B151E00FC7278 /* TextFieldImage.png */; };
 		6F81F855224DFBF1004ED01A /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81F853224DFBF1004ED01A /* GameKit.framework */; };
@@ -217,6 +218,8 @@
 		6F35115F224FA99700D206EC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		6F351160224FA99700D206EC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		6F35116B224FB2A500D206EC /* HelloCpp-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HelloCpp-mobile.entitlements"; sourceTree = "<group>"; };
+		6F43B6532271AA6300CA5A6C /* SettingScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SettingScene.cpp; sourceTree = "<group>"; };
+		6F43B6542271AA6300CA5A6C /* SettingScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SettingScene.hpp; sourceTree = "<group>"; };
 		6F4DCE412269A20400FC7278 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ios/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6F4DCE58226B151E00FC7278 /* TextFieldImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextFieldImage.png; sourceTree = "<group>"; };
 		6F81F853224DFBF1004ED01A /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -467,6 +470,8 @@
 				6F019F31225276A100356A3E /* mySdkboxWrap.hpp */,
 				6F8657E4226D9C6E009BA43D /* LobbyScene.cpp */,
 				6F8657E5226D9C6E009BA43D /* LobbyScene.hpp */,
+				6F43B6532271AA6300CA5A6C /* SettingScene.cpp */,
+				6F43B6542271AA6300CA5A6C /* SettingScene.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -748,6 +753,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F43B6552271AA6300CA5A6C /* SettingScene.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				6F92196A2251F467006AD610 /* StartScene.cpp in Sources */,

@@ -1,18 +1,18 @@
 //
-//  LobbyScene.hpp
+//  SettingScene.hpp
 //  HelloCpp-mobile
 //
-//  Created by Guan Ying Chen on 2019/4/22.
+//  Created by Guan Ying Chen on 2019/4/25.
 //
 
-#ifndef LobbyScene_hpp
-#define LobbyScene_hpp
+#ifndef SettingScene_hpp
+#define SettingScene_hpp
+
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 
-
-class LobbyScene : public cocos2d::Scene{
+class SettingScene : public cocos2d::Scene{
 public:
     static cocos2d::Scene *createScene();
     
@@ -23,16 +23,14 @@ public:
     
     
     
-    CREATE_FUNC(LobbyScene);
+    CREATE_FUNC(SettingScene);
     
 private:
+    void BackToLoooby(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
     cocos2d::ui::Button *createButton(
                                       bool buttonEnabled, const std::string& buttonTitleText,
                                       const cocos2d::Color3B& buttonColor, const std::string& ImagePath1,const  std::string& ImagePath2, const std::string& ImagePath3);
-    
-    void SettingCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
-    
     float nextYPosition;
 };
 
-#endif /* LobbyScene_hpp */
+#endif /* SettingScene_hpp */

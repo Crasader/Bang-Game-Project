@@ -18,13 +18,14 @@ public:
     
     bool init() override;
     
+    
+    
+    CREATE_FUNC(StartScene);
+private:
     void Login_callback();
     //void update(float delta) override;
     
     void menuCloseAppCallback(cocos2d::Ref *pSender);
-    
-    CREATE_FUNC(StartScene);
-
 };
 
 #endif /* StartScene_hpp */
