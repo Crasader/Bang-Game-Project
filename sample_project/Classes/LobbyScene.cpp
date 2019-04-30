@@ -132,7 +132,14 @@ bool LobbyScene::init()
     gameButton->setPosition(Vec2(origin.x + visibleSize.width/2, origin.y + visibleSize.height/5));
     gameButton->setTitleOffset(0, 0);
     this->addChild(gameButton);
+    
+    
+    
     return true;
+    
+    
+    
+    
 }
 
 
@@ -172,4 +179,24 @@ void LobbyScene::SettingCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventT
             break;
        
     }
+}
+
+
+
+bool FriendLayer::init()
+{
+    if( !Layer::init() ){
+        return false;
+    }
+    
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    
+    auto FriendBG = Sprite::create("FriendBackground.png");
+    FriendBG->setContentSize(Size(1334/2, 750));
+    FriendBG->setAnchorPoint(Vec2(0, 0.5f));
+    FriendBG->setPosition(Vec2(origin.x, origin.y+visibleSize.height/2 ));
+    this->addChild(FriendBG);
+    return true;
+    
 }

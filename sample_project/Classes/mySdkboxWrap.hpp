@@ -32,7 +32,7 @@ public:
     static std::string getAccessToken(){
         return sdkbox::PluginFacebook::getAccessToken();
     }
-    
+
 };
 
 

@@ -162,6 +162,31 @@ cocos2d::ui::TextField* FirebaseScene::createTextField(
     return text_field;
 }
 
+cocos2d::ui::EditBox* FirebaseScene::createEditBox(const std::string &PlaceHolder , const cocos2d::Size &boxSize, const std::string &ImagePath){
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    auto editBox = cocos2d::ui::EditBox::create(boxSize, ImagePath);
+    cocos2d::Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    
+    nextYPosition -= editBox->getContentSize().height + kUIElementPadding;
+    
+    editBox->setPosition(cocos2d::Vec2(origin.x + visibleSize.width / 4, nextYPosition));
+    
+    // 默认字体相关
+    editBox->setPlaceHolder(PlaceHolder.c_str());
+    editBox->setPlaceholderFontName("fonts/arial.ttf");
+    editBox->setPlaceholderFontColor(Color3B::BLACK);
+    editBox->setPlaceholderFontSize(38);
+    
+    // 编辑框文本相关
+    
+    editBox->setFontName("fonts/arial.ttf");
+    editBox->setFontColor(Color3B::BLACK);
+    editBox->setFontSize(38);
+    
+    return editBox;
+}
+    
+
 void FirebaseScene::createScrollView(float yPosition, float widthFraction) {
     cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
     cocos2d::Vec2 origin = Director::getInstance()->getVisibleOrigin();

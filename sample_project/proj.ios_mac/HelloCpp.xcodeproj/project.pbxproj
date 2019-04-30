@@ -92,6 +92,7 @@
 		6FA0ED95226B215E0090FD52 /* ButtonS1.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA0ED93226B215E0090FD52 /* ButtonS1.png */; };
 		6FA0ED9A226B269A0090FD52 /* emptyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA0ED98226B269A0090FD52 /* emptyImage.png */; };
 		6FA0ED9E226B2AF90090FD52 /* FacebookButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA0ED9C226B2AF90090FD52 /* FacebookButton.png */; };
+		6FE53BF2227756D600B838F4 /* FriendBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE53BF1227756D600B838F4 /* FriendBackground.png */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		861EF612DEA82AE64357BCE6 /* libPods-HelloCpp-mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2520D6EB3049AB436A7E4B23 /* libPods-HelloCpp-mobile.a */; };
 		984CE8671E81F58A00A6F405 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 984CE8661E81F58A00A6F405 /* MediaPlayer.framework */; };
@@ -243,6 +244,7 @@
 		6FA0ED93226B215E0090FD52 /* ButtonS1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonS1.png; sourceTree = "<group>"; };
 		6FA0ED98226B269A0090FD52 /* emptyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyImage.png; sourceTree = "<group>"; };
 		6FA0ED9C226B2AF90090FD52 /* FacebookButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FacebookButton.png; sourceTree = "<group>"; };
+		6FE53BF1227756D600B838F4 /* FriendBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FriendBackground.png; sourceTree = "<group>"; };
 		706F4029ACC95B174F44A28D /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = SOURCE_ROOT; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8FD64FADB77DFB3B6C7C42D8 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = SOURCE_ROOT; };
@@ -445,6 +447,7 @@
 				6F921972225243AF006AD610 /* NormalButtonImage.png */,
 				6F921970225243A4006AD610 /* SelectedButtonImage.png */,
 				46880B7A19C43A67006E1F66 /* HelloWorld.png */,
+				6FE53BF1227756D600B838F4 /* FriendBackground.png */,
 				6FA0ED93226B215E0090FD52 /* ButtonS1.png */,
 				6FA0ED92226B215D0090FD52 /* ButtonS2.png */,
 				6FA0ED9C226B2AF90090FD52 /* FacebookButton.png */,
@@ -683,6 +686,7 @@
 				6FA0ED9E226B2AF90090FD52 /* FacebookButton.png in Resources */,
 				68EE4014B4496DA13CC9D837 /* sdkbox_config.json in Resources */,
 				6FA0ED95226B215E0090FD52 /* ButtonS1.png in Resources */,
+				6FE53BF2227756D600B838F4 /* FriendBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

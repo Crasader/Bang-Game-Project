@@ -47,11 +47,9 @@ private:
     void AllreadySigninCallback(cocos2d::Ref *pSender);
     void AllreadySignin();
     
-    /// A text field where a login email address may be entered.
-    cocos2d::ui::TextField* email_text_field_;
+    cocos2d::ui::EditBox* email_editbox;
+    cocos2d::ui::EditBox* password_editbox;
     
-    /// A text field where a login password may be entered.
-    cocos2d::ui::TextField* password_text_field_;
     
     /// A button that uses the given email and password to register a user.
     cocos2d::ui::Button* register_user_button_;
@@ -88,6 +86,7 @@ private:
     void onInviteFriendsWithInviteIdsResult( bool result, const std::string& msg ) override;
     void onInviteFriendsResult( bool result, const std::string& msg ) override;
     void onGetUserInfo( const sdkbox::FBGraphUser& userInfo ) override;
+    
 };
 
 #endif  // FIREBASE_COCOS_CLASSES_FIREBASE_AUTH_SCENE_H_

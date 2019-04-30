@@ -75,7 +75,7 @@ bool SettingScene::init()
     LogoutButton->setPosition(Vec2(ButtonXPosition, nextYPosition));
     this->addChild(LogoutButton);
     
-    LogoutButton->addTouchEventListener([this](Ref* /*sender*/, cocos2d::ui::Widget::TouchEventType type) {
+    LogoutButton->addTouchEventListener([this](Ref* , cocos2d::ui::Widget::TouchEventType type) {
         switch (type) {
             case cocos2d::ui::Widget::TouchEventType::ENDED: {
                 if(MySdkbox::isLoggedIn()){//logout FB

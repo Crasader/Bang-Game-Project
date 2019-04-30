@@ -51,7 +51,7 @@ static const char* kPasswordPlaceholderText = "Password";
 
 
 //In your initialization code, create a firebase::App class.
-firebase::App* app = firebase::App::Create(firebase::AppOptions());
+//firebase::App* app = firebase::App::Create(firebase::AppOptions());
 
 /// Creates the Firebase scene.
 Scene* CreateFirebaseScene() {
@@ -87,7 +87,7 @@ bool FirebaseAuthScene::init() {
     
     CCLOG("Initializing the Auth with Firebase API.");
     
-    firebase::auth::Auth* auth = firebase::auth::Auth::GetAuth(app);
+    firebase::auth::Auth* auth = firebase::auth::Auth::GetAuth(firebase::App::GetInstance());
     //sdkbox::PluginFacebook::setListener(this); //set facebook listrner
     //sdkbox::PluginFacebook::init(); //initialize sdkbox
     
@@ -132,26 +132,17 @@ bool FirebaseAuthScene::init() {
     }
     
     
-    //Email text field
-    email_text_field_ = createTextField(kEmailPlaceholderText);
-    email_text_field_ -> setPlaceHolderColor(Color3B::BLACK);
-    email_text_field_ -> setColor(Color3B::BLACK);
-
     
-    this->addChild(email_text_field_, 1);
-    auto Textbackground = Sprite::create("TextFieldImage.png");
-    Textbackground -> setPosition(email_text_field_->getPosition());
-    this->addChild(Textbackground ,0);
+    email_editbox = createEditBox(kEmailPlaceholderText, Size(400, 50), "TextFieldImage.png");
+    email_editbox->setInputMode(ui::EditBox::InputMode::EMAIL_ADDRESS);
+    this->addChild(email_editbox);
     
-    //Password text field
-    password_text_field_ = createTextField(kPasswordPlaceholderText);
-    password_text_field_ -> setPlaceHolderColor(Color3B::BLACK);
-    password_text_field_ -> setColor(Color3B::BLACK);
-    password_text_field_ -> setPasswordEnabled(true);
-    this->addChild(password_text_field_, 1);
-    auto Textbackground2 = Sprite::create("TextFieldImage.png");;
-    Textbackground2->setPosition(password_text_field_->getPosition());
-    this->addChild(Textbackground2 ,0);
+    password_editbox = createEditBox(kPasswordPlaceholderText, Size(400, 50), "TextFieldImage.png");
+    password_editbox->setInputMode(ui::EditBox::InputMode::SINGLE_LINE);
+    password_editbox->setInputFlag(ui::EditBox::InputFlag::PASSWORD);
+    
+    this->addChild(password_editbox);
+    
     
     credentialed_sign_in_button_ = createButton(ButtonType::Normal , true, "Log in");
     credentialed_sign_in_button_->setTitleFontSize(40);
@@ -160,14 +151,14 @@ bool FirebaseAuthScene::init() {
                                                             switch (type) {
                                                                 case cocos2d::ui::Widget::TouchEventType::ENDED: {
                                                                     this->logMessage("Logging in...");
-                                                                    const char* email = email_text_field_->getString().c_str();
-                                                                    const char* password = password_text_field_->getString().c_str();
+
+                                                                    const char *email = email_editbox->getText();
+                                                                    const char *password = password_editbox->getText();
+                                                                    
                                                                     Credential email_cred =
                                                                     EmailAuthProvider::GetCredential(email, password);
                                                                     this->sign_in_future_ = auth->SignInWithCredential(email_cred);
-                                                                    this->credentialed_sign_in_button_->setEnabled(false);
-                                                                    //this->sign_out_button_->setEnabled(true);
-                                                                    this->anonymous_sign_in_ = false;
+                                                                    
                                                                     break;
                                                                 }
                                                                 default: {
@@ -189,8 +180,8 @@ bool FirebaseAuthScene::init() {
                                                      switch (type) {
                                                          case cocos2d::ui::Widget::TouchEventType::ENDED: {
                                                              this->logMessage("Registering user...");
-                                                             const char* email = email_text_field_->getString().c_str();
-                                                             const char* password = password_text_field_->getString().c_str();
+                                                             const char* email = email_editbox->getText();
+                                                             const char* password = password_editbox->getText();
                                                              this->create_user_future_ =
                                                              auth->CreateUserWithEmailAndPassword(email, password);
                                                              this->register_user_button_->setEnabled(false);
@@ -297,7 +288,7 @@ bool FirebaseAuthScene::init() {
 void FirebaseAuthScene::update(float /*delta*/) {
     
     using firebase::auth::AuthError;
-    firebase::auth::Auth *auth = firebase::auth::Auth::GetAuth(app);
+    firebase::auth::Auth *auth = firebase::auth::Auth::GetAuth(firebase::App::GetInstance());
     
     /*
     if(auth->current_user() != nullptr){
@@ -340,7 +331,7 @@ void FirebaseAuthScene::update(float /*delta*/) {
 
 void FirebaseAuthScene::AllreadySignin(){//Jump to Lobby
 
-    firebase::auth::Auth *auth = firebase::auth::Auth::GetAuth(app);
+    firebase::auth::Auth *auth = firebase::auth::Auth::GetAuth(firebase::App::GetInstance());
     if(auth->current_user() != nullptr){
         std::string firebaseUID = auth->current_user()->uid();
         CCUserDefault::sharedUserDefault()->setStringForKey("firebaseUID", firebaseUID);
@@ -351,15 +342,17 @@ void FirebaseAuthScene::AllreadySignin(){//Jump to Lobby
     }
 }
 
+
 /*********************
  * Facebook callbacks
  *********************/
+
 void FirebaseAuthScene::onLogin(bool isLogin, const std::string& error)
 {
     
     if (isLogin)
     {
-        firebase::auth::Auth* auth = firebase::auth::Auth::GetAuth(app);
+        firebase::auth::Auth* auth = firebase::auth::Auth::GetAuth(firebase::App::GetInstance());
         auto FBAccessToken = MySdkbox::getAccessToken();
         firebase::auth::Credential FB_cred = firebase::auth::FacebookAuthProvider::GetCredential(FBAccessToken.c_str());
         sign_in_future_ = auth->SignInWithCredential(FB_cred);
@@ -488,3 +481,4 @@ void FirebaseAuthScene::onGetUserInfo( const sdkbox::FBGraphUser& userInfo )
           userInfo.isInstalled ? 1 : 0
           );
 }
+

@@ -24,6 +24,8 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 
+#include "cocos-ext.h"
+
 #include "FirebaseCocos.h"
 
 
@@ -78,6 +80,9 @@ protected:
     
     /// Creates a single line text entry field.
     cocos2d::ui::TextField *createTextField(const char* placeholder);
+    
+    cocos2d::ui::EditBox *createEditBox(const std::string &PlaceHolder, const cocos2d::Size &boxSize, const std::string &ImagePath);
+    
     
     /// Creates the ScrollView that contains a TextWidget for displaying log text
     /// to the user.

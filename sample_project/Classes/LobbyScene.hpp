@@ -18,11 +18,6 @@ public:
     
     bool init() override;
     
-    
-    
-    
-    
-    
     CREATE_FUNC(LobbyScene);
     
 private:
@@ -34,5 +29,23 @@ private:
     
     float nextYPosition;
 };
+
+
+class  FriendLayer: public cocos2d::Layer{
+public:
+    
+    
+    bool init() override;
+    
+    CREATE_FUNC(FriendLayer);
+    
+private:
+    cocos2d::ui::Button *createButton(
+                                      bool buttonEnabled, const std::string& buttonTitleText,
+                                      const cocos2d::Color3B& buttonColor, const std::string& ImagePath1,const  std::string& ImagePath2, const std::string& ImagePath3);
+    
+    float nextYPosition;
+};
+
 
 #endif /* LobbyScene_hpp */
