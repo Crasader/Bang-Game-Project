@@ -92,6 +92,7 @@
 		6FA0ED95226B215E0090FD52 /* ButtonS1.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA0ED93226B215E0090FD52 /* ButtonS1.png */; };
 		6FA0ED9A226B269A0090FD52 /* emptyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA0ED98226B269A0090FD52 /* emptyImage.png */; };
 		6FA0ED9E226B2AF90090FD52 /* FacebookButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA0ED9C226B2AF90090FD52 /* FacebookButton.png */; };
+		6FABDDA32279E7380034224E /* AssisstanceFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6FABDDA12279E7380034224E /* AssisstanceFunc.cpp */; };
 		6FE53BF2227756D600B838F4 /* FriendBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE53BF1227756D600B838F4 /* FriendBackground.png */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		861EF612DEA82AE64357BCE6 /* libPods-HelloCpp-mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2520D6EB3049AB436A7E4B23 /* libPods-HelloCpp-mobile.a */; };
@@ -244,6 +245,8 @@
 		6FA0ED93226B215E0090FD52 /* ButtonS1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonS1.png; sourceTree = "<group>"; };
 		6FA0ED98226B269A0090FD52 /* emptyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyImage.png; sourceTree = "<group>"; };
 		6FA0ED9C226B2AF90090FD52 /* FacebookButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FacebookButton.png; sourceTree = "<group>"; };
+		6FABDDA12279E7380034224E /* AssisstanceFunc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AssisstanceFunc.cpp; sourceTree = "<group>"; };
+		6FABDDA22279E7380034224E /* AssisstanceFunc.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AssisstanceFunc.hpp; sourceTree = "<group>"; };
 		6FE53BF1227756D600B838F4 /* FriendBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FriendBackground.png; sourceTree = "<group>"; };
 		706F4029ACC95B174F44A28D /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = SOURCE_ROOT; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -475,6 +478,8 @@
 				6F8657E5226D9C6E009BA43D /* LobbyScene.hpp */,
 				6F43B6532271AA6300CA5A6C /* SettingScene.cpp */,
 				6F43B6542271AA6300CA5A6C /* SettingScene.hpp */,
+				6FABDDA12279E7380034224E /* AssisstanceFunc.cpp */,
+				6FABDDA22279E7380034224E /* AssisstanceFunc.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -762,6 +767,7 @@
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				6F92196A2251F467006AD610 /* StartScene.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				6FABDDA32279E7380034224E /* AssisstanceFunc.cpp in Sources */,
 				4A05661E1DB70C58009CE39C /* FirebaseAuthScene.cpp in Sources */,
 				6F8657E6226D9C6E009BA43D /* LobbyScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
