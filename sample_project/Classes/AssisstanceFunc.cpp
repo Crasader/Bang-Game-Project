@@ -12,6 +12,7 @@
 
 unsigned int UidHash::BKDRHash(const char* input){
     char cstr[maxLength];
+    
     strncpy(cstr, input, maxLength);
 
     unsigned int hash = 0;

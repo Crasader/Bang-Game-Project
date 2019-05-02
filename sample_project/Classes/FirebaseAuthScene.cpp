@@ -49,6 +49,8 @@ static const float kUIElementPadding = 10.0;
 static const char* kEmailPlaceholderText = "Email";
 static const char* kPasswordPlaceholderText = "Password";
 
+constexpr char* InputImage = "username-input.png";
+const cocos2d::Size InputBoxSize = Size(400, 100);
 
 //In your initialization code, create a firebase::App class.
 //firebase::App* app = firebase::App::Create(firebase::AppOptions());
@@ -98,16 +100,15 @@ bool FirebaseAuthScene::init() {
     auto backGroundColor = CCLayerColor::create(ccc4(236, 207, 177, 255)); //RGBA
     this->addChild(backGroundColor, 0);
     
-    // Create the Firebase label.
-    auto BangLabel =
-    Label::createWithTTF("Bang!", "fonts/Marker Felt.ttf", 100); //Top Bang Label
-    nextYPosition =
-    origin.y + visibleSize.height - BangLabel->getContentSize().height;
-    BangLabel->setPosition(
-                               cocos2d::Vec2(origin.x + visibleSize.width / 2, nextYPosition));
-    BangLabel->setColor(ccc3(0, 0, 0));
-    this->addChild(BangLabel, 1);
+    // Create the Bang label.
+    auto BangLabel = Sprite::create("bang-logo.png"); //1844 x 655
+    BangLabel->setContentSize(Size(1844/4, 655/4));
+    nextYPosition =origin.y + visibleSize.height - BangLabel->getContentSize().height;
+    BangLabel->setPosition(cocos2d::Vec2(origin.x + visibleSize.width / 2, nextYPosition));
+    this->addChild(BangLabel);
     nextYPosition -= 50;
+    
+    
     
     const float scrollViewYPosition = nextYPosition -
     BangLabel->getContentSize().height -
@@ -132,12 +133,13 @@ bool FirebaseAuthScene::init() {
     }
     
     
-    
-    email_editbox = createEditBox(kEmailPlaceholderText, Size(400, 50), "TextFieldImage.png");
+    //username editbox
+    email_editbox = createEditBox(kEmailPlaceholderText, InputBoxSize, InputImage);
     email_editbox->setInputMode(ui::EditBox::InputMode::EMAIL_ADDRESS);
     this->addChild(email_editbox);
     
-    password_editbox = createEditBox(kPasswordPlaceholderText, Size(400, 50), "TextFieldImage.png");
+    //password editbox
+    password_editbox = createEditBox(kPasswordPlaceholderText, InputBoxSize, InputImage);
     password_editbox->setInputMode(ui::EditBox::InputMode::SINGLE_LINE);
     password_editbox->setInputFlag(ui::EditBox::InputFlag::PASSWORD);
     
@@ -263,20 +265,7 @@ bool FirebaseAuthScene::init() {
     this->addChild(sign_out_button_);
     */
     
-    /*
-    // Create the close app menu item.
-    auto closeAppItem = MenuItemImage::create(
-                                              "CloseNormal.png", "CloseSelected.png",
-                                              CC_CALLBACK_1(FirebaseScene::menuCloseAppCallback, this));
-    closeAppItem->setContentSize(cocos2d::Size(25, 25));
-    // Position the close app menu item on the top-right corner of the screen.
-    closeAppItem->setPosition(cocos2d::Vec2(visibleSize.width - 50, visibleSize.height - 50));
-    
-    // Create the Menu for touch handling.
-    auto menu = Menu::create(closeAppItem, NULL);
-    menu->setPosition(cocos2d::Vec2::ZERO);
-    this->addChild(menu, 1);
-    */
+   
     
     // Schedule the update method for this scene.
     this->scheduleUpdate();

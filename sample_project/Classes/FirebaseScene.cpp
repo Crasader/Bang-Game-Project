@@ -33,11 +33,11 @@
 USING_NS_CC;
 
 // The images for the Firebase buttons.
-static const std::string kNormalButtonImage = "ButtonS1.png";
+static const std::string kNormalButtonImage = "login-btn.png";
 static const std::string kSelectedButtonImage = "ButtonS2.png";
-static const std::string kDisabledButtonImage = "ButtonS1.png";
+static const std::string kDisabledButtonImage = "login-btn.png";
 static const std::string emptyButtonImage = "emptyImage.png";
-static const std::string FBButtonImage = "FacebookButton.png";
+static const std::string FBButtonImage = "fb-login.png";
 
 /// Padding for the UI elements.
 static const float kUIElementPadding = 10.0;
@@ -167,7 +167,7 @@ cocos2d::ui::EditBox* FirebaseScene::createEditBox(const std::string &PlaceHolde
     auto editBox = cocos2d::ui::EditBox::create(boxSize, ImagePath);
     cocos2d::Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    nextYPosition -= editBox->getContentSize().height + kUIElementPadding;
+    nextYPosition -= editBox->getContentSize().height*3/4 + kUIElementPadding;
     
     editBox->setPosition(cocos2d::Vec2(origin.x + visibleSize.width / 4, nextYPosition));
     
@@ -176,6 +176,7 @@ cocos2d::ui::EditBox* FirebaseScene::createEditBox(const std::string &PlaceHolde
     editBox->setPlaceholderFontName("fonts/arial.ttf");
     editBox->setPlaceholderFontColor(Color3B::BLACK);
     editBox->setPlaceholderFontSize(38);
+    
     
     // 编辑框文本相关
     

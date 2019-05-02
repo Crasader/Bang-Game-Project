@@ -7,13 +7,15 @@
 
 #include "LobbyScene.hpp"
 #include "SettingScene.hpp"
+#include "AssisstanceFunc.hpp"
+#include <sstream>
 
 USING_NS_CC;
 
 // The images for the buttons.
-static const std::string kNormalButtonImage = "ButtonS1.png";
-static const std::string kSelectedButtonImage = "ButtonS2.png";
-static const std::string kDisabledButtonImage = "ButtonS1.png";
+static const std::string kNormalButtonImage = "lobby-btn-fullwidth.png";
+static const std::string kSelectedButtonImage = "lobby-btn-fullwidth2.png";
+static const std::string kDisabledButtonImage = "lobby-btn-fullwidth.png";
 
 /// Padding for the UI elements.
 static const float kUIElementPadding = -20;
@@ -96,7 +98,7 @@ bool LobbyScene::init()
     
     this->addChild(UsernameLabel);
     
-    //UID Label
+    //firebaseUID Label
     
     std::string UID = CCUserDefault::sharedUserDefault()->getStringForKey("firebaseUID");
     auto UIDLabel = Label::createWithTTF(UID, "fonts/arial.ttf", 30);
@@ -106,6 +108,16 @@ bool LobbyScene::init()
     
     this->addChild(UIDLabel);
     
+    //Hash uid Label
+    unsigned int IntUID = UidHash::BKDRHash(UID);
+    std::stringstream sUID;
+    sUID << IntUID; // int to string
+    auto IntUIDLabel = Label::createWithTTF(sUID.str(), "fonts/arial.ttf", 30);
+    IntUIDLabel->setAnchorPoint(Vec2(0,1)); //以左上角為緢點
+    IntUIDLabel->setColor(Color3B::BLACK);
+    IntUIDLabel->setPosition(Vec2(origin.x + 20, origin.y + visibleSize.height - 105));
+    
+    this->addChild(IntUIDLabel);
     //User W/L information
     
     int win = 0, lose= 0;
@@ -125,11 +137,12 @@ bool LobbyScene::init()
     
     
     //Game Label
-    std::string gameButtonPath = "gameButton.png";
+    std::string gameButtonPath = "startgame-btn.png"; ////3245 × 591
     auto gameButton = createButton(true, "Game", Color3B::BLACK, gameButtonPath, gameButtonPath, gameButtonPath);
-    gameButton->setContentSize(Size(800, 100));
+    gameButton->setContentSize(Size(3245/4, 591/4));
     gameButton->setTitleFontSize(85);
-    gameButton->setPosition(Vec2(origin.x + visibleSize.width/2, origin.y + visibleSize.height/5));
+    gameButton->setAnchorPoint(Vec2(0, 0.5));
+    gameButton->setPosition(Vec2(origin.x + 100, origin.y + visibleSize.height/4));
     gameButton->setTitleOffset(0, 0);
     this->addChild(gameButton);
     
@@ -162,7 +175,7 @@ cocos2d::ui::Button* LobbyScene::createButton(
     button->setContentSize(kButtonContentSize);
     nextYPosition -= button->getContentSize().height + kUIElementPadding;
     button->setPosition(cocos2d::Vec2(ButtonXPosition, nextYPosition));
-    button->setTitleOffset(-100, 0);
+    button->setTitleOffset(-80, 0);
     
     return button;
 }

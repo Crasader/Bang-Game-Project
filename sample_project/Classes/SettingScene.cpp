@@ -13,9 +13,12 @@
 USING_NS_CC;
 
 // The images for the buttons.
-static const std::string kNormalButtonImage = "ButtonS1.png";
-static const std::string kSelectedButtonImage = "ButtonS2.png";
-static const std::string kDisabledButtonImage = "ButtonS1.png";
+static const std::string kNormalButtonImage = "lobby-btn-fullwidth.png";
+static const std::string kSelectedButtonImage = "lobby-btn-fullwidth2.png";
+static const std::string kDisabledButtonImage = "lobby-btn-fullwidth.png";
+
+const std::string backButtonImage = "back-icon.png"; //square
+const std::string settingImage = "setting-logo.png"; //1258 x 375
 
 /// Padding for the UI elements.
 static const float kUIElementPadding = -20;
@@ -63,15 +66,16 @@ bool SettingScene::init()
     const float  ButtonXPosition = origin.x + visibleSize.width/2;
     
     //Back button
-    auto BackButton = createButton(true, "Back", cocos2d::Color3B::WHITE, kNormalButtonImage, kSelectedButtonImage, kDisabledButtonImage);
-    BackButton->cocos2d::Node::setPosition(origin.x, origin.y + visibleSize.height - BackButton->getContentSize().height );
-    BackButton->setTitleOffset(50, 0);
+    auto BackButton = ui::Button::create(backButtonImage, backButtonImage, backButtonImage);
+    BackButton->ignoreContentAdaptWithSize(false);
+    BackButton->setContentSize(Size(100, 100));
+    BackButton->setPosition(Vec2(origin.x + BackButton->getContentSize().width/2, origin.y + visibleSize.height - BackButton->getContentSize().height/2 ));
     this->addChild(BackButton);
     BackButton->addTouchEventListener(CC_CALLBACK_2(SettingScene::BackToLoooby, this));
     
     //Log out button
     auto LogoutButton = createButton(true, "Logout", cocos2d::Color3B::WHITE, kNormalButtonImage, kSelectedButtonImage, kDisabledButtonImage);
-    nextYPosition = origin.y + visibleSize.height * 2 / 3;
+    nextYPosition = origin.y + visibleSize.height * 1 / 3;
     LogoutButton->setPosition(Vec2(ButtonXPosition, nextYPosition));
     this->addChild(LogoutButton);
     
@@ -100,9 +104,9 @@ bool SettingScene::init()
     //Game Setting Label
 
     
-    auto GSettingLabel = Label::createWithTTF("Game Setting", "fonts/arial.ttf", 100);
-    GSettingLabel->setColor(Color3B::BLACK);
-    GSettingLabel->setPosition(Vec2(origin.x + visibleSize.width/2, origin.y + visibleSize.height - GSettingLabel->getContentSize().height));
+    auto GSettingLabel = Sprite::create(settingImage);
+    GSettingLabel->setContentSize(Size(1258/4, 375/4));
+    GSettingLabel->setPosition(Vec2(origin.x + visibleSize.width/5, origin.y + visibleSize.height*5/7));
     
     this->addChild(GSettingLabel);
     

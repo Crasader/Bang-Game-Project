@@ -85,6 +85,7 @@ bool StartScene::init()
     // add a label shows "Hello World"
     // create and initialize a label
     
+    /*
     auto label = Label::createWithTTF("Bang!", "fonts/Marker Felt.ttf", 100);
     label->setTextColor(cocos2d::Color4B::BLACK);
     if (label == nullptr)
@@ -100,21 +101,22 @@ bool StartScene::init()
         // add the label as a child to this layer
         this->addChild(label, 1);
     }
+    */
     
-    // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("HelloWorld.png");
-    if (sprite == nullptr)
+    auto BangLogo = Sprite::create("bang-logo.png"); // 1844 x 655
+    if (BangLogo == nullptr)
     {
-        problemLoading("'HelloWorld.png'");
+        problemLoading("'bang-logo.png'");
     }
     else
     {
-        // position the sprite on the center of the screen
-        sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-        
-        // add the sprite as a child to this layer
-        this->addChild(sprite, 0);
+        BangLogo->setContentSize(Size(1844/3, 655/3));
+        BangLogo->setPosition(Vec2(origin.x + visibleSize.width/2, origin.y + visibleSize.height - BangLogo->getContentSize().height));
+        this->addChild(BangLogo);
     }
+    
+    
+   
     return true;
 }
 
