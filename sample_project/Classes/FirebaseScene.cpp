@@ -46,7 +46,7 @@ static const float kUIElementPadding = 10.0;
 static const float kButtonTitleFontSize = 12.0;
 
 /// The content size for the Firebase buttons.
-static const cocos2d::Size kButtonContentSize = cocos2d::Size(400, 100);
+static const cocos2d::Size kButtonContentSize = cocos2d::Size(500, 100);
 
 /// The factor used to determine when to resize the ScrollView's inner container
 /// height.
@@ -60,6 +60,9 @@ cocos2d::ui::Text* logTextWidget;
 
 /// The log text.
 std::string logTextString;
+
+
+
 
 cocos2d::ui::Button* FirebaseScene::createButton(
                                                  bool buttonEnabled, const std::string& buttonTitleText,
@@ -76,7 +79,7 @@ cocos2d::ui::Button* FirebaseScene::createButton(
     button->setContentSize(kButtonContentSize);
     nextYPosition -= button->getContentSize().height + kUIElementPadding;
     button->setPosition(
-                        cocos2d::Vec2(origin.x + visibleSize.width / 4, nextYPosition));
+                        cocos2d::Vec2(xPositon, nextYPosition));
     
     return button;
 }
@@ -95,7 +98,7 @@ cocos2d::ui::Button* FirebaseScene::createTextButton(
     button->setContentSize(kButtonContentSize);
     nextYPosition -= button->getContentSize().height + kUIElementPadding;
     button->setPosition(
-                        cocos2d::Vec2(origin.x + visibleSize.width / 4, nextYPosition));
+                        cocos2d::Vec2(xPositon, nextYPosition));
     
     return button;
 }
@@ -114,7 +117,7 @@ cocos2d::ui::Button* FirebaseScene::createFbButton(
     button->setContentSize(kButtonContentSize);
     nextYPosition -= button->getContentSize().height + kUIElementPadding;
     button->setPosition(
-                        cocos2d::Vec2(origin.x + visibleSize.width / 4, nextYPosition));
+                        cocos2d::Vec2(xPositon, nextYPosition));
     
     return button;
 }
@@ -158,18 +161,18 @@ cocos2d::ui::TextField* FirebaseScene::createTextField(
     text_field->setPlaceHolderColor(Color3B::WHITE);
     nextYPosition -= text_field->getContentSize().height + kUIElementPadding;
     text_field->setPosition(
-                            cocos2d::Vec2(origin.x + visibleSize.width / 4, nextYPosition));
+                            cocos2d::Vec2(xPositon, nextYPosition));
     return text_field;
 }
 
-cocos2d::ui::EditBox* FirebaseScene::createEditBox(const std::string &PlaceHolder , const cocos2d::Size &boxSize, const std::string &ImagePath){
+cocos2d::ui::EditBox* FirebaseScene::createEditBox(const std::string &PlaceHolder, const std::string &ImagePath){
     auto visibleSize = Director::getInstance()->getVisibleSize();
-    auto editBox = cocos2d::ui::EditBox::create(boxSize, ImagePath);
+    auto editBox = cocos2d::ui::EditBox::create(kButtonContentSize, ImagePath);
     cocos2d::Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     nextYPosition -= editBox->getContentSize().height*3/4 + kUIElementPadding;
     
-    editBox->setPosition(cocos2d::Vec2(origin.x + visibleSize.width / 4, nextYPosition));
+    editBox->setPosition(cocos2d::Vec2(xPositon, nextYPosition));
     
     // 默认字体相关
     editBox->setPlaceHolder(PlaceHolder.c_str());
@@ -187,7 +190,8 @@ cocos2d::ui::EditBox* FirebaseScene::createEditBox(const std::string &PlaceHolde
     return editBox;
 }
     
-
+//mark in 5/6
+/*
 void FirebaseScene::createScrollView(float yPosition, float widthFraction) {
     cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
     cocos2d::Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -260,6 +264,7 @@ void FirebaseScene::logMessage(std::string format, ...) {
         scrollView->scrollToPercentVertical(scrollPercent * 100, 1.0, false);
     });
 }
+*/
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 // Returns the iOS RootViewController's main view (i.e. the EAGLView).

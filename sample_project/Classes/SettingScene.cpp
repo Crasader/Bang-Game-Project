@@ -9,6 +9,8 @@
 #include "LobbyScene.hpp"
 #include "mySdkboxWrap.hpp"
 #include "FirebaseAuthScene.h"
+#include "audio/include/AudioEngine.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -19,6 +21,12 @@ static const std::string kDisabledButtonImage = "lobby-btn-fullwidth.png";
 
 const std::string backButtonImage = "back-icon.png"; //square
 const std::string settingImage = "setting-logo.png"; //1258 x 375
+
+constexpr char* bgImage = "mute-bg.png";
+constexpr char* progressImage = "mute-progress.png";
+constexpr char* thumbImage = "mute-thumb.png";
+
+constexpr int audioID = 999;
 
 /// Padding for the UI elements.
 static const float kUIElementPadding = -20;
@@ -75,8 +83,8 @@ bool SettingScene::init()
     
     //Log out button
     auto LogoutButton = createButton(true, "Logout", cocos2d::Color3B::WHITE, kNormalButtonImage, kSelectedButtonImage, kDisabledButtonImage);
-    nextYPosition = origin.y + visibleSize.height * 1 / 3;
-    LogoutButton->setPosition(Vec2(ButtonXPosition, nextYPosition));
+    //nextYPosition = origin.y + visibleSize.height * 1 / 3;
+    LogoutButton->setPosition(Vec2(ButtonXPosition, origin.y + 100 ));
     this->addChild(LogoutButton);
     
     LogoutButton->addTouchEventListener([this](Ref* , cocos2d::ui::Widget::TouchEventType type) {
@@ -97,8 +105,52 @@ bool SettingScene::init()
                 break;
             }
         }
+        
     });
     
+    //BGM Audio slider
+    ControlAudioSlider* BGMslider = ControlAudioSlider::create(bgImage, progressImage, thumbImage);
+    BGMslider->setPosition(Vec2(visibleSize.width *2/3 , visibleSize.height / 2 +50 ));
+    BGMslider->setValues(0, 1.0f, 0.8f);
+    BGMslider->setCallBack([&](ControlAudioSlider* sender, float ratio, Event* pEvent)
+                        {
+                            cocos2d::experimental::AudioEngine::setVolume(audioID, ratio);
+                        });
+    
+    this->addChild(BGMslider);
+    
+    auto muteIcon = Sprite::create("mute-icon.png");
+    muteIcon->setContentSize(Size(80, 80));
+    muteIcon->setPosition(Vec2(BGMslider->getPosition().x - BGMslider->getContentSize().width/2 - 50 , BGMslider->getPosition().y));
+    this->addChild(muteIcon);
+    
+    auto BGMLabel = Sprite::create("bgm-btn.png");
+    BGMLabel->setContentSize(Size(622/3, 261/3));
+    BGMLabel->setAnchorPoint(Vec2(0, 0.5));
+    BGMLabel->setPosition(Vec2(muteIcon->getPosition().x + 25, muteIcon->getPosition().y+100));
+    this->addChild(BGMLabel);
+    
+    //Sound_Effect Audio slider
+    ControlAudioSlider* SEslider = ControlAudioSlider::create(bgImage, progressImage, thumbImage);
+    SEslider->setPosition(Vec2(visibleSize.width *2/3 , BGMslider->getPosition().y - 180));
+    SEslider->setValues(0, 1.0f, 0.8f);
+    SEslider->setCallBack([&](ControlAudioSlider* sender, float ratio, Event* pEvent)
+                           {
+                               cocos2d::experimental::AudioEngine::setVolume(audioID, ratio); // change the audio ID
+                           });
+    
+    this->addChild(SEslider);
+    
+    auto muteIcon2 = Sprite::create("mute-icon.png");
+    muteIcon2->setContentSize(Size(80, 80));
+    muteIcon2->setPosition(Vec2(SEslider->getPosition().x - SEslider->getContentSize().width/2 - 50 , SEslider->getPosition().y));
+    this->addChild(muteIcon2);
+    
+    auto SELabel = Sprite::create("soundeffect-btn.png");
+    SELabel->setContentSize(Size(1186/3, 278/3));
+    SELabel->setAnchorPoint(Vec2(0, 0.5));
+    SELabel->setPosition(Vec2(muteIcon2->getPosition().x + 25, muteIcon2->getPosition().y+100));
+    this->addChild(SELabel);
     //==============================================================================================================
     
     //Game Setting Label
@@ -148,4 +200,64 @@ void SettingScene::BackToLoooby(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventTy
         default:
             break;
     }
+}
+
+
+
+
+using namespace CocosDenshion;
+
+ControlAudioSlider::ControlAudioSlider()
+{
+}
+
+
+ControlAudioSlider::~ControlAudioSlider()
+{
+}
+
+ControlAudioSlider* ControlAudioSlider::create(const char* bgFile, const char* progressFile, const char* thumbFile)
+{
+    Sprite *backgroundSprite = Sprite::create(bgFile);
+    Sprite *progressSprite = Sprite::create(progressFile);
+    Sprite *thumbSprite = Sprite::create(thumbFile);
+    Sprite *thumbSelectSprite = Sprite::create(thumbFile);
+    
+    backgroundSprite->setContentSize(Size(500, 25));
+    thumbSprite->setContentSize(Size(35, 35));
+    thumbSelectSprite->setContentSize(Size(35, 35));
+    
+    ControlAudioSlider* pRet = new (std::nothrow) ControlAudioSlider();
+    pRet->initWithSprites(backgroundSprite, progressSprite, thumbSprite, thumbSelectSprite);
+    
+    
+    return pRet;
+}
+
+bool ControlAudioSlider::onTouchBegion(Touch* touch, Event* pEvent)
+{
+    bool b = extension::ControlSlider::onTouchBegan(touch, pEvent);
+    return b;
+}
+
+void ControlAudioSlider::onTouchMoved(Touch* touch, Event* pEvent)
+{
+    extension::ControlSlider::onTouchMoved(touch, pEvent);
+    _ratio = getValue() / getMaximumValue();
+    if (_callback)
+    {
+        _callback(this, _ratio, pEvent);
+    }
+}
+
+void ControlAudioSlider::setCallBack(const audioSliderCallback& callback)
+{
+    _callback = callback;
+}
+
+void ControlAudioSlider::setValues(float minValue, float maxValue, float value)
+{
+    this->setMinimumValue(minValue);
+    this->setMaximumValue(maxValue);
+    this->setValue(value);
 }

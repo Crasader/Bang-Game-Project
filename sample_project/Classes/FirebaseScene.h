@@ -53,16 +53,15 @@ public:
     /// @param delta The number of seconds since the last update.
     virtual void update(float delta) = 0;
     
-    /// Called just before the app closes. This is where cleanup and shutdown
-    /// logic should go.
-    //virtual void menuCloseAppCallback(cocos2d::Ref* pSender) = 0;
     
+    //mark in 5/6
     /// Updates the log text in the Firebase scene's TextWidget.
-    void logMessage(std::string format, ...);
+    //void logMessage(std::string format, ...);
     
 protected:
     /// The Y position for a UI element.
     float nextYPosition;
+    float xPositon;
     
     /// Creates a button for interacting with Firebase.
     cocos2d::ui::Button *createButton(
@@ -81,9 +80,10 @@ protected:
     /// Creates a single line text entry field.
     cocos2d::ui::TextField *createTextField(const char* placeholder);
     
-    cocos2d::ui::EditBox *createEditBox(const std::string &PlaceHolder, const cocos2d::Size &boxSize, const std::string &ImagePath);
+    cocos2d::ui::EditBox *createEditBox(const std::string &PlaceHolder, const std::string &ImagePath);
     
     
+    /* mark in 5/6
     /// Creates the ScrollView that contains a TextWidget for displaying log text
     /// to the user.
     ///
@@ -91,6 +91,7 @@ protected:
     /// can be adjusted by supplying a width argument.
     void createScrollView(float yPosition);
     void createScrollView(float yPosition, float widthFraction);
+     */
 };
 
 #endif  // FIREBASE_COCOS_CLASSES_FIREBASE_SCENE_H_

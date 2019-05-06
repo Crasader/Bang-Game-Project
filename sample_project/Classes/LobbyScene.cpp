@@ -117,9 +117,11 @@ bool LobbyScene::init()
     IntUIDLabel->setColor(Color3B::BLACK);
     IntUIDLabel->setPosition(Vec2(origin.x + 20, origin.y + visibleSize.height - 105));
     
-    this->addChild(IntUIDLabel);
-    //User W/L information
+    CCUserDefault::sharedUserDefault()->setStringForKey("UID", sUID.str());
     
+    this->addChild(IntUIDLabel);
+    
+    //User W/L information
     int win = 0, lose= 0;
     win = CCUserDefault::sharedUserDefault()->getIntegerForKey("win");
     lose = CCUserDefault::sharedUserDefault()->getIntegerForKey("lose");

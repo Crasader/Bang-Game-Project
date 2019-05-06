@@ -115,6 +115,9 @@
 		6FABDDDE227B2D680034224E /* back-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FABDDCB227B2D680034224E /* back-icon.png */; };
 		6FABDDDF227B2D680034224E /* friend-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FABDDCC227B2D680034224E /* friend-logo.png */; };
 		6FABDDE1227B31E90034224E /* lobby-btn-fullwidth2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FABDDE0227B31E90034224E /* lobby-btn-fullwidth2.png */; };
+		6FD8C2E92280821F007C9DE0 /* mute-thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD8C2E82280821E007C9DE0 /* mute-thumb.png */; };
+		6FD8C2EC22808893007C9DE0 /* mute-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD8C2EA22808891007C9DE0 /* mute-bg.png */; };
+		6FD8C2F122808D0F007C9DE0 /* mute-progress.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD8C2F022808D0E007C9DE0 /* mute-progress.png */; };
 		6FE53BF2227756D600B838F4 /* FriendBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE53BF1227756D600B838F4 /* FriendBackground.png */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		861EF612DEA82AE64357BCE6 /* libPods-HelloCpp-mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2520D6EB3049AB436A7E4B23 /* libPods-HelloCpp-mobile.a */; };
@@ -292,6 +295,9 @@
 		6FABDDCB227B2D680034224E /* back-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-icon.png"; sourceTree = "<group>"; };
 		6FABDDCC227B2D680034224E /* friend-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "friend-logo.png"; sourceTree = "<group>"; };
 		6FABDDE0227B31E90034224E /* lobby-btn-fullwidth2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lobby-btn-fullwidth2.png"; sourceTree = "<group>"; };
+		6FD8C2E82280821E007C9DE0 /* mute-thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mute-thumb.png"; sourceTree = "<group>"; };
+		6FD8C2EA22808891007C9DE0 /* mute-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mute-bg.png"; sourceTree = "<group>"; };
+		6FD8C2F022808D0E007C9DE0 /* mute-progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mute-progress.png"; sourceTree = "<group>"; };
 		6FE53BF1227756D600B838F4 /* FriendBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FriendBackground.png; sourceTree = "<group>"; };
 		706F4029ACC95B174F44A28D /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = SOURCE_ROOT; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -490,6 +496,9 @@
 				3EACC98E19EE6D4300EB3C5E /* res */,
 				46880B7619C43A67006E1F66 /* CloseNormal.png */,
 				46880B7719C43A67006E1F66 /* CloseSelected.png */,
+				6FD8C2E82280821E007C9DE0 /* mute-thumb.png */,
+				6FD8C2EA22808891007C9DE0 /* mute-bg.png */,
+				6FD8C2F022808D0E007C9DE0 /* mute-progress.png */,
 				6FABDDAD227B2D480034224E /* mute-icon.png */,
 				6FABDDAF227B2D490034224E /* rank-logo.png */,
 				6FABDDC3227B2D600034224E /* accept-btn.png */,
@@ -745,9 +754,11 @@
 				6FA0ED94226B215E0090FD52 /* ButtonS2.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
+				6FD8C2F122808D0F007C9DE0 /* mute-progress.png in Resources */,
 				6FABDDB3227B2D4A0034224E /* season-tag.png in Resources */,
 				6FABDDDF227B2D680034224E /* friend-logo.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
+				6FD8C2EC22808893007C9DE0 /* mute-bg.png in Resources */,
 				6FABDDE1227B31E90034224E /* lobby-btn-fullwidth2.png in Resources */,
 				6FABDDDA227B2D680034224E /* background.png in Resources */,
 				6FABDDB5227B2D4A0034224E /* username-input.png in Resources */,
@@ -777,6 +788,7 @@
 				6FABDDD7227B2D680034224E /* brown-dot.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 				6FABDDD2227B2D680034224E /* gray-dot.png in Resources */,
+				6FD8C2E92280821F007C9DE0 /* mute-thumb.png in Resources */,
 				6FABDDB1227B2D4A0034224E /* setting-logo.png in Resources */,
 				6FABDDB4227B2D4A0034224E /* week-tag.png in Resources */,
 				68EE4014B4496DA13CC9D837 /* sdkbox_config.json in Resources */,
