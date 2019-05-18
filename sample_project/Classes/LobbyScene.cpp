@@ -7,6 +7,7 @@
 
 #include "LobbyScene.hpp"
 #include "SettingScene.hpp"
+#include "RankScene.hpp"
 #include "AssisstanceFunc.hpp"
 #include <sstream>
 
@@ -66,8 +67,9 @@ bool LobbyScene::init()
     auto RankButton = createButton(true, "Rank", cocos2d::Color3B::WHITE, kNormalButtonImage, kSelectedButtonImage, kDisabledButtonImage);
     nextYPosition = origin.y + visibleSize.height * 2 / 3;
     RankButton->setPosition(Vec2(ButtonXPosition, nextYPosition));
-    this->addChild(RankButton);
+    RankButton->addTouchEventListener(CC_CALLBACK_2(LobbyScene::RankCallback, this));
     
+    this->addChild(RankButton);
     //Store button
     auto StoreButton = createButton(true, "Store", cocos2d::Color3B::WHITE, kNormalButtonImage, kSelectedButtonImage, kDisabledButtonImage);
     this->addChild(StoreButton);
@@ -78,8 +80,8 @@ bool LobbyScene::init()
     
     //Setting button
     auto SettingButton = createButton(true, "Setting", cocos2d::Color3B::WHITE, kNormalButtonImage, kSelectedButtonImage, kDisabledButtonImage);
-    this->addChild(SettingButton);
     SettingButton->addTouchEventListener(CC_CALLBACK_2(LobbyScene::SettingCallback, this));
+    this->addChild(SettingButton);
     //==============================================================================================================
     
     //Username Label
@@ -138,9 +140,10 @@ bool LobbyScene::init()
     this->addChild(Score);
     
     
-    //Game Label
-    std::string gameButtonPath = "startgame-btn.png"; ////3245 × 591
-    auto gameButton = createButton(true, "Game", Color3B::BLACK, gameButtonPath, gameButtonPath, gameButtonPath);
+    //start Game button
+    const std::string gameButtonPath = "startgame-btn.png"; ////3245 × 591
+    const std::string gameButtonSelectedPath = "startgame-btn-click.png"; ////3245 × 591
+    auto gameButton = createButton(true, "Game", Color3B::BLACK, gameButtonPath, gameButtonSelectedPath, gameButtonPath);
     gameButton->setContentSize(Size(3245/4, 591/4));
     gameButton->setTitleFontSize(85);
     gameButton->setAnchorPoint(Vec2(0, 0.5));
@@ -181,6 +184,7 @@ cocos2d::ui::Button* LobbyScene::createButton(
     
     return button;
 }
+//Select Setting button call back
 void LobbyScene::SettingCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){
     switch (type) {
         case ui::Widget::TouchEventType::ENDED:{
@@ -193,6 +197,21 @@ void LobbyScene::SettingCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventT
         default:
             break;
        
+    }
+}
+//Select Rank button call back
+void LobbyScene::RankCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){
+    switch (type) {
+        case ui::Widget::TouchEventType::ENDED:{
+            auto scene = RankScene::createScene();
+            auto director = Director::getInstance();
+            director->replaceScene(scene);
+            break;
+        }
+            
+        default:
+            break;
+            
     }
 }
 

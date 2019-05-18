@@ -34,10 +34,11 @@ USING_NS_CC;
 
 // The images for the Firebase buttons.
 static const std::string kNormalButtonImage = "login-btn.png";
-static const std::string kSelectedButtonImage = "ButtonS2.png";
+static const std::string kSelectedButtonImage = "login-btn-click.png";
 static const std::string kDisabledButtonImage = "login-btn.png";
 static const std::string emptyButtonImage = "emptyImage.png";
 static const std::string FBButtonImage = "fb-login.png";
+static const std::string FBButtonSelectedImage = "fb-login-click.png";
 
 /// Padding for the UI elements.
 static const float kUIElementPadding = 10.0;
@@ -108,7 +109,7 @@ cocos2d::ui::Button* FirebaseScene::createFbButton(
     auto visibleSize = Director::getInstance()->getVisibleSize();
     cocos2d::Vec2 origin = Director::getInstance()->getVisibleOrigin();
     cocos2d::ui::Button* button = cocos2d::ui::Button::create(
-                                                              FBButtonImage, FBButtonImage, FBButtonImage);
+                                                              FBButtonImage, FBButtonSelectedImage, FBButtonImage);
     button->setEnabled(buttonEnabled);
     button->setColor(buttonColor);
     button->setTitleText(buttonTitleText);

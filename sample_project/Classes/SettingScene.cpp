@@ -20,6 +20,8 @@ static const std::string kSelectedButtonImage = "lobby-btn-fullwidth2.png";
 static const std::string kDisabledButtonImage = "lobby-btn-fullwidth.png";
 
 const std::string backButtonImage = "back-icon.png"; //square
+const std::string backButtonSelectedImage = "back-icon-click.png";//square
+
 const std::string settingImage = "setting-logo.png"; //1258 x 375
 
 constexpr char* bgImage = "mute-bg.png";
@@ -74,7 +76,7 @@ bool SettingScene::init()
     const float  ButtonXPosition = origin.x + visibleSize.width/2;
     
     //Back button
-    auto BackButton = ui::Button::create(backButtonImage, backButtonImage, backButtonImage);
+    auto BackButton = ui::Button::create(backButtonImage, backButtonSelectedImage, backButtonImage);
     BackButton->ignoreContentAdaptWithSize(false);
     BackButton->setContentSize(Size(100, 100));
     BackButton->setPosition(Vec2(origin.x + BackButton->getContentSize().width/2, origin.y + visibleSize.height - BackButton->getContentSize().height/2 ));
@@ -85,8 +87,6 @@ bool SettingScene::init()
     auto LogoutButton = createButton(true, "Logout", cocos2d::Color3B::WHITE, kNormalButtonImage, kSelectedButtonImage, kDisabledButtonImage);
     //nextYPosition = origin.y + visibleSize.height * 1 / 3;
     LogoutButton->setPosition(Vec2(ButtonXPosition, origin.y + 100 ));
-    this->addChild(LogoutButton);
-    
     LogoutButton->addTouchEventListener([this](Ref* , cocos2d::ui::Widget::TouchEventType type) {
         switch (type) {
             case cocos2d::ui::Widget::TouchEventType::ENDED: {
@@ -107,6 +107,7 @@ bool SettingScene::init()
         }
         
     });
+    this->addChild(LogoutButton);
     
     //BGM Audio slider
     ControlAudioSlider* BGMslider = ControlAudioSlider::create(bgImage, progressImage, thumbImage);

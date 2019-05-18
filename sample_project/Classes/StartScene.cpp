@@ -51,6 +51,7 @@ bool StartScene::init()
                                            CC_CALLBACK_1(StartScene::menuCloseAppCallback, this));
     
     auto LoginButton = MenuItemFont::create("START", CC_CALLBACK_0(StartScene::Login_callback, this));
+    
     LoginButton->setColor(cocos2d::Color3B::BLACK);
     if(LoginButton != nullptr){
         LoginButton->setFontSizeObj(60);

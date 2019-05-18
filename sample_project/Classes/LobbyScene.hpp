@@ -26,6 +26,7 @@ private:
                                       const cocos2d::Color3B& buttonColor, const std::string& ImagePath1,const  std::string& ImagePath2, const std::string& ImagePath3);
     
     void SettingCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
+    void RankCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
     
     float nextYPosition;
 };

@@ -71,6 +71,11 @@
 		6F351164224FA99700D206EC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F351160224FA99700D206EC /* SystemConfiguration.framework */; };
 		6F43B6552271AA6300CA5A6C /* SettingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F43B6532271AA6300CA5A6C /* SettingScene.cpp */; };
 		6F4DCE432269A20400FC7278 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F4DCE412269A20400FC7278 /* GoogleService-Info.plist */; };
+		6F51411B228FC1460054C510 /* fb-login-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F514119228FC1460054C510 /* fb-login-click.png */; };
+		6F51411D228FC2030054C510 /* login-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F51411C228FC2030054C510 /* login-btn-click.png */; };
+		6F514120228FC3360054C510 /* RankScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F51411E228FC3360054C510 /* RankScene.cpp */; };
+		6F514122228FC4B80054C510 /* back-icon-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F514121228FC4B70054C510 /* back-icon-click.png */; };
+		6F514124228FC7540054C510 /* startgame-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F514123228FC7540054C510 /* startgame-btn-click.png */; };
 		6F81F855224DFBF1004ED01A /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81F853224DFBF1004ED01A /* GameKit.framework */; };
 		6F8657E6226D9C6E009BA43D /* LobbyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F8657E4226D9C6E009BA43D /* LobbyScene.cpp */; };
 		6F9155D6225081F400634354 /* FBSDKMarketingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9155CF225081F300634354 /* FBSDKMarketingKit.framework */; };
@@ -247,6 +252,12 @@
 		6F43B6532271AA6300CA5A6C /* SettingScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SettingScene.cpp; sourceTree = "<group>"; };
 		6F43B6542271AA6300CA5A6C /* SettingScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SettingScene.hpp; sourceTree = "<group>"; };
 		6F4DCE412269A20400FC7278 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ios/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6F514119228FC1460054C510 /* fb-login-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fb-login-click.png"; sourceTree = "<group>"; };
+		6F51411C228FC2030054C510 /* login-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-btn-click.png"; sourceTree = "<group>"; };
+		6F51411E228FC3360054C510 /* RankScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RankScene.cpp; sourceTree = "<group>"; };
+		6F51411F228FC3360054C510 /* RankScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RankScene.hpp; sourceTree = "<group>"; };
+		6F514121228FC4B70054C510 /* back-icon-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-icon-click.png"; sourceTree = "<group>"; };
+		6F514123228FC7540054C510 /* startgame-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "startgame-btn-click.png"; sourceTree = "<group>"; };
 		6F81F853224DFBF1004ED01A /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
 		6F8657E4226D9C6E009BA43D /* LobbyScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LobbyScene.cpp; sourceTree = "<group>"; };
 		6F8657E5226D9C6E009BA43D /* LobbyScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LobbyScene.hpp; sourceTree = "<group>"; };
@@ -504,6 +515,7 @@
 				6FABDDC3227B2D600034224E /* accept-btn.png */,
 				6FABDDBA227B2D560034224E /* add-btn.png */,
 				6FABDDCB227B2D680034224E /* back-icon.png */,
+				6F514121228FC4B70054C510 /* back-icon-click.png */,
 				6FABDDC7227B2D640034224E /* background.png */,
 				6FABDDBC227B2D590034224E /* bang-logo.png */,
 				6FABDDC9227B2D660034224E /* bgm-btn.png */,
@@ -514,6 +526,7 @@
 				6FABDDBD227B2D5A0034224E /* card-orange.png */,
 				6FABDDBB227B2D580034224E /* decline-btn.png */,
 				6FABDDBE227B2D5C0034224E /* fb-login.png */,
+				6F514119228FC1460054C510 /* fb-login-click.png */,
 				6FABDDCC227B2D680034224E /* friend-logo.png */,
 				6FABDDBF227B2D5D0034224E /* gray-dot.png */,
 				6FABDDC6227B2D630034224E /* green-dot.png */,
@@ -521,10 +534,12 @@
 				6FABDDE0227B31E90034224E /* lobby-btn-fullwidth2.png */,
 				6FABDDC1227B2D5F0034224E /* lobby-btn-halfwidth.png */,
 				6FABDDC0227B2D5E0034224E /* login-btn.png */,
+				6F51411C228FC2030054C510 /* login-btn-click.png */,
 				6FABDDAA227B2D460034224E /* season-tag.png */,
 				6FABDDA7227B2D440034224E /* setting-logo.png */,
 				6FABDDAE227B2D480034224E /* soundeffect-btn.png */,
 				6FABDDA9227B2D450034224E /* startgame-btn.png */,
+				6F514123228FC7540054C510 /* startgame-btn-click.png */,
 				6FABDDB0227B2D4A0034224E /* user-icon.png */,
 				6FABDDAC227B2D470034224E /* username-input.png */,
 				6FABDDAB227B2D460034224E /* week-tag.png */,
@@ -557,6 +572,8 @@
 				6F43B6542271AA6300CA5A6C /* SettingScene.hpp */,
 				6FABDDA12279E7380034224E /* AssisstanceFunc.cpp */,
 				6FABDDA22279E7380034224E /* AssisstanceFunc.hpp */,
+				6F51411E228FC3360054C510 /* RankScene.cpp */,
+				6F51411F228FC3360054C510 /* RankScene.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -735,7 +752,10 @@
 			files = (
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
+				6F514124228FC7540054C510 /* startgame-btn-click.png in Resources */,
 				6FABDDD1227B2D680034224E /* fb-login.png in Resources */,
+				6F51411D228FC2030054C510 /* login-btn-click.png in Resources */,
+				6F514122228FC4B80054C510 /* back-icon-click.png in Resources */,
 				6FABDDB2227B2D4A0034224E /* startgame-btn.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
@@ -782,6 +802,7 @@
 				6FABDDD6227B2D680034224E /* accept-btn.png in Resources */,
 				6FABDDD5227B2D680034224E /* lobby-btn-fullwidth.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
+				6F51411B228FC1460054C510 /* fb-login-click.png in Resources */,
 				46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */,
 				6FABDDD8227B2D680034224E /* card-blue-icon.png in Resources */,
 				6FABDDCF227B2D680034224E /* bang-logo.png in Resources */,
@@ -870,6 +891,7 @@
 				6F92196A2251F467006AD610 /* StartScene.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				6FABDDA32279E7380034224E /* AssisstanceFunc.cpp in Sources */,
+				6F514120228FC3360054C510 /* RankScene.cpp in Sources */,
 				4A05661E1DB70C58009CE39C /* FirebaseAuthScene.cpp in Sources */,
 				6F8657E6226D9C6E009BA43D /* LobbyScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
