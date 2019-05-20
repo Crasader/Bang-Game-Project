@@ -97,6 +97,12 @@ bool FriendScene::init()
     
     //==============================================================================================================
     
+    auto friend_table = FriendTable::create();
+    friend_table->setContentSize(Size(1337/4, 750));
+    friend_table->ignoreAnchorPointForPosition(false);
+    friend_table->setAnchorPoint(Vec2(0.5, 1));
+    friend_table->setPosition(Vec2(origin.x + visibleSize.width*3/4, origin.y + visibleSize.height));
+    this->addChild(friend_table);
     
     
     
@@ -121,7 +127,7 @@ void FriendScene::BackToLoooby(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventTyp
     }
 }
 
-void FriendScene::SearchCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){
+void FriendScene::SearchCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){// Search user call back.
     switch (type) {
         case ui::Widget::TouchEventType::ENDED:{
             //if(user is not found)
@@ -168,7 +174,7 @@ cocos2d::ui::EditBox* FriendScene::createEditBox(const std::string &PlaceHolder,
     return editBox;
 }
 
-//Search friend label function
+//Search friend label function =============================================
 const std::string FriendScene::ErrMsg = "Error: User is not found!";
 const std::string FriendScene::SucMsg = "Friend invention sent!";
 
@@ -200,4 +206,80 @@ cocos2d::Label* FriendScene::SucMsgLabel(){
     auto label = cocos2d::Label::createWithTTF(SucMsg, "fonts/arial.ttf", 40);
     label->setColor(Color3B::GREEN);
     return label;
+}
+//==========================================================================
+//Friend table scroll view
+USING_NS_CC_EXT;
+
+void FriendTable::tableCellTouched(TableView *table, TableViewCell *cell){
+    CCLOG("you touch cell index = %zd", cell->getIdx());
+}
+
+CCSize FriendTable::cellSizeForTable(TableView *table){
+    CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
+    return CCSizeMake(300, 64);
+}
+
+//number of friend
+ssize_t FriendTable::numberOfCellsInTableView(TableView *table){
+    return 10;
+}
+
+TableViewCell* FriendTable::tableCellAtIndex(TableView *table, ssize_t idx){
+    TableViewCell *cell = table->dequeueCell();
+    if(!cell){
+        cell = new TableViewCell();
+        cell->autorelease();
+    }
+    cell->removeAllChildrenWithCleanup(true);
+    
+    //background
+    /*
+    CCSprite* bgSprite = CCSprite::create("bang-logo.png");
+    bgSprite->setAnchorPoint(CCPointZero); // 设置锚点
+    bgSprite->setPosition(CCPointZero);  // 设置位置
+    bgSprite->setTag(12);
+    cell->addChild(bgSprite);   // 加入cell
+     */
+    
+   
+        
+    auto label = Label::createWithTTF("Friend", "fonts/arial.ttf", 50);
+    label->setPosition(Vec2(0, 0));
+    label->setAnchorPoint(Vec2(0, 0));
+    label->setColor(Color3B::BLACK);
+    cell->addChild(label);
+    return cell;
+    
+}
+
+void FriendTable::scrollViewDidScroll(ScrollView *view){}
+void FriendTable::scrollViewDidZoom(ScrollView *view){}
+
+bool FriendTable::init(){
+    if(!CCLayer::init()){
+        return false;
+    }
+    auto backGroundColor = CCLayerColor::create(ccc4(255,255,255, 255)); //RGBA
+    this->addChild(backGroundColor, 0);
+    
+    auto visibleSize =  this->getContentSize();
+    
+    
+    TableView * tableview = TableView::create(this, CCSizeMake(300, 450)); //table size
+    tableview->setDirection(ScrollView::Direction::VERTICAL); // 只能垂直滑動
+    tableview->setDelegate(this);
+    tableview->ignoreAnchorPointForPosition(false);
+    tableview->setAnchorPoint(Vec2(0, 1));
+    tableview->setPosition(Vec2(100, visibleSize.height-250));
+    this->addChild(tableview);
+    tableview->reloadData();
+    
+    auto TopLabel = Label::createWithTTF("Friend list", "fonts/arial.ttf" , 60);
+    TopLabel->setColor(Color3B::BLACK);
+    TopLabel->setPosition(Vec2(150, visibleSize.height-200));
+    this->addChild(TopLabel);
+    return true;
+    
+    
 }
