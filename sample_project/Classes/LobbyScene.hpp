@@ -27,26 +27,13 @@ private:
     
     void SettingCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
     void RankCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
+    void FriendCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
+    
     
     float nextYPosition;
 };
 
 
-class  FriendLayer: public cocos2d::Layer{
-public:
-    
-    
-    bool init() override;
-    
-    CREATE_FUNC(FriendLayer);
-    
-private:
-    cocos2d::ui::Button *createButton(
-                                      bool buttonEnabled, const std::string& buttonTitleText,
-                                      const cocos2d::Color3B& buttonColor, const std::string& ImagePath1,const  std::string& ImagePath2, const std::string& ImagePath3);
-    
-    float nextYPosition;
-};
 
 
 #endif /* LobbyScene_hpp */

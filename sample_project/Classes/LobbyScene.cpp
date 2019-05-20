@@ -8,6 +8,7 @@
 #include "LobbyScene.hpp"
 #include "SettingScene.hpp"
 #include "RankScene.hpp"
+#include "FriendScene.hpp"
 #include "AssisstanceFunc.hpp"
 #include <sstream>
 
@@ -76,6 +77,7 @@ bool LobbyScene::init()
     
     //Friend button
     auto FriendButton = createButton(true, "Friend", cocos2d::Color3B::WHITE, kNormalButtonImage, kSelectedButtonImage, kDisabledButtonImage);
+    FriendButton->addTouchEventListener(CC_CALLBACK_2(LobbyScene::FriendCallback, this));
     this->addChild(FriendButton);
     
     //Setting button
@@ -214,23 +216,23 @@ void LobbyScene::RankCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType
             
     }
 }
-
-
-
-bool FriendLayer::init()
-{
-    if( !Layer::init() ){
-        return false;
+//Select Friend button call back
+void LobbyScene::FriendCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){
+    switch (type) {
+        case ui::Widget::TouchEventType::ENDED:{
+            auto scene = FriendScene::createScene();
+            auto director = Director::getInstance();
+            director->replaceScene(scene);
+            break;
+        }
+            
+        default:
+            break;
+            
     }
-    
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
-    
-    auto FriendBG = Sprite::create("FriendBackground.png");
-    FriendBG->setContentSize(Size(1334/2, 750));
-    FriendBG->setAnchorPoint(Vec2(0, 0.5f));
-    FriendBG->setPosition(Vec2(origin.x, origin.y+visibleSize.height/2 ));
-    this->addChild(FriendBG);
-    return true;
-    
 }
+
+
+
+
+

@@ -76,6 +76,9 @@
 		6F514120228FC3360054C510 /* RankScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F51411E228FC3360054C510 /* RankScene.cpp */; };
 		6F514122228FC4B80054C510 /* back-icon-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F514121228FC4B70054C510 /* back-icon-click.png */; };
 		6F514124228FC7540054C510 /* startgame-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F514123228FC7540054C510 /* startgame-btn-click.png */; };
+		6F514128229009D50054C510 /* FriendScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F514126229009D50054C510 /* FriendScene.cpp */; };
+		6F51412B2290455E0054C510 /* accept-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F51412A2290455E0054C510 /* accept-btn-click.png */; };
+		6F51412D2290481B0054C510 /* add-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F51412C2290481B0054C510 /* add-btn-click.png */; };
 		6F81F855224DFBF1004ED01A /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81F853224DFBF1004ED01A /* GameKit.framework */; };
 		6F8657E6226D9C6E009BA43D /* LobbyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F8657E4226D9C6E009BA43D /* LobbyScene.cpp */; };
 		6F9155D6225081F400634354 /* FBSDKMarketingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9155CF225081F300634354 /* FBSDKMarketingKit.framework */; };
@@ -258,6 +261,10 @@
 		6F51411F228FC3360054C510 /* RankScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RankScene.hpp; sourceTree = "<group>"; };
 		6F514121228FC4B70054C510 /* back-icon-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-icon-click.png"; sourceTree = "<group>"; };
 		6F514123228FC7540054C510 /* startgame-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "startgame-btn-click.png"; sourceTree = "<group>"; };
+		6F514126229009D50054C510 /* FriendScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FriendScene.cpp; sourceTree = "<group>"; };
+		6F514127229009D50054C510 /* FriendScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FriendScene.hpp; sourceTree = "<group>"; };
+		6F51412A2290455E0054C510 /* accept-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "accept-btn-click.png"; sourceTree = "<group>"; };
+		6F51412C2290481B0054C510 /* add-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-btn-click.png"; sourceTree = "<group>"; };
 		6F81F853224DFBF1004ED01A /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
 		6F8657E4226D9C6E009BA43D /* LobbyScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LobbyScene.cpp; sourceTree = "<group>"; };
 		6F8657E5226D9C6E009BA43D /* LobbyScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LobbyScene.hpp; sourceTree = "<group>"; };
@@ -513,7 +520,9 @@
 				6FABDDAD227B2D480034224E /* mute-icon.png */,
 				6FABDDAF227B2D490034224E /* rank-logo.png */,
 				6FABDDC3227B2D600034224E /* accept-btn.png */,
+				6F51412A2290455E0054C510 /* accept-btn-click.png */,
 				6FABDDBA227B2D560034224E /* add-btn.png */,
+				6F51412C2290481B0054C510 /* add-btn-click.png */,
 				6FABDDCB227B2D680034224E /* back-icon.png */,
 				6F514121228FC4B70054C510 /* back-icon-click.png */,
 				6FABDDC7227B2D640034224E /* background.png */,
@@ -574,6 +583,8 @@
 				6FABDDA22279E7380034224E /* AssisstanceFunc.hpp */,
 				6F51411E228FC3360054C510 /* RankScene.cpp */,
 				6F51411F228FC3360054C510 /* RankScene.hpp */,
+				6F514126229009D50054C510 /* FriendScene.cpp */,
+				6F514127229009D50054C510 /* FriendScene.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -775,6 +786,7 @@
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				6FD8C2F122808D0F007C9DE0 /* mute-progress.png in Resources */,
+				6F51412D2290481B0054C510 /* add-btn-click.png in Resources */,
 				6FABDDB3227B2D4A0034224E /* season-tag.png in Resources */,
 				6FABDDDF227B2D680034224E /* friend-logo.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
@@ -791,6 +803,7 @@
 				6FABDDDD227B2D680034224E /* card-blue.png in Resources */,
 				6FABDDB8227B2D4A0034224E /* rank-logo.png in Resources */,
 				6FABDDCD227B2D680034224E /* add-btn.png in Resources */,
+				6F51412B2290455E0054C510 /* accept-btn-click.png in Resources */,
 				6F9C9A38224E9052007834B7 /* Storyboard.storyboard in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				6FABDDDE227B2D680034224E /* back-icon.png in Resources */,
@@ -891,6 +904,7 @@
 				6F92196A2251F467006AD610 /* StartScene.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				6FABDDA32279E7380034224E /* AssisstanceFunc.cpp in Sources */,
+				6F514128229009D50054C510 /* FriendScene.cpp in Sources */,
 				6F514120228FC3360054C510 /* RankScene.cpp in Sources */,
 				4A05661E1DB70C58009CE39C /* FirebaseAuthScene.cpp in Sources */,
 				6F8657E6226D9C6E009BA43D /* LobbyScene.cpp in Sources */,
@@ -965,10 +979,13 @@
 					"\"Bolts.framework\"",
 				);
 				OTHER_CFLAGS = "-DSDKBOX_ENABLED";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-I/usr/local/Cellar/nlohmann_json/3.6.1/include",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"$(_COCOS_LIB_IOS_BEGIN)",
-					"$(_COCOS_LIB_IOS_END)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "OOP-Project.team";
 				PRODUCT_MODULE_NAME = "OOP-Project.team";
@@ -1019,10 +1036,13 @@
 					"\"Bolts.framework\"",
 				);
 				OTHER_CFLAGS = "-DSDKBOX_ENABLED";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-I/usr/local/Cellar/nlohmann_json/3.6.1/include",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"$(_COCOS_LIB_IOS_BEGIN)",
-					"$(_COCOS_LIB_IOS_END)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "OOP-Project.team";
 				PRODUCT_MODULE_NAME = "OOP-Project.team";

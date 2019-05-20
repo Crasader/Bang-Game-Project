@@ -76,8 +76,8 @@ bool StartScene::init()
     // create menu, it's an autorelease object
     auto menu = Menu::create(closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
-    menu->addChild(LoginButton, 2);
-    this->addChild(menu, 1);
+    menu->addChild(LoginButton);
+    this->addChild(menu);
     
     
     /////////////////////////////
