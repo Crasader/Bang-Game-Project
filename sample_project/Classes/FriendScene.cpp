@@ -97,14 +97,19 @@ bool FriendScene::init()
     
     //==============================================================================================================
     
+    //Friend list table
     auto friend_table = FriendTable::create();
     friend_table->setContentSize(Size(1337/4, 750));
     friend_table->ignoreAnchorPointForPosition(false);
     friend_table->setAnchorPoint(Vec2(0.5, 1));
     friend_table->setPosition(Vec2(origin.x + visibleSize.width*3/4, origin.y + visibleSize.height));
-    this->addChild(friend_table);
+    this->addChild(friend_table, 1);
     
-    
+    //Friend list background
+    auto friend_bg = Sprite::create("friend-bg.png");
+    friend_bg->setContentSize(Size(visibleSize.width/4 + 100, 600));
+    friend_bg->setPosition(Vec2(origin.x + visibleSize.width*3/4, origin.y + visibleSize.height/2));
+    this->addChild(friend_bg);
     
     
     
@@ -174,6 +179,7 @@ cocos2d::ui::EditBox* FriendScene::createEditBox(const std::string &PlaceHolder,
     return editBox;
 }
 
+
 //Search friend label function =============================================
 const std::string FriendScene::ErrMsg = "Error: User is not found!";
 const std::string FriendScene::SucMsg = "Friend invention sent!";
@@ -222,7 +228,7 @@ CCSize FriendTable::cellSizeForTable(TableView *table){
 
 //number of friend
 ssize_t FriendTable::numberOfCellsInTableView(TableView *table){
-    return 10;
+    return Fdatabase.get_size();
 }
 
 TableViewCell* FriendTable::tableCellAtIndex(TableView *table, ssize_t idx){
@@ -233,22 +239,38 @@ TableViewCell* FriendTable::tableCellAtIndex(TableView *table, ssize_t idx){
     }
     cell->removeAllChildrenWithCleanup(true);
     
-    //background
-    /*
-    CCSprite* bgSprite = CCSprite::create("bang-logo.png");
-    bgSprite->setAnchorPoint(CCPointZero); // 设置锚点
-    bgSprite->setPosition(CCPointZero);  // 设置位置
-    bgSprite->setTag(12);
-    cell->addChild(bgSprite);   // 加入cell
-     */
     
    
-        
-    auto label = Label::createWithTTF("Friend", "fonts/arial.ttf", 50);
-    label->setPosition(Vec2(0, 0));
+    //friend name label
+    const std::string Name = Fdatabase.get_FriendInfo(idx)->getName();
+    auto label = Label::createWithTTF(Name, "fonts/arial.ttf", 40);
+    label->setPosition(Vec2(25, 0));
     label->setAnchorPoint(Vec2(0, 0));
     label->setColor(Color3B::BLACK);
     cell->addChild(label);
+    
+    //friend online status
+    const bool status = Fdatabase.get_FriendInfo(idx)->isOnline();
+
+    Sprite* onlineLight;
+    
+    switch (status) {
+        case true:{
+            onlineLight = Sprite::create("green-dot.png");
+            break;
+        }
+        case false:{
+            onlineLight = Sprite::create("gray-dot.png");
+            break;
+        }
+        default:
+            break;
+    }
+    onlineLight->setContentSize(Size(50, 50));
+    onlineLight->setPosition(Vec2(label->getPosition().x+ 250, label->getPosition().y + 20));
+    cell->addChild(onlineLight);
+    
+    
     return cell;
     
 }
@@ -260,24 +282,29 @@ bool FriendTable::init(){
     if(!CCLayer::init()){
         return false;
     }
+    /*
     auto backGroundColor = CCLayerColor::create(ccc4(255,255,255, 255)); //RGBA
     this->addChild(backGroundColor, 0);
+    */
+    
     
     auto visibleSize =  this->getContentSize();
     
     
-    TableView * tableview = TableView::create(this, CCSizeMake(300, 450)); //table size
+    //friend list
+    TableView * tableview = TableView::create(this, CCSizeMake(300, 480)); //table size
     tableview->setDirection(ScrollView::Direction::VERTICAL); // 只能垂直滑動
     tableview->setDelegate(this);
     tableview->ignoreAnchorPointForPosition(false);
     tableview->setAnchorPoint(Vec2(0, 1));
-    tableview->setPosition(Vec2(100, visibleSize.height-250));
+    tableview->setPosition(Vec2(0, visibleSize.height-170));
     this->addChild(tableview);
     tableview->reloadData();
     
-    auto TopLabel = Label::createWithTTF("Friend list", "fonts/arial.ttf" , 60);
+    //friend list label
+    auto TopLabel = Label::createWithTTF("Friend list", "fonts/arial.ttf" , 50);
     TopLabel->setColor(Color3B::BLACK);
-    TopLabel->setPosition(Vec2(150, visibleSize.height-200));
+    TopLabel->setPosition(Vec2(150, visibleSize.height-130));
     this->addChild(TopLabel);
     return true;
     

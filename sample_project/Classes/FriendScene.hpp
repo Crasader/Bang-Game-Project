@@ -11,6 +11,11 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "cocos-ext.h"
+#include "nlohmann/json.hpp"
+
+#include <string>
+#include <vector>
+
 //#include <nlohmann/json.hpp>
 
 enum class Search_Msg{
@@ -41,6 +46,74 @@ private:
     static const std::string SucMsg;//search friend success msg
 };
 
+class FriendInfo{
+public:
+    FriendInfo(){
+        online_ = false;
+        name_ = "no name";
+        UID_ = 0;
+    }
+    FriendInfo(const std::string &name, bool online){
+        online_ = online;
+        name_ = name;
+    }
+    FriendInfo(const std::string &name, bool online, unsigned int id){
+        online_ = online;
+        name_ = name;
+        UID_ = id;
+    }
+    
+    const bool isOnline() const {
+        return online_;
+    }
+    const std::string getName() const{
+        return name_;
+    }
+    const unsigned int getUID(){
+        return UID_;
+    }
+    
+    void setName(const std::string &name){
+        name_ = name;
+    }
+    void setOnline(bool online){
+        online_ = online;
+    }
+    
+private:
+    bool online_;
+    std::string name_;
+    unsigned int UID_;
+    
+};
+
+class FriendDatabase{//Save all Friend info
+public:
+    FriendDatabase(){
+        size_ = 1;//test
+        data.push_back(new FriendInfo("testName", true)); //test
+    }
+    
+    void set_size(int s);
+    int get_size(){
+        return size_;
+    }
+    
+    void add_friend(FriendInfo *f){
+        data.push_back(f);
+        ++size_;
+    }
+    
+    const FriendInfo* get_FriendInfo(int idx) const{
+        return data[idx];
+    }
+    
+private:
+    int size_;
+    std::vector<FriendInfo*> data;
+    
+};
+
 
 class FriendTable : public cocos2d::CCLayer, public cocos2d::extension::TableViewDelegate, public cocos2d::extension::TableViewDataSource{
 public:
@@ -65,6 +138,12 @@ public:
     
     CREATE_FUNC(FriendTable);
     
+    FriendDatabase Fdatabase;
+    
 };
+
+
+
+
 
 #endif /* FriendScene_hpp */

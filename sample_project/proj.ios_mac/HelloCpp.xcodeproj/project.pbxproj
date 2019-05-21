@@ -79,6 +79,7 @@
 		6F514128229009D50054C510 /* FriendScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F514126229009D50054C510 /* FriendScene.cpp */; };
 		6F51412B2290455E0054C510 /* accept-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F51412A2290455E0054C510 /* accept-btn-click.png */; };
 		6F51412D2290481B0054C510 /* add-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F51412C2290481B0054C510 /* add-btn-click.png */; };
+		6F73C71D22944BD800AFF6E7 /* friend-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F73C71C22944BD800AFF6E7 /* friend-bg.png */; };
 		6F81F855224DFBF1004ED01A /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81F853224DFBF1004ED01A /* GameKit.framework */; };
 		6F8657E6226D9C6E009BA43D /* LobbyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F8657E4226D9C6E009BA43D /* LobbyScene.cpp */; };
 		6F9155D6225081F400634354 /* FBSDKMarketingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9155CF225081F300634354 /* FBSDKMarketingKit.framework */; };
@@ -265,6 +266,7 @@
 		6F514127229009D50054C510 /* FriendScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FriendScene.hpp; sourceTree = "<group>"; };
 		6F51412A2290455E0054C510 /* accept-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "accept-btn-click.png"; sourceTree = "<group>"; };
 		6F51412C2290481B0054C510 /* add-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-btn-click.png"; sourceTree = "<group>"; };
+		6F73C71C22944BD800AFF6E7 /* friend-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "friend-bg.png"; sourceTree = "<group>"; };
 		6F81F853224DFBF1004ED01A /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
 		6F8657E4226D9C6E009BA43D /* LobbyScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LobbyScene.cpp; sourceTree = "<group>"; };
 		6F8657E5226D9C6E009BA43D /* LobbyScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LobbyScene.hpp; sourceTree = "<group>"; };
@@ -537,6 +539,7 @@
 				6FABDDBE227B2D5C0034224E /* fb-login.png */,
 				6F514119228FC1460054C510 /* fb-login-click.png */,
 				6FABDDCC227B2D680034224E /* friend-logo.png */,
+				6F73C71C22944BD800AFF6E7 /* friend-bg.png */,
 				6FABDDBF227B2D5D0034224E /* gray-dot.png */,
 				6FABDDC6227B2D630034224E /* green-dot.png */,
 				6FABDDC2227B2D5F0034224E /* lobby-btn-fullwidth.png */,
@@ -829,6 +832,7 @@
 				6FA0ED95226B215E0090FD52 /* ButtonS1.png in Resources */,
 				6FABDDD3227B2D680034224E /* login-btn.png in Resources */,
 				6FE53BF2227756D600B838F4 /* FriendBackground.png in Resources */,
+				6F73C71D22944BD800AFF6E7 /* friend-bg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
