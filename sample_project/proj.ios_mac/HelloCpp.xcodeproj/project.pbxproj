@@ -70,8 +70,11 @@
 		6F351163224FA99700D206EC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115F224FA99700D206EC /* Security.framework */; };
 		6F351164224FA99700D206EC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F351160224FA99700D206EC /* SystemConfiguration.framework */; };
 		6F43B6552271AA6300CA5A6C /* SettingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F43B6532271AA6300CA5A6C /* SettingScene.cpp */; };
+		6F4637CF22982D17003F12FB /* User.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F4637CD22982D17003F12FB /* User.cpp */; };
+		6F4637D3229837A3003F12FB /* NetworkCom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F4637D1229837A3003F12FB /* NetworkCom.cpp */; };
 		6F4B31012296E12D007A9B20 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F4B30FF2296E12D007A9B20 /* player.cpp */; };
 		6F4B31052296E766007A9B20 /* Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F4B31032296E766007A9B20 /* Card.cpp */; };
+		6F4B310C2297E7F8007A9B20 /* Socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F4B310A2297E7F8007A9B20 /* Socket.cpp */; };
 		6F4DCE432269A20400FC7278 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F4DCE412269A20400FC7278 /* GoogleService-Info.plist */; };
 		6F51411B228FC1460054C510 /* fb-login-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F514119228FC1460054C510 /* fb-login-click.png */; };
 		6F51411D228FC2030054C510 /* login-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F51411C228FC2030054C510 /* login-btn-click.png */; };
@@ -257,10 +260,16 @@
 		6F35116B224FB2A500D206EC /* HelloCpp-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HelloCpp-mobile.entitlements"; sourceTree = "<group>"; };
 		6F43B6532271AA6300CA5A6C /* SettingScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SettingScene.cpp; sourceTree = "<group>"; };
 		6F43B6542271AA6300CA5A6C /* SettingScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SettingScene.hpp; sourceTree = "<group>"; };
+		6F4637CD22982D17003F12FB /* User.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = User.cpp; sourceTree = "<group>"; };
+		6F4637CE22982D17003F12FB /* User.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = User.hpp; sourceTree = "<group>"; };
+		6F4637D1229837A3003F12FB /* NetworkCom.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkCom.cpp; sourceTree = "<group>"; };
+		6F4637D2229837A3003F12FB /* NetworkCom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NetworkCom.hpp; sourceTree = "<group>"; };
 		6F4B30FF2296E12D007A9B20 /* player.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = player.cpp; sourceTree = "<group>"; };
 		6F4B31002296E12D007A9B20 /* player.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = player.hpp; sourceTree = "<group>"; };
 		6F4B31032296E766007A9B20 /* Card.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Card.cpp; sourceTree = "<group>"; };
 		6F4B31042296E766007A9B20 /* Card.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Card.hpp; sourceTree = "<group>"; };
+		6F4B310A2297E7F8007A9B20 /* Socket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Socket.cpp; sourceTree = "<group>"; };
+		6F4B310B2297E7F8007A9B20 /* Socket.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Socket.hpp; sourceTree = "<group>"; };
 		6F4DCE412269A20400FC7278 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ios/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6F514119228FC1460054C510 /* fb-login-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fb-login-click.png"; sourceTree = "<group>"; };
 		6F51411C228FC2030054C510 /* login-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-btn-click.png"; sourceTree = "<group>"; };
@@ -598,6 +607,12 @@
 				6F4B31002296E12D007A9B20 /* player.hpp */,
 				6F4B31032296E766007A9B20 /* Card.cpp */,
 				6F4B31042296E766007A9B20 /* Card.hpp */,
+				6F4B310A2297E7F8007A9B20 /* Socket.cpp */,
+				6F4B310B2297E7F8007A9B20 /* Socket.hpp */,
+				6F4637CD22982D17003F12FB /* User.cpp */,
+				6F4637CE22982D17003F12FB /* User.hpp */,
+				6F4637D1229837A3003F12FB /* NetworkCom.cpp */,
+				6F4637D2229837A3003F12FB /* NetworkCom.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -913,12 +928,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F43B6552271AA6300CA5A6C /* SettingScene.cpp in Sources */,
+				6F4637D3229837A3003F12FB /* NetworkCom.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				6F92196A2251F467006AD610 /* StartScene.cpp in Sources */,
+				6F4B310C2297E7F8007A9B20 /* Socket.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				6FABDDA32279E7380034224E /* AssisstanceFunc.cpp in Sources */,
 				6F514128229009D50054C510 /* FriendScene.cpp in Sources */,
+				6F4637CF22982D17003F12FB /* User.cpp in Sources */,
 				6F514120228FC3360054C510 /* RankScene.cpp in Sources */,
 				6F4B31012296E12D007A9B20 /* player.cpp in Sources */,
 				4A05661E1DB70C58009CE39C /* FirebaseAuthScene.cpp in Sources */,
@@ -999,10 +1017,7 @@
 					"$(OTHER_CFLAGS)",
 					"-I/usr/local/Cellar/nlohmann_json/3.6.1/include",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"$(_COCOS_LIB_IOS_BEGIN)",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "OOP-Project.team";
 				PRODUCT_MODULE_NAME = "OOP-Project.team";
 				PRODUCT_NAME = Bang;
@@ -1056,10 +1071,7 @@
 					"$(OTHER_CFLAGS)",
 					"-I/usr/local/Cellar/nlohmann_json/3.6.1/include",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"$(_COCOS_LIB_IOS_BEGIN)",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "OOP-Project.team";
 				PRODUCT_MODULE_NAME = "OOP-Project.team";
 				PRODUCT_NAME = Bang;

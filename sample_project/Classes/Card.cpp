@@ -11,7 +11,7 @@ int Card::get_id(){
     return card_id_;
 }
 
-std::string Card::get_cardName(){
+const std::string& Card::get_cardName() const{
     return cardName_;
 }
 Suits Card::get_suit(){
@@ -19,6 +19,9 @@ Suits Card::get_suit(){
 }
 int Card::get_number(){
     return number_;
+}
+const std::string& Card::get_Description() const{
+    return cardDescription_;
 }
 
 void Card::set_id(int id){
@@ -32,4 +35,7 @@ void Card::set_suit(Suits suit){
 }
 void Card::set_number(int number){
     number_ = number;
+}
+void Card::set_Description(std::string description){
+    cardDescription_.assign(description);
 }

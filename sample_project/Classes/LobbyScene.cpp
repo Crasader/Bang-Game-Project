@@ -12,6 +12,12 @@
 #include "AssisstanceFunc.hpp"
 #include <sstream>
 
+#include <thread>
+#include <nlohmann/json.hpp>
+
+#include "User.hpp"
+#include "NetworkCom.hpp"
+
 USING_NS_CC;
 
 // The images for the buttons.
@@ -86,14 +92,32 @@ bool LobbyScene::init()
     this->addChild(SettingButton);
     //==============================================================================================================
     
+    //======================================
+    //get User information
+    
+    std::thread mythread([](){
+        auto client = Client::getInstance();
+        
+        /*
+        if(re["Nick Name"] == ""){
+            Client::getInstance()->userChangenickname("test Name");
+        }
+        auto user = User::getInstance();
+        user->setNickName(re["Nick Name"]);
+        user->setWin(re["User Win"]);
+        user->setLoss(re["User Loss"]);
+        user->setMoney(re["User Money"]);
+        */
+        
+    });
+    
+    mythread.join();
+    
+    
+    //======================================
+    
     //Username Label
-    std::string Username = "";
-    if(CCUserDefault::sharedUserDefault()->getBoolForKey("HaveUsername")){
-        Username = CCUserDefault::sharedUserDefault()->getStringForKey("Username");
-    }
-    else{
-        Username = "NULL";
-    }
+    const std::string Username = User::getInstance()->getNickName();
     
     auto UsernameLabel = Label::createWithTTF(Username, "fonts/arial.ttf", 40);
     UsernameLabel->setAnchorPoint(Vec2(0,1)); //以左上角為緢點
@@ -102,18 +126,9 @@ bool LobbyScene::init()
     
     this->addChild(UsernameLabel);
     
-    //firebaseUID Label
-    
-    std::string UID = CCUserDefault::sharedUserDefault()->getStringForKey("firebaseUID");
-    auto UIDLabel = Label::createWithTTF(UID, "fonts/arial.ttf", 30);
-    UIDLabel->setAnchorPoint(Vec2(0,1)); //以左上角為緢點
-    UIDLabel->setColor(Color3B::BLACK);
-    UIDLabel->setPosition(Vec2(origin.x + 20, origin.y + visibleSize.height - 65));
-    
-    this->addChild(UIDLabel);
-    
+
     //Hash uid Label
-    unsigned int IntUID = UidHash::BKDRHash(UID);
+    unsigned int IntUID = User::getInstance()->getUID();
     std::stringstream sUID;
     sUID << IntUID; // int to string
     auto IntUIDLabel = Label::createWithTTF(sUID.str(), "fonts/arial.ttf", 30);
@@ -124,11 +139,11 @@ bool LobbyScene::init()
     CCUserDefault::sharedUserDefault()->setStringForKey("UID", sUID.str());
     
     this->addChild(IntUIDLabel);
-    
+
     //User W/L information
-    int win = 0, lose= 0;
-    win = CCUserDefault::sharedUserDefault()->getIntegerForKey("win");
-    lose = CCUserDefault::sharedUserDefault()->getIntegerForKey("lose");
+    int win = User::getInstance()->getWin(), lose = User::getInstance()->getLoss();
+    //win = CCUserDefault::sharedUserDefault()->getIntegerForKey("win");
+    //lose = CCUserDefault::sharedUserDefault()->getIntegerForKey("lose");
     
     auto MyScore = Label::createWithTTF("My Score:", "fonts/arial_Bold.ttf", 100);
     MyScore->setPosition(Vec2(origin.x + visibleSize.width/4, origin.y+visibleSize.height*2/3));

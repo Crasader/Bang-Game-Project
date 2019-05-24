@@ -1,0 +1,58 @@
+//
+//  User.cpp
+//  HelloCpp-mobile
+//
+//  Created by Guan Ying Chen on 2019/5/24.
+//
+
+#include "User.hpp"
+
+
+User * User::myself = nullptr;
+
+unsigned int User::getUID(){
+    return UID_;
+}
+const std::string & User::getNickName() const{
+    return NickName_;
+}
+int User::getWin(){
+    return Win_;
+}
+int User::getLoss(){
+    return Loss_;
+}
+int User::getMoney(){
+    return money_;
+}
+
+const std::string & User::getFirebaseUID() const{
+    return firebaseUID_;
+}
+void User::setUID(unsigned int uid){
+    UID_ = uid;
+}
+void User::setNickName(std::string NickName){
+    NickName_.assign(NickName);
+}
+void User::setWin(int Win){
+    Win_ = Win;
+}
+void User::setLoss(int Loss){
+    Loss_ = Loss;
+}
+
+void User::setFirebaseUID(std::string & FUID){
+    firebaseUID_ = FUID;
+}
+User * User::getInstance()
+{
+    if(User::myself == nullptr)
+    {
+        User::myself = new User(0, 0, 0);
+    }
+    return User::myself;
+}
+void User::setMoney(int money){
+    money_ = money;
+}

@@ -6,6 +6,7 @@
 //
 
 #include "player.hpp"
+#include "User.hpp"
 
 int Player::get_Max_hp(){
     return Max_hp_;
@@ -13,7 +14,7 @@ int Player::get_Max_hp(){
 int Player::get_hp(){
     return hp_;
 }
-const std::string Player::get_charName(){
+const std::string& Player::get_charName() const{
     return charName_;
 }
 
@@ -32,6 +33,10 @@ int Player::get_position(){
     return position_;
 }
 
+bool Player::isJail(){
+    return isJail_;
+}
+
 void Player::set_Max_hp(int max_hp){
     Max_hp_ = max_hp;
 }
@@ -41,7 +46,7 @@ void Player::set_hp(int hp){
 }
 
 void Player::set_charName(std::string &Name){
-    charName_ = Name;
+    charName_.assign(Name);
 }
 
 void Player::set_holding_card_amount(int amount){
@@ -64,4 +69,8 @@ void Player::add_card(int card){
 
 void Player::set_position(int pos){
     position_ = pos;
+}
+
+void Player::set_Jail(bool isJail){
+    isJail_ = isJail;
 }
