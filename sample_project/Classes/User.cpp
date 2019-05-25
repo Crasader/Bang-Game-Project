@@ -19,8 +19,8 @@ const std::string & User::getNickName() const{
 int User::getWin(){
     return Win_;
 }
-int User::getLoss(){
-    return Loss_;
+int User::getLose(){
+    return Lose_;
 }
 int User::getMoney(){
     return money_;
@@ -38,8 +38,8 @@ void User::setNickName(std::string NickName){
 void User::setWin(int Win){
     Win_ = Win;
 }
-void User::setLoss(int Loss){
-    Loss_ = Loss;
+void User::setLose(int Lose){
+    Lose_ = Lose;
 }
 
 void User::setFirebaseUID(std::string & FUID){

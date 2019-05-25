@@ -8,6 +8,8 @@
 #include "FriendScene.hpp"
 #include "LobbyScene.hpp"
 
+#include <sstream>
+
 USING_NS_CC;
 
 
@@ -82,7 +84,8 @@ bool FriendScene::init()
     
     
     //Username input field
-    auto UsernameEditbox = FriendScene::createEditBox("Username", UsernameInputImage);
+    UsernameEditbox = FriendScene::createEditBox("User ID", UsernameInputImage);
+    UsernameEditbox->setMaxLength(10);
     UsernameEditbox->setPosition(Vec2(FriendLogo->getPosition().x + 120, FriendLogo->getPosition().y - FriendLogo->getContentSize().height - 50 ));
     UsernameEditbox->setTag(0);
     this->addChild(UsernameEditbox);
@@ -132,23 +135,28 @@ void FriendScene::BackToLoooby(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventTyp
     }
 }
 
+//When user push the ADD button
 void FriendScene::SearchCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){// Search user call back.
     switch (type) {
         case ui::Widget::TouchEventType::ENDED:{
             //if(user is not found)
-            auto msgLabel = SearchMsgLabel(Search_Msg::Err);
+            unsigned int UID;
+            std::string strID = UsernameEditbox->getText();
+            stringstream ss(strID);
+            ss >> UID;
+            auto client = Client::getInstance();
+            json rec = client->addFriend(UID);
+            
+            
+            auto msgLabel = SearchMsgLabel(Search_Msg::Success);
+            if(rec["Action"] != 18){
+                msgLabel = SearchMsgLabel(Search_Msg::Err);
+            }
+            
             auto tmp = this->getChildByTag(0); //get Username input editbox object.
             msgLabel->setPosition(Vec2(tmp->getPosition().x , tmp->getPosition().y - tmp->getContentSize().height/2));
             this->addChild(msgLabel);
-            /*
-            else
-             {
-             auto msgLabel = SearchMsgLabel(Search_Msg::Success);
-             auto tmp = this->getChildByTag(0); //get Username input editbox object.
-             msgLabel->setPosition(Vec2(tmp->getPosition().x , tmp->getPosition().y - tmp->getContentSize().height/2));
-             this->addChild(msgLabel);
-             }
-             */
+            
             
             break;
         }

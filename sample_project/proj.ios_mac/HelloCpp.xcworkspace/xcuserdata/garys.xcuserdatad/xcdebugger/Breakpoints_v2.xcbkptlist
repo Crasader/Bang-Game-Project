@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/FriendScene.cpp"
-            timestampString = "580147431.153499"
+            timestampString = "580450939.362439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/LobbyScene.hpp"
-            timestampString = "580408604.8763781"
+            timestampString = "580450939.363008"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>

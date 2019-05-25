@@ -74,7 +74,6 @@
 		6F4637D3229837A3003F12FB /* NetworkCom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F4637D1229837A3003F12FB /* NetworkCom.cpp */; };
 		6F4B31012296E12D007A9B20 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F4B30FF2296E12D007A9B20 /* player.cpp */; };
 		6F4B31052296E766007A9B20 /* Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F4B31032296E766007A9B20 /* Card.cpp */; };
-		6F4B310C2297E7F8007A9B20 /* Socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F4B310A2297E7F8007A9B20 /* Socket.cpp */; };
 		6F4DCE432269A20400FC7278 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F4DCE412269A20400FC7278 /* GoogleService-Info.plist */; };
 		6F51411B228FC1460054C510 /* fb-login-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F514119228FC1460054C510 /* fb-login-click.png */; };
 		6F51411D228FC2030054C510 /* login-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F51411C228FC2030054C510 /* login-btn-click.png */; };
@@ -85,6 +84,7 @@
 		6F51412B2290455E0054C510 /* accept-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F51412A2290455E0054C510 /* accept-btn-click.png */; };
 		6F51412D2290481B0054C510 /* add-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F51412C2290481B0054C510 /* add-btn-click.png */; };
 		6F73C71D22944BD800AFF6E7 /* friend-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F73C71C22944BD800AFF6E7 /* friend-bg.png */; };
+		6F7B362E2298E19100090632 /* ClientSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B362C2298E19100090632 /* ClientSocket.cpp */; };
 		6F81F855224DFBF1004ED01A /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81F853224DFBF1004ED01A /* GameKit.framework */; };
 		6F8657E6226D9C6E009BA43D /* LobbyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F8657E4226D9C6E009BA43D /* LobbyScene.cpp */; };
 		6F9155D6225081F400634354 /* FBSDKMarketingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9155CF225081F300634354 /* FBSDKMarketingKit.framework */; };
@@ -268,8 +268,6 @@
 		6F4B31002296E12D007A9B20 /* player.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = player.hpp; sourceTree = "<group>"; };
 		6F4B31032296E766007A9B20 /* Card.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Card.cpp; sourceTree = "<group>"; };
 		6F4B31042296E766007A9B20 /* Card.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Card.hpp; sourceTree = "<group>"; };
-		6F4B310A2297E7F8007A9B20 /* Socket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Socket.cpp; sourceTree = "<group>"; };
-		6F4B310B2297E7F8007A9B20 /* Socket.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Socket.hpp; sourceTree = "<group>"; };
 		6F4DCE412269A20400FC7278 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ios/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6F514119228FC1460054C510 /* fb-login-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fb-login-click.png"; sourceTree = "<group>"; };
 		6F51411C228FC2030054C510 /* login-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-btn-click.png"; sourceTree = "<group>"; };
@@ -282,6 +280,8 @@
 		6F51412A2290455E0054C510 /* accept-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "accept-btn-click.png"; sourceTree = "<group>"; };
 		6F51412C2290481B0054C510 /* add-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-btn-click.png"; sourceTree = "<group>"; };
 		6F73C71C22944BD800AFF6E7 /* friend-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "friend-bg.png"; sourceTree = "<group>"; };
+		6F7B362C2298E19100090632 /* ClientSocket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ClientSocket.cpp; sourceTree = "<group>"; };
+		6F7B362D2298E19100090632 /* ClientSocket.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ClientSocket.hpp; sourceTree = "<group>"; };
 		6F81F853224DFBF1004ED01A /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
 		6F8657E4226D9C6E009BA43D /* LobbyScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LobbyScene.cpp; sourceTree = "<group>"; };
 		6F8657E5226D9C6E009BA43D /* LobbyScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LobbyScene.hpp; sourceTree = "<group>"; };
@@ -607,12 +607,12 @@
 				6F4B31002296E12D007A9B20 /* player.hpp */,
 				6F4B31032296E766007A9B20 /* Card.cpp */,
 				6F4B31042296E766007A9B20 /* Card.hpp */,
-				6F4B310A2297E7F8007A9B20 /* Socket.cpp */,
-				6F4B310B2297E7F8007A9B20 /* Socket.hpp */,
 				6F4637CD22982D17003F12FB /* User.cpp */,
 				6F4637CE22982D17003F12FB /* User.hpp */,
 				6F4637D1229837A3003F12FB /* NetworkCom.cpp */,
 				6F4637D2229837A3003F12FB /* NetworkCom.hpp */,
+				6F7B362C2298E19100090632 /* ClientSocket.cpp */,
+				6F7B362D2298E19100090632 /* ClientSocket.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -932,12 +932,12 @@
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				6F92196A2251F467006AD610 /* StartScene.cpp in Sources */,
-				6F4B310C2297E7F8007A9B20 /* Socket.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				6FABDDA32279E7380034224E /* AssisstanceFunc.cpp in Sources */,
 				6F514128229009D50054C510 /* FriendScene.cpp in Sources */,
 				6F4637CF22982D17003F12FB /* User.cpp in Sources */,
 				6F514120228FC3360054C510 /* RankScene.cpp in Sources */,
+				6F7B362E2298E19100090632 /* ClientSocket.cpp in Sources */,
 				6F4B31012296E12D007A9B20 /* player.cpp in Sources */,
 				4A05661E1DB70C58009CE39C /* FirebaseAuthScene.cpp in Sources */,
 				6F8657E6226D9C6E009BA43D /* LobbyScene.cpp in Sources */,

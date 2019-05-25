@@ -16,20 +16,20 @@ public:
         UID_ = uid;
         NickName_.assign(NickName);
         Win_ = win;
-        Loss_ = loss;
+        Lose_ = loss;
     }
     
     unsigned int getUID();
     const std::string & getNickName() const;
     int getWin();
-    int getLoss();
+    int getLose();
     const std::string & getFirebaseUID() const;
     int getMoney();
     
     void setUID(unsigned int uid);
     void setNickName(std::string NickName);
     void setWin(int Win);
-    void setLoss(int Loss);
+    void setLose(int Lose);
     void setFirebaseUID(std::string & FUID);
     void setMoney(int money);
 
@@ -40,7 +40,7 @@ private:
     unsigned int UID_;
     std::string firebaseUID_;
     std::string NickName_;
-    int Win_, Loss_;
+    int Win_, Lose_;
     int money_;
 };
 

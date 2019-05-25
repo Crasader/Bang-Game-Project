@@ -10,7 +10,7 @@
 
 
 #include <nlohmann/json.hpp>
-#include "Socket.cpp"
+#include "ClientSocket.hpp"
 #include <string>
 #include <sstream>
 
@@ -22,7 +22,7 @@ class Client
 public:
     Client();
     ~Client();
-    json userRegisterLogin(int, string);
+    json userRegisterLogin(unsigned int);
     json userChangenickname(string);
     json getLoungeinfo();
     json userJoin(bool, int, int);
@@ -42,16 +42,17 @@ public:
     json userExit();
     json getFriendlist();
     json addFriend(int);
+    json showDetermineCard(int);
     
     static Client* getInstance();
     
 private:
     static Client* myself;
-    Socket socket;
+    CClientSocket* socket = nullptr;
     char buf[8192] = {};
     stringstream ss;
     string str;
-    string str_var[30] = {"Action", "User ID", "User Name", "Nick Name", "PassWord", "UserMoney", "UserWin", "UserLose", "LoungeAmount", "Ready", "MaxHp", "Hp", "CharacterName", "CardID", "Target", "User_position", "Revolt", "CardAmount", "Lounge", "JoinMethod", "LoungeID", "Shower", "Showee", "ChooseorDiscard", "Chooser", "Choosee", "CardName", "WinorLose", "FriendID", "Friend"};
+    const string str_var[4] = {"Action", "User ID", "User Name"};
 };
 
 

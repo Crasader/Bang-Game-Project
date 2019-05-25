@@ -12,6 +12,9 @@
 #include "ui/CocosGUI.h"
 #include <nlohmann/json.hpp>
 
+#include "User.hpp"
+#include "NetworkCom.hpp"
+
 class LobbyScene : public cocos2d::Scene{
 public:
     static cocos2d::Scene *createScene();
@@ -19,6 +22,28 @@ public:
     bool init() override;
     
     CREATE_FUNC(LobbyScene);
+    
+    void getInfoFromServer(){
+        
+        auto client = Client::getInstance();
+        auto user = User::getInstance();
+        
+        json rec = client->userRegisterLogin(user->getUID());
+        
+        CCLOG(rec.dump().c_str());
+        
+        if(rec["Nick Name"] == ""){
+            client->userChangenickname("Test Name");
+            rec = client->userRegisterLogin(user->getUID());
+        }
+        
+        user->setMoney(rec["User Money"]);
+        user->setNickName(rec["Nick Name"]);
+        user->setWin(rec["User Win"]);
+        user->setLose(rec["User Lose"]);
+        
+        
+    }
 
     
     

@@ -93,26 +93,10 @@ bool LobbyScene::init()
     //==============================================================================================================
     
     //======================================
-    //get User information
+    //get User information from server
     
-    std::thread mythread([](){
-        auto client = Client::getInstance();
-        
-        /*
-        if(re["Nick Name"] == ""){
-            Client::getInstance()->userChangenickname("test Name");
-        }
-        auto user = User::getInstance();
-        user->setNickName(re["Nick Name"]);
-        user->setWin(re["User Win"]);
-        user->setLoss(re["User Loss"]);
-        user->setMoney(re["User Money"]);
-        */
-        
-    });
-    
+    std::thread mythread(&LobbyScene::getInfoFromServer, this);
     mythread.join();
-    
     
     //======================================
     
@@ -134,14 +118,14 @@ bool LobbyScene::init()
     auto IntUIDLabel = Label::createWithTTF(sUID.str(), "fonts/arial.ttf", 30);
     IntUIDLabel->setAnchorPoint(Vec2(0,1)); //以左上角為緢點
     IntUIDLabel->setColor(Color3B::BLACK);
-    IntUIDLabel->setPosition(Vec2(origin.x + 20, origin.y + visibleSize.height - 105));
+    IntUIDLabel->setPosition(Vec2(origin.x + 20, UsernameLabel->getPosition().y - 50));
     
     CCUserDefault::sharedUserDefault()->setStringForKey("UID", sUID.str());
     
     this->addChild(IntUIDLabel);
 
     //User W/L information
-    int win = User::getInstance()->getWin(), lose = User::getInstance()->getLoss();
+    int win = User::getInstance()->getWin(), lose = User::getInstance()->getLose();
     //win = CCUserDefault::sharedUserDefault()->getIntegerForKey("win");
     //lose = CCUserDefault::sharedUserDefault()->getIntegerForKey("lose");
     

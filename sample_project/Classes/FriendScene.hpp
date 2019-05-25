@@ -41,6 +41,8 @@ private:
     cocos2d::Label *SearchMsgLabel(Search_Msg msg);
     cocos2d::Label *ErrMsgLabel();
     cocos2d::Label *SucMsgLabel();
+    cocos2d::extension::EditBox* UsernameEditbox;
+    
     //--------------------------------------------
     static const std::string ErrMsg;//search friend error msg
     static const std::string SucMsg;//search friend success msg
