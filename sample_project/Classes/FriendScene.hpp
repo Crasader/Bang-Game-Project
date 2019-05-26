@@ -71,7 +71,7 @@ public:
     const std::string getName() const{
         return name_;
     }
-    const unsigned int getUID(){
+    const unsigned int getUID() const{
         return UID_;
     }
     

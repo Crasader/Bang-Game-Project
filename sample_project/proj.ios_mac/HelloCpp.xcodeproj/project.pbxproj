@@ -13,8 +13,6 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		294D0D641D0D56D500F7F5D4 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 294D0D631D0D56D500F7F5D4 /* CoreText.framework */; };
-		3EACC98F19EE6D4300EB3C5E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EACC98E19EE6D4300EB3C5E /* res */; };
-		3EACC99019EE6D4300EB3C5E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EACC98E19EE6D4300EB3C5E /* res */; };
 		46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7619C43A67006E1F66 /* CloseNormal.png */; };
 		46880B7C19C43A67006E1F66 /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7619C43A67006E1F66 /* CloseNormal.png */; };
 		46880B7D19C43A67006E1F66 /* CloseSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7719C43A67006E1F66 /* CloseSelected.png */; };
@@ -85,6 +83,9 @@
 		6F51412D2290481B0054C510 /* add-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F51412C2290481B0054C510 /* add-btn-click.png */; };
 		6F73C71D22944BD800AFF6E7 /* friend-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F73C71C22944BD800AFF6E7 /* friend-bg.png */; };
 		6F7B362E2298E19100090632 /* ClientSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B362C2298E19100090632 /* ClientSocket.cpp */; };
+		6F7B3634229A4E2300090632 /* notification-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7B3631229A4E2100090632 /* notification-btn.png */; };
+		6F7B3635229A4E2300090632 /* notification-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7B3633229A4E2300090632 /* notification-btn-click.png */; };
+		6F7B3637229A55D100090632 /* lobby-room-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7B3636229A55D100090632 /* lobby-room-btn.png */; };
 		6F81F855224DFBF1004ED01A /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F81F853224DFBF1004ED01A /* GameKit.framework */; };
 		6F8657E6226D9C6E009BA43D /* LobbyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F8657E4226D9C6E009BA43D /* LobbyScene.cpp */; };
 		6F9155D6225081F400634354 /* FBSDKMarketingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9155CF225081F300634354 /* FBSDKMarketingKit.framework */; };
@@ -200,7 +201,6 @@
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		294D0D631D0D56D500F7F5D4 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
 		31E48278BF6A415D7814D815 /* Pods-HelloCpp-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloCpp-mobile.release.xcconfig"; path = "Target Support Files/Pods-HelloCpp-mobile/Pods-HelloCpp-mobile.release.xcconfig"; sourceTree = "<group>"; };
-		3EACC98E19EE6D4300EB3C5E /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
 		46880B7619C43A67006E1F66 /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseNormal.png; sourceTree = "<group>"; };
 		46880B7719C43A67006E1F66 /* CloseSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseSelected.png; sourceTree = "<group>"; };
 		46880B8419C43A87006E1F66 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
@@ -282,6 +282,9 @@
 		6F73C71C22944BD800AFF6E7 /* friend-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "friend-bg.png"; sourceTree = "<group>"; };
 		6F7B362C2298E19100090632 /* ClientSocket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ClientSocket.cpp; sourceTree = "<group>"; };
 		6F7B362D2298E19100090632 /* ClientSocket.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ClientSocket.hpp; sourceTree = "<group>"; };
+		6F7B3631229A4E2100090632 /* notification-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification-btn.png"; sourceTree = "<group>"; };
+		6F7B3633229A4E2300090632 /* notification-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification-btn-click.png"; sourceTree = "<group>"; };
+		6F7B3636229A55D100090632 /* lobby-room-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lobby-room-btn.png"; sourceTree = "<group>"; };
 		6F81F853224DFBF1004ED01A /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
 		6F8657E4226D9C6E009BA43D /* LobbyScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LobbyScene.cpp; sourceTree = "<group>"; };
 		6F8657E5226D9C6E009BA43D /* LobbyScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LobbyScene.hpp; sourceTree = "<group>"; };
@@ -528,7 +531,6 @@
 			isa = PBXGroup;
 			children = (
 				521A8EA819F11F5000D177D7 /* fonts */,
-				3EACC98E19EE6D4300EB3C5E /* res */,
 				46880B7619C43A67006E1F66 /* CloseNormal.png */,
 				46880B7719C43A67006E1F66 /* CloseSelected.png */,
 				6FD8C2E82280821E007C9DE0 /* mute-thumb.png */,
@@ -557,6 +559,8 @@
 				6F73C71C22944BD800AFF6E7 /* friend-bg.png */,
 				6FABDDBF227B2D5D0034224E /* gray-dot.png */,
 				6FABDDC6227B2D630034224E /* green-dot.png */,
+				6F7B3633229A4E2300090632 /* notification-btn-click.png */,
+				6F7B3631229A4E2100090632 /* notification-btn.png */,
 				6FABDDC2227B2D5F0034224E /* lobby-btn-fullwidth.png */,
 				6FABDDE0227B31E90034224E /* lobby-btn-fullwidth2.png */,
 				6FABDDC1227B2D5F0034224E /* lobby-btn-halfwidth.png */,
@@ -574,6 +578,7 @@
 				6FA0ED93226B215E0090FD52 /* ButtonS1.png */,
 				6FA0ED92226B215D0090FD52 /* ButtonS2.png */,
 				6FA0ED98226B269A0090FD52 /* emptyImage.png */,
+				6F7B3636229A55D100090632 /* lobby-room-btn.png */,
 				B36B421FB393D1A749DC816F /* sdkbox_config.json */,
 			);
 			name = Resources;
@@ -593,8 +598,8 @@
 				6F9219682251F467006AD610 /* StartScene.cpp */,
 				6F9219692251F467006AD610 /* StartScene.hpp */,
 				6F019F31225276A100356A3E /* mySdkboxWrap.hpp */,
-				6F8657E4226D9C6E009BA43D /* LobbyScene.cpp */,
 				6F8657E5226D9C6E009BA43D /* LobbyScene.hpp */,
+				6F8657E4226D9C6E009BA43D /* LobbyScene.cpp */,
 				6F43B6532271AA6300CA5A6C /* SettingScene.cpp */,
 				6F43B6542271AA6300CA5A6C /* SettingScene.hpp */,
 				6FABDDA12279E7380034224E /* AssisstanceFunc.cpp */,
@@ -827,7 +832,7 @@
 				6F4DCE432269A20400FC7278 /* GoogleService-Info.plist in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				6FABDDB7227B2D4A0034224E /* soundeffect-btn.png in Resources */,
-				3EACC98F19EE6D4300EB3C5E /* res in Resources */,
+				6F7B3635229A4E2300090632 /* notification-btn-click.png in Resources */,
 				6FABDDDD227B2D680034224E /* card-blue.png in Resources */,
 				6FABDDB8227B2D4A0034224E /* rank-logo.png in Resources */,
 				6FABDDCD227B2D680034224E /* add-btn.png in Resources */,
@@ -836,12 +841,14 @@
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				6FABDDDE227B2D680034224E /* back-icon.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
+				6F7B3634229A4E2300090632 /* notification-btn.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				6FABDDDC227B2D680034224E /* bgm-btn.png in Resources */,
 				6FABDDD0227B2D680034224E /* card-orange.png in Resources */,
 				6F9C9A3D224E95B6007834B7 /* LaunchScreenBackground.png in Resources */,
 				6FABDDD6227B2D680034224E /* accept-btn.png in Resources */,
 				6FABDDD5227B2D680034224E /* lobby-btn-fullwidth.png in Resources */,
+				6F7B3637229A55D100090632 /* lobby-room-btn.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				6F51411B228FC1460054C510 /* fb-login-click.png in Resources */,
 				46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */,
@@ -866,7 +873,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
-				3EACC99019EE6D4300EB3C5E /* res in Resources */,
 				521A8EAA19F11F5000D177D7 /* fonts in Resources */,
 				46880B7C19C43A67006E1F66 /* CloseNormal.png in Resources */,
 				46880B7E19C43A67006E1F66 /* CloseSelected.png in Resources */,

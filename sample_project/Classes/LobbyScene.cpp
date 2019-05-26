@@ -21,9 +21,9 @@
 USING_NS_CC;
 
 // The images for the buttons.
-static const std::string kNormalButtonImage = "lobby-btn-fullwidth.png";
-static const std::string kSelectedButtonImage = "lobby-btn-fullwidth2.png";
-static const std::string kDisabledButtonImage = "lobby-btn-fullwidth.png";
+static const std::string kNormalButtonImage = "notification-btn.png";
+static const std::string kSelectedButtonImage = "notification-btn-click.png";
+static const std::string kDisabledButtonImage = "notification-btn.png";
 
 /// Padding for the UI elements.
 static const float kUIElementPadding = -20;
@@ -32,7 +32,7 @@ static const float kUIElementPadding = -20;
 static const float kButtonTitleFontSize = 45.0;
 
 /// The content size for the Firebase buttons.
-static const cocos2d::Size kButtonContentSize = cocos2d::Size(400, 100);
+static const cocos2d::Size kButtonContentSize = cocos2d::Size(300, 100);
 
 
 
@@ -75,20 +75,24 @@ bool LobbyScene::init()
     nextYPosition = origin.y + visibleSize.height * 2 / 3;
     RankButton->setPosition(Vec2(ButtonXPosition, nextYPosition));
     RankButton->addTouchEventListener(CC_CALLBACK_2(LobbyScene::RankCallback, this));
+    RankButton->setPosition(Vec2(visibleSize.width/4-165, visibleSize.height/4+ 50 ));
     
     this->addChild(RankButton);
     //Store button
     auto StoreButton = createButton(true, "Store", cocos2d::Color3B::WHITE, kNormalButtonImage, kSelectedButtonImage, kDisabledButtonImage);
+    StoreButton->setPosition(Vec2(visibleSize.width/4 + 165 , visibleSize.height/4 + 50 ));
     this->addChild(StoreButton);
     
     //Friend button
     auto FriendButton = createButton(true, "Friend", cocos2d::Color3B::WHITE, kNormalButtonImage, kSelectedButtonImage, kDisabledButtonImage);
     FriendButton->addTouchEventListener(CC_CALLBACK_2(LobbyScene::FriendCallback, this));
+    FriendButton->setPosition(Vec2(visibleSize.width/4- 165  , visibleSize.height/4-50 ));
     this->addChild(FriendButton);
     
     //Setting button
     auto SettingButton = createButton(true, "Setting", cocos2d::Color3B::WHITE, kNormalButtonImage, kSelectedButtonImage, kDisabledButtonImage);
     SettingButton->addTouchEventListener(CC_CALLBACK_2(LobbyScene::SettingCallback, this));
+    SettingButton->setPosition(Vec2(visibleSize.width/4 + 165 , visibleSize.height/4 - 50 ));
     this->addChild(SettingButton);
     //==============================================================================================================
     
@@ -140,7 +144,7 @@ bool LobbyScene::init()
     this->addChild(MyScore);
     this->addChild(Score);
     
-    
+    /*
     //start Game button
     const std::string gameButtonPath = "startgame-btn.png"; ////3245 × 591
     const std::string gameButtonSelectedPath = "startgame-btn-click.png"; ////3245 × 591
@@ -151,8 +155,21 @@ bool LobbyScene::init()
     gameButton->setPosition(Vec2(origin.x + 100, origin.y + visibleSize.height/4));
     gameButton->setTitleOffset(0, 0);
     this->addChild(gameButton);
+    */
     
+    //Lounge list table
+    auto lounge_table = LoungeTable::create();
+    lounge_table->setContentSize(Size(1337/4, 750));
+    lounge_table->ignoreAnchorPointForPosition(false);
+    lounge_table->setAnchorPoint(Vec2(0.5, 1));
+    lounge_table->setPosition(Vec2(origin.x + visibleSize.width*3/4, origin.y + visibleSize.height));
+    this->addChild(lounge_table, 1);
     
+    //lounge list background
+    auto friend_bg = Sprite::create("friend-bg.png");
+    friend_bg->setContentSize(Size(visibleSize.width/4 + 100, 600));
+    friend_bg->setPosition(Vec2(origin.x + visibleSize.width*3/4, origin.y + visibleSize.height/2));
+    this->addChild(friend_bg);
     
     return true;
     
@@ -181,7 +198,7 @@ cocos2d::ui::Button* LobbyScene::createButton(
     button->setContentSize(kButtonContentSize);
     nextYPosition -= button->getContentSize().height + kUIElementPadding;
     button->setPosition(cocos2d::Vec2(ButtonXPosition, nextYPosition));
-    button->setTitleOffset(-80, 0);
+    button->setTitleOffset(0, 0);
     
     return button;
 }
@@ -235,3 +252,138 @@ void LobbyScene::FriendCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventTy
 
 
 
+//==========================================================================
+
+LoungeDatabase * LoungeDatabase::myself = nullptr;
+//Lounge table scroll view
+USING_NS_CC_EXT;
+
+void LoungeTable::tableCellTouched(TableView *table, TableViewCell *cell){
+    CCLOG("you touch cell index = %zd", cell->getIdx());
+}
+
+CCSize LoungeTable::cellSizeForTable(TableView *table){
+    CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
+    return CCSizeMake(300, 64);
+}
+
+//number of lounge
+ssize_t LoungeTable::numberOfCellsInTableView(TableView *table){
+    Ldatabase = LoungeDatabase::getInstance();
+    return Ldatabase->get_size() - 1;
+}
+
+TableViewCell* LoungeTable::tableCellAtIndex(TableView *table, ssize_t idx){
+    //CCLOG("%d", idx);
+    Ldatabase = LoungeDatabase::getInstance();
+    TableViewCell *cell = table->dequeueCell();
+    if(!cell){
+        cell = new TableViewCell();
+        cell->autorelease();
+    }
+    cell->removeAllChildrenWithCleanup(true);
+    
+    //BK image
+    auto btImage = Sprite::create("lobby-room-btn.png");
+    btImage->setContentSize(Size(300, 80));
+    btImage->setPosition(Vec2(150, 32));
+    cell->addChild(btImage);
+    
+    //user id label
+    unsigned int ID = Ldatabase->get_LoungeInfo(idx)->getID();
+    std::stringstream ss;
+    ss<<ID;
+    std::string sID = ss.str();
+    auto label = Label::createWithTTF(sID, "fonts/arial.ttf", 35);
+    label->setPosition(Vec2(25, 9));
+    label->setAnchorPoint(Vec2(0, 0));
+    label->setColor(Color3B::BLACK);
+    cell->addChild(label);
+    
+    //Lounge user amount
+    int userAmount = Ldatabase->get_LoungeInfo(idx)->getAmount();
+    std::stringstream ss2;
+    ss2<<userAmount;
+    std::string sAmount = ss2.str();
+    
+    auto amountLabel = Label::createWithTTF(sAmount + " p", "fonts/arial.ttf" , 25);
+    amountLabel->setPosition(Vec2(240, 10));
+    amountLabel->setAnchorPoint(Vec2(0, 0));
+    amountLabel->setColor(Color3B::BLACK);
+    cell->addChild(amountLabel);
+    
+    
+    
+    
+    
+    return cell;
+    
+}
+
+void LoungeTable::scrollViewDidScroll(ScrollView *view){}
+void LoungeTable::scrollViewDidZoom(ScrollView *view){}
+
+bool LoungeTable::init(){
+    if(!CCLayer::init()){
+        return false;
+    }
+    /*
+     auto backGroundColor = CCLayerColor::create(ccc4(255,255,255, 255)); //RGBA
+     this->addChild(backGroundColor, 0);
+     */
+    
+    //get lounge list from the server
+    std::thread Tmpthread(&LoungeTable::getLoungListFromServer, this );
+    Tmpthread.join();
+    
+    
+    
+    auto visibleSize =  this->getContentSize();
+    
+    
+    //Lounge list
+    TableView * tableview = TableView::create(this, CCSizeMake(300, 480)); //table size
+    tableview->setDirection(ScrollView::Direction::VERTICAL); // 只能垂直滑動
+    tableview->setDelegate(this);
+    tableview->ignoreAnchorPointForPosition(false);
+    tableview->setAnchorPoint(Vec2(0, 1));
+    tableview->setPosition(Vec2(0, visibleSize.height-170));
+    this->addChild(tableview);
+    tableview->reloadData();
+    
+    //friend list label
+    auto TopLabel = Label::createWithTTF("Lobby list", "fonts/arial.ttf" , 50);
+    TopLabel->setColor(Color3B::BLACK);
+    TopLabel->setPosition(Vec2(150, visibleSize.height-130));
+    this->addChild(TopLabel);
+    return true;
+    
+    
+}
+
+void LoungeTable::getLoungListFromServer(){
+    auto client = Client::getInstance();
+    
+    Ldatabase = LoungeDatabase::getInstance();
+    
+    json rec = client->getLoungeinfo();
+    int loungSize = rec["Lounge Amount"];
+    Ldatabase->set_size(loungSize);
+    
+    CCLOG(rec.dump().c_str());
+    //Lounge 0, Loung 1 ....
+    
+    std::string sLounge = "Lounge ";
+    
+    for(int i=0;  i<loungSize; i++){
+        stringstream ss;
+        ss<<i;
+        sLounge += ss.str();
+        
+        unsigned int tID = rec[sLounge]["ID"];
+        int tAmount = rec[sLounge]["User Amount"];
+        
+        Ldatabase->add_Lounge(new LoungeInfo(tID, tAmount));
+    }
+    
+}

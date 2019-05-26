@@ -139,17 +139,21 @@ void FriendScene::BackToLoooby(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventTyp
 void FriendScene::SearchCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){// Search user call back.
     switch (type) {
         case ui::Widget::TouchEventType::ENDED:{
-            //if(user is not found)
+            
             unsigned int UID;
             std::string strID = UsernameEditbox->getText();
             stringstream ss(strID);
             ss >> UID;
             auto client = Client::getInstance();
             json rec = client->addFriend(UID);
-            
+            CCLOG(rec.dump().c_str());
             
             auto msgLabel = SearchMsgLabel(Search_Msg::Success);
-            if(rec["Action"] != 18){
+            if(rec["Result"] != 1){
+                //0代表不能加自己好友
+                //1代表加好友成功
+                //2代表沒有這個人
+                //3代表已經有這個好友
                 msgLabel = SearchMsgLabel(Search_Msg::Err);
             }
             
