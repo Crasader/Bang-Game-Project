@@ -193,6 +193,8 @@ cocos2d::ui::EditBox* FriendScene::createEditBox(const std::string &PlaceHolder,
 
 
 //Search friend label function =============================================
+FriendDatabase* FriendDatabase::myself = nullptr;
+
 const std::string FriendScene::ErrMsg = "Error: User is not found!";
 const std::string FriendScene::SucMsg = "Friend invention sent!";
 
@@ -225,6 +227,8 @@ cocos2d::Label* FriendScene::SucMsgLabel(){
     label->setColor(Color3B::GREEN);
     return label;
 }
+
+
 //==========================================================================
 //Friend table scroll view
 USING_NS_CC_EXT;
@@ -240,7 +244,8 @@ CCSize FriendTable::cellSizeForTable(TableView *table){
 
 //number of friend
 ssize_t FriendTable::numberOfCellsInTableView(TableView *table){
-    return Fdatabase.get_size();
+    auto database = FriendDatabase::getInstance();
+    return database->get_size() - 1;
 }
 
 TableViewCell* FriendTable::tableCellAtIndex(TableView *table, ssize_t idx){
@@ -254,7 +259,11 @@ TableViewCell* FriendTable::tableCellAtIndex(TableView *table, ssize_t idx){
     
    
     //friend name label
-    const std::string Name = Fdatabase.get_FriendInfo(idx)->getName();
+    unsigned int uid = Fdatabase->get_FriendInfo(idx)->getUID();
+    std::stringstream ss;
+    ss << uid;
+    std::string Name = ss.str();
+    
     auto label = Label::createWithTTF(Name, "fonts/arial.ttf", 40);
     label->setPosition(Vec2(25, 0));
     label->setAnchorPoint(Vec2(0, 0));
@@ -262,7 +271,7 @@ TableViewCell* FriendTable::tableCellAtIndex(TableView *table, ssize_t idx){
     cell->addChild(label);
     
     //friend online status
-    const bool status = Fdatabase.get_FriendInfo(idx)->isOnline();
+    const bool status = Fdatabase->get_FriendInfo(idx)->isOnline();
 
     Sprite* onlineLight;
     
@@ -298,7 +307,8 @@ bool FriendTable::init(){
     auto backGroundColor = CCLayerColor::create(ccc4(255,255,255, 255)); //RGBA
     this->addChild(backGroundColor, 0);
     */
-    
+    std::thread Tmpthread(&FriendTable::getFriendListFromServer, this);
+    Tmpthread.join();
     
     auto visibleSize =  this->getContentSize();
     
@@ -320,5 +330,29 @@ bool FriendTable::init(){
     this->addChild(TopLabel);
     return true;
     
+    
+}
+
+void FriendTable::getFriendListFromServer(){
+    auto client = Client::getInstance();
+    
+    Fdatabase = FriendDatabase::getInstance();
+    
+    json rec = client->getFriendlist();
+    int FriendSize = rec["Friend"].size();
+    Fdatabase->set_size(FriendSize);
+    
+    //CCLOG(rec.dump().c_str());
+    //Friend 0, Friend 1 ....
+    
+    std::string sFriend = "Friend";
+    
+    for(int i=0;  i<FriendSize; i++){
+        
+        unsigned int tID = rec[sFriend][i]["Friend ID"];
+        
+        Fdatabase->add_friend(new FriendInfo(tID, true));
+        
+    }
     
 }

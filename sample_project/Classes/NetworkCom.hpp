@@ -25,7 +25,7 @@ public:
     json userRegisterLogin(unsigned int);
     json userChangenickname(string);
     json getLoungeinfo();
-    json userJoin(bool, int, int);
+    json userJoin(bool join,unsigned int loungeId,unsigned int userId);
     json userSetready(bool);
     json userStartgame();
     void playerChoosecharacter(string, string );
@@ -43,6 +43,7 @@ public:
     json getFriendlist();
     json addFriend(int);
     json showDetermineCard(int);
+    json getLoungeUserInfo(); //action 22
     
     static Client* getInstance();
     

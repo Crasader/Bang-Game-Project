@@ -35,16 +35,22 @@ json Client::userRegisterLogin(unsigned int userId)
     se[str_var[0]] = 0;
     se[str_var[1]] = userId;
     socket->sendMessage(se.dump());
-    re = json::parse(socket->receiveMessage());
+    socket->busyWaitting();
+    socket->SetReceived(false);
+    re = json::parse(socket->GetBuffer());
     return re;
 }
+
 json Client::userChangenickname(string nickname)
 {
     json se ,re;
     se[str_var[0]] = 1;
     se["Nick Name"] = nickname;
     socket->sendMessage(se.dump());
-    re = json::parse(socket->receiveMessage());
+    socket->busyWaitting();
+    socket->SetReceived(false);
+    re = json::parse(socket->GetBuffer());
+    
     return re;
 }
 json Client::getLoungeinfo()
@@ -52,10 +58,12 @@ json Client::getLoungeinfo()
     json se ,re;
     se[str_var[0]] = 2;
     socket->sendMessage(se.dump());
-    re = json::parse(socket->receiveMessage());
+    socket->busyWaitting();
+    socket->SetReceived(false);
+    re = json::parse(socket->GetBuffer());
     return re;
 }
-json Client::userJoin(bool join, int loungeId, int userId)
+json Client::userJoin(bool join,unsigned int loungeId,unsigned int userId)
 {
     json se ,re;
     se[str_var[0]] = 3;
@@ -63,7 +71,9 @@ json Client::userJoin(bool join, int loungeId, int userId)
     se["Lounge ID"] = loungeId;
     se[str_var[1]] = userId;
     socket->sendMessage(se.dump());
-    re = json::parse(socket->receiveMessage());
+    socket->busyWaitting();
+    socket->SetReceived(false);
+    re = json::parse(socket->GetBuffer());
     return re;
 }
 json Client::userSetready(bool is_ready)
@@ -72,7 +82,9 @@ json Client::userSetready(bool is_ready)
     se[str_var[0]] = 4;
     se["Ready"] = is_ready;
     socket->sendMessage(se.dump());
-    re = json::parse(socket->receiveMessage());
+    socket->busyWaitting();
+    socket->SetReceived(false);
+    re = json::parse(socket->GetBuffer());
     return re;
 }
 json Client::userStartgame()
@@ -80,7 +92,9 @@ json Client::userStartgame()
     json se ,re;
     se[str_var[0]] = 5;
     socket->sendMessage(se.dump());
-    re = json::parse(socket->receiveMessage());
+    socket->busyWaitting();
+    socket->SetReceived(false);
+    re = json::parse(socket->GetBuffer());
     return re;
 }
 void Client::playerChoosecharacter(string charname1, string charname2)
@@ -96,7 +110,9 @@ json Client::playerTurn()
     json se ,re;
     se[str_var[0]] = 8;
     socket->sendMessage(se.dump());
-    re = json::parse(socket->receiveMessage());
+    socket->busyWaitting();
+    socket->SetReceived(false);
+    re = json::parse(socket->GetBuffer());
     return re;
 }
 json Client::playerUsecard(int cardId, int target)
@@ -106,7 +122,9 @@ json Client::playerUsecard(int cardId, int target)
     se["Card ID"] = cardId;
     se["Target Position"] = target;
     socket->sendMessage(se.dump());
-    re = json::parse(socket->receiveMessage());
+    socket->busyWaitting();
+    socket->SetReceived(false);
+    re = json::parse(socket->GetBuffer());
     return re;
 }
 void Client::playerShowcard()
@@ -126,7 +144,9 @@ json Client::playerEndusingcard()
     json se ,re;
     se[str_var[0]] = 13;
     socket->sendMessage(se.dump());
-    re = json::parse(socket->receiveMessage());
+    socket->busyWaitting();
+    socket->SetReceived(false);
+    re = json::parse(socket->GetBuffer());
     return re;
 }
 void Client::playerFoldcard(int amount, int *cardId)
@@ -147,7 +167,9 @@ json Client::getFriendlist()
     json se ,re;
     se[str_var[0]] = 17;
     socket->sendMessage(se.dump());
-    re = json::parse(socket->receiveMessage());
+    socket->busyWaitting();
+    re = json::parse(socket->GetBuffer());
+    socket->SetReceived(false);
     return re;
 }
 json Client::addFriend(int friendId)
@@ -156,7 +178,9 @@ json Client::addFriend(int friendId)
     se[str_var[0]] = 18;
     se["Friend ID"] = friendId;
     socket->sendMessage(se.dump());
-    re = json::parse(socket->receiveMessage());
+    socket->busyWaitting();
+    re = json::parse(socket->GetBuffer());
+    socket->SetReceived(false);
     return re;
 }
 json Client::showDetermineCard(int cardId){
@@ -164,7 +188,9 @@ json Client::showDetermineCard(int cardId){
     se[str_var[0]] = 20;
     se["Card ID"] = cardId;
     socket->sendMessage(se.dump());
-    re = json::parse(socket->receiveMessage());
+    socket->busyWaitting();
+    re = json::parse(socket->GetBuffer());
+    socket->SetReceived(false);
     return re;
 }
 json Client::userExit()
@@ -172,6 +198,18 @@ json Client::userExit()
     json se ,re;
     se[str_var[0]] = 21;
     socket->sendMessage(se.dump());
-    re = json::parse(socket->receiveMessage());
+    socket->busyWaitting();
+    re = json::parse(socket->GetBuffer());
+    socket->SetReceived(false);
+    return re;
+}
+
+json Client::getLoungeUserInfo(){//action 22
+    json se ,re;
+    se[str_var[0]] = 22;
+    socket->sendMessage(se.dump());
+    socket->busyWaitting();
+    re = json::parse(socket->GetBuffer());
+    socket->SetReceived(false);
     return re;
 }

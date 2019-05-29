@@ -45,6 +45,7 @@ static void problemLoading(const char* filename)
     printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in StartScene.cpp\n");
 }
 
+bool LobbyScene::intoLounge_ = false;
 Scene *LobbyScene::createScene(){
     return LobbyScene::create();
 }
@@ -76,23 +77,27 @@ bool LobbyScene::init()
     RankButton->setPosition(Vec2(ButtonXPosition, nextYPosition));
     RankButton->addTouchEventListener(CC_CALLBACK_2(LobbyScene::RankCallback, this));
     RankButton->setPosition(Vec2(visibleSize.width/4-165, visibleSize.height/4+ 50 ));
-    
+    RankButton->setTag(0);
     this->addChild(RankButton);
+    
     //Store button
     auto StoreButton = createButton(true, "Store", cocos2d::Color3B::WHITE, kNormalButtonImage, kSelectedButtonImage, kDisabledButtonImage);
     StoreButton->setPosition(Vec2(visibleSize.width/4 + 165 , visibleSize.height/4 + 50 ));
+    StoreButton->setTag(1);
     this->addChild(StoreButton);
     
     //Friend button
     auto FriendButton = createButton(true, "Friend", cocos2d::Color3B::WHITE, kNormalButtonImage, kSelectedButtonImage, kDisabledButtonImage);
     FriendButton->addTouchEventListener(CC_CALLBACK_2(LobbyScene::FriendCallback, this));
     FriendButton->setPosition(Vec2(visibleSize.width/4- 165  , visibleSize.height/4-50 ));
+    FriendButton->setTag(2);
     this->addChild(FriendButton);
     
     //Setting button
     auto SettingButton = createButton(true, "Setting", cocos2d::Color3B::WHITE, kNormalButtonImage, kSelectedButtonImage, kDisabledButtonImage);
     SettingButton->addTouchEventListener(CC_CALLBACK_2(LobbyScene::SettingCallback, this));
     SettingButton->setPosition(Vec2(visibleSize.width/4 + 165 , visibleSize.height/4 - 50 ));
+    SettingButton->setTag(3);
     this->addChild(SettingButton);
     //==============================================================================================================
     
@@ -101,6 +106,7 @@ bool LobbyScene::init()
     
     std::thread mythread(&LobbyScene::getInfoFromServer, this);
     mythread.join();
+    
     
     //======================================
     
@@ -163,7 +169,10 @@ bool LobbyScene::init()
     lounge_table->ignoreAnchorPointForPosition(false);
     lounge_table->setAnchorPoint(Vec2(0.5, 1));
     lounge_table->setPosition(Vec2(origin.x + visibleSize.width*3/4, origin.y + visibleSize.height));
+    lounge_table->setTag(4);
     this->addChild(lounge_table, 1);
+    
+    
     
     //lounge list background
     auto friend_bg = Sprite::create("friend-bg.png");
@@ -171,6 +180,9 @@ bool LobbyScene::init()
     friend_bg->setPosition(Vec2(origin.x + visibleSize.width*3/4, origin.y + visibleSize.height/2));
     this->addChild(friend_bg);
     
+    
+    // Schedule the update method for this scene.
+    this->scheduleUpdate();
     return true;
     
     
@@ -250,7 +262,13 @@ void LobbyScene::FriendCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventTy
 
 
 
-
+// Called automatically every frame. The update is scheduled in `init()`.
+void LobbyScene::update(float /*delta*/){
+    for(int i=0; i<=4; i++){
+        auto sp = this->getChildByTag(i);
+        sp->setVisible(!intoLounge_);
+    }
+}
 
 //==========================================================================
 
@@ -259,7 +277,12 @@ LoungeDatabase * LoungeDatabase::myself = nullptr;
 USING_NS_CC_EXT;
 
 void LoungeTable::tableCellTouched(TableView *table, TableViewCell *cell){
-    CCLOG("you touch cell index = %zd", cell->getIdx());
+    int idx = cell->getIdx();
+    CCLOG("you touch cell index = %zd", idx);
+    
+    std::thread joinThread(LobbyScene::joinLounge, Ldatabase->get_LoungeInfo(idx)->getID());
+    joinThread.join();
+    
 }
 
 CCSize LoungeTable::cellSizeForTable(TableView *table){
@@ -367,23 +390,28 @@ void LoungeTable::getLoungListFromServer(){
     Ldatabase = LoungeDatabase::getInstance();
     
     json rec = client->getLoungeinfo();
-    int loungSize = rec["Lounge Amount"];
+    //int loungSize = rec["Lounge Amount"];
+    int loungSize = rec["Lounge"].size();
     Ldatabase->set_size(loungSize);
     
-    CCLOG(rec.dump().c_str());
+    //CCLOG(rec.dump().c_str());
     //Lounge 0, Loung 1 ....
     
-    std::string sLounge = "Lounge ";
+    std::string sLounge = "Lounge";
     
     for(int i=0;  i<loungSize; i++){
-        stringstream ss;
-        ss<<i;
-        sLounge += ss.str();
         
-        unsigned int tID = rec[sLounge]["ID"];
-        int tAmount = rec[sLounge]["User Amount"];
+        unsigned int tID = rec[sLounge][i]["ID"];
+        int tAmount = rec[sLounge][i]["User Amount"];
         
         Ldatabase->add_Lounge(new LoungeInfo(tID, tAmount));
     }
     
+}
+
+
+void LobbyScene::joinLounge(unsigned int lounge_id){
+    auto client = Client::getInstance();
+    client->userJoin(true, lounge_id, 0);
+    intoLounge_ = true;
 }

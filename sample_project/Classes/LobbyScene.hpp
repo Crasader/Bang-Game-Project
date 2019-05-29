@@ -12,7 +12,7 @@
 #include "ui/CocosGUI.h"
 #include <nlohmann/json.hpp>
 #include "cocos-ext.h"
-
+#include <iostream>
 #include <thread>
 #include "User.hpp"
 #include "NetworkCom.hpp"
@@ -32,21 +32,23 @@ public:
         
         json rec = client->userRegisterLogin(user->getUID());
         
-        CCLOG(rec.dump().c_str());
+        //CCLOG(rec.dump().c_str());
         
         if(rec["Nick Name"] == ""){
             client->userChangenickname("Test Name");
             rec = client->userRegisterLogin(user->getUID());
         }
-        
         user->setMoney(rec["User Money"]);
         user->setNickName(rec["Nick Name"]);
         user->setWin(rec["User Win"]);
         user->setLose(rec["User Lose"]);
-        
-        
     }
-
+    
+    static void joinLounge(unsigned int lounge_id);
+    
+    void update(float delta) override;
+    
+    cocos2d::ui::Button *ReadyButton;
     
     
 private:
@@ -58,6 +60,8 @@ private:
     void FriendCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
     using json = nlohmann::json;
     json request_info, r2;
+    
+    static bool intoLounge_;
     
     float nextYPosition;
 };
@@ -123,6 +127,7 @@ private:
 
 
 
+
 class LoungeTable : public cocos2d::CCLayer, public cocos2d::extension::TableViewDelegate, public cocos2d::extension::TableViewDataSource{
 public:
     
@@ -149,6 +154,7 @@ public:
     LoungeDatabase* Ldatabase;
     
     void getLoungListFromServer();
+    
     
 };
 

@@ -83,22 +83,41 @@ void CClientSocket::ClientProc(CClientSocket * myself)
         }
         if(FD_ISSET(myself->SocketFD, &ReadFDSet))
         {
-            const char * ReceivedData = myself->receiveMessage();
-            if(ReceivedData[0] != '\0')
+            if(!myself->received)
             {
-                //receive
-                printf("Received: %s\n", ReceivedData);
-            }
-            else
-            {
-                //如果與伺服器斷線就直接跳(退出thread) 看你在斷線時要什麼機制
-                break;
+                const char * ReceivedData = myself->receiveMessage();
+                if(ReceivedData[0] != '\0')
+                {
+                    //receive
+                    myself->received = 1;
+                    printf("Received: %s\n", ReceivedData);
+                }
+                else
+                {
+                    //如果與伺服器斷線就直接跳(退出thread) 看你在斷線時要什麼機制
+                    break;
+                }
             }
         }
     }
+}
+char * CClientSocket::GetBuffer()
+{
+    return ReceiveBuffer;
+}
+bool CClientSocket::GetReceived()
+{
+    return received;
+}
+void CClientSocket::SetReceived(bool received)
+{
+    this->received = received;
 }
 CClientSocket::~CClientSocket()
 {
     shutdown(SocketFD, SHUT_RDWR);
     ClientThread.detach();
+}
+void CClientSocket::busyWaitting(){
+    while (!this->GetReceived()) {};
 }

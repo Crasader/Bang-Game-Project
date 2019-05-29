@@ -29,6 +29,12 @@ public:
     const char * receiveMessage();
     bool sendMessage(const std::string & Buffer);
     static void ClientProc(CClientSocket * myself);
+    char * GetBuffer();
+    
+    bool GetReceived();
+    void SetReceived(bool received);
+    void busyWaitting();
+    
     ~CClientSocket();
 private:
     //AF = Address Family
@@ -40,6 +46,7 @@ private:
     static constexpr int BufferSize = 8192;
     char ReceiveBuffer[BufferSize];
     static timeval timeout;//second, usecond
+    bool received = 0;
 };
 
 #endif /* ClientSocket_hpp */

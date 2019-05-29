@@ -61,6 +61,7 @@
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		5A734AF5B6B0FC830750AADD /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD64FADB77DFB3B6C7C42D8 /* Bolts.framework */; };
 		68EE4014B4496DA13CC9D837 /* sdkbox_config.json in Resources */ = {isa = PBXBuildFile; fileRef = B36B421FB393D1A749DC816F /* sdkbox_config.json */; };
+		6F0BBCAB229EC223006F038D /* LoungeScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BBCA9229EC223006F038D /* LoungeScene.cpp */; };
 		6F35115B224FA95700D206EC /* PluginFacebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F351158224FA95700D206EC /* PluginFacebook.framework */; };
 		6F35115C224FA95700D206EC /* sdkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115A224FA95700D206EC /* sdkbox.framework */; };
 		6F351161224FA99700D206EC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115D224FA99700D206EC /* AdSupport.framework */; };
@@ -251,6 +252,8 @@
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		6F019F31225276A100356A3E /* mySdkboxWrap.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = mySdkboxWrap.hpp; sourceTree = "<group>"; };
+		6F0BBCA9229EC223006F038D /* LoungeScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LoungeScene.cpp; sourceTree = "<group>"; };
+		6F0BBCAA229EC223006F038D /* LoungeScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LoungeScene.hpp; sourceTree = "<group>"; };
 		6F351158224FA95700D206EC /* PluginFacebook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PluginFacebook.framework; sourceTree = "<group>"; };
 		6F35115A224FA95700D206EC /* sdkbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = sdkbox.framework; sourceTree = "<group>"; };
 		6F35115D224FA99700D206EC /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
@@ -598,8 +601,8 @@
 				6F9219682251F467006AD610 /* StartScene.cpp */,
 				6F9219692251F467006AD610 /* StartScene.hpp */,
 				6F019F31225276A100356A3E /* mySdkboxWrap.hpp */,
-				6F8657E5226D9C6E009BA43D /* LobbyScene.hpp */,
 				6F8657E4226D9C6E009BA43D /* LobbyScene.cpp */,
+				6F8657E5226D9C6E009BA43D /* LobbyScene.hpp */,
 				6F43B6532271AA6300CA5A6C /* SettingScene.cpp */,
 				6F43B6542271AA6300CA5A6C /* SettingScene.hpp */,
 				6FABDDA12279E7380034224E /* AssisstanceFunc.cpp */,
@@ -608,6 +611,8 @@
 				6F51411F228FC3360054C510 /* RankScene.hpp */,
 				6F514126229009D50054C510 /* FriendScene.cpp */,
 				6F514127229009D50054C510 /* FriendScene.hpp */,
+				6F0BBCA9229EC223006F038D /* LoungeScene.cpp */,
+				6F0BBCAA229EC223006F038D /* LoungeScene.hpp */,
 				6F4B30FF2296E12D007A9B20 /* player.cpp */,
 				6F4B31002296E12D007A9B20 /* player.hpp */,
 				6F4B31032296E766007A9B20 /* Card.cpp */,
@@ -935,6 +940,7 @@
 			files = (
 				6F43B6552271AA6300CA5A6C /* SettingScene.cpp in Sources */,
 				6F4637D3229837A3003F12FB /* NetworkCom.cpp in Sources */,
+				6F0BBCAB229EC223006F038D /* LoungeScene.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				6F92196A2251F467006AD610 /* StartScene.cpp in Sources */,

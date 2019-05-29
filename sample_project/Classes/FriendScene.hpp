@@ -55,6 +55,10 @@ public:
         name_ = "no name";
         UID_ = 0;
     }
+    FriendInfo(unsigned int ID, bool online){
+        online_ = online;
+        UID_ = ID;
+    }
     FriendInfo(const std::string &name, bool online){
         online_ = online;
         name_ = name;
@@ -92,11 +96,14 @@ private:
 class FriendDatabase{//Save all Friend info
 public:
     FriendDatabase(){
-        size_ = 1;//test
-        data.push_back(new FriendInfo("testName", true)); //test
+        size_ = 0;
+        //size_ = 1;//test
+        //data.push_back(new FriendInfo("testName", true)); //test
     }
     
-    void set_size(int s);
+    void set_size(int s){
+        size_ = s;
+    }
     int get_size(){
         return size_;
     }
@@ -110,7 +117,16 @@ public:
         return data[idx];
     }
     
+    static FriendDatabase* getInstance(){
+        if(FriendDatabase::myself == nullptr){
+            FriendDatabase::myself = new FriendDatabase();
+        }
+        return FriendDatabase::myself;
+    }
+    
+    
 private:
+    static FriendDatabase* myself;
     int size_;
     std::vector<FriendInfo*> data;
     
@@ -140,7 +156,10 @@ public:
     
     CREATE_FUNC(FriendTable);
     
-    FriendDatabase Fdatabase;
+    void getFriendListFromServer();
+    
+    FriendDatabase *Fdatabase;
+    
     
 };
 
