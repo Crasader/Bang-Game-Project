@@ -62,6 +62,10 @@
 		5A734AF5B6B0FC830750AADD /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD64FADB77DFB3B6C7C42D8 /* Bolts.framework */; };
 		68EE4014B4496DA13CC9D837 /* sdkbox_config.json in Resources */ = {isa = PBXBuildFile; fileRef = B36B421FB393D1A749DC816F /* sdkbox_config.json */; };
 		6F0BBCAB229EC223006F038D /* LoungeScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BBCA9229EC223006F038D /* LoungeScene.cpp */; };
+		6F0BBCE022A167BE006F038D /* ready-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0BBCDD22A167BD006F038D /* ready-btn.png */; };
+		6F0BBCE122A167BE006F038D /* ready-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0BBCDF22A167BE006F038D /* ready-btn-click.png */; };
+		6F0BBCE422A17CCA006F038D /* game-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0BBCE222A17CC9006F038D /* game-btn.png */; };
+		6F0BBCE522A17CCA006F038D /* game-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0BBCE322A17CCA006F038D /* game-btn-click.png */; };
 		6F35115B224FA95700D206EC /* PluginFacebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F351158224FA95700D206EC /* PluginFacebook.framework */; };
 		6F35115C224FA95700D206EC /* sdkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115A224FA95700D206EC /* sdkbox.framework */; };
 		6F351161224FA99700D206EC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115D224FA99700D206EC /* AdSupport.framework */; };
@@ -254,6 +258,10 @@
 		6F019F31225276A100356A3E /* mySdkboxWrap.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = mySdkboxWrap.hpp; sourceTree = "<group>"; };
 		6F0BBCA9229EC223006F038D /* LoungeScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LoungeScene.cpp; sourceTree = "<group>"; };
 		6F0BBCAA229EC223006F038D /* LoungeScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LoungeScene.hpp; sourceTree = "<group>"; };
+		6F0BBCDD22A167BD006F038D /* ready-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ready-btn.png"; sourceTree = "<group>"; };
+		6F0BBCDF22A167BE006F038D /* ready-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ready-btn-click.png"; sourceTree = "<group>"; };
+		6F0BBCE222A17CC9006F038D /* game-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-btn.png"; sourceTree = "<group>"; };
+		6F0BBCE322A17CCA006F038D /* game-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-btn-click.png"; sourceTree = "<group>"; };
 		6F351158224FA95700D206EC /* PluginFacebook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PluginFacebook.framework; sourceTree = "<group>"; };
 		6F35115A224FA95700D206EC /* sdkbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = sdkbox.framework; sourceTree = "<group>"; };
 		6F35115D224FA99700D206EC /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
@@ -582,6 +590,10 @@
 				6FA0ED92226B215D0090FD52 /* ButtonS2.png */,
 				6FA0ED98226B269A0090FD52 /* emptyImage.png */,
 				6F7B3636229A55D100090632 /* lobby-room-btn.png */,
+				6F0BBCDF22A167BE006F038D /* ready-btn-click.png */,
+				6F0BBCDD22A167BD006F038D /* ready-btn.png */,
+				6F0BBCE322A17CCA006F038D /* game-btn-click.png */,
+				6F0BBCE222A17CC9006F038D /* game-btn.png */,
 				B36B421FB393D1A749DC816F /* sdkbox_config.json */,
 			);
 			name = Resources;
@@ -812,7 +824,9 @@
 				6FABDDD9227B2D680034224E /* green-dot.png in Resources */,
 				6FABDDB9227B2D4A0034224E /* user-icon.png in Resources */,
 				6FABDDCE227B2D680034224E /* decline-btn.png in Resources */,
+				6F0BBCE522A17CCA006F038D /* game-btn-click.png in Resources */,
 				6FABDDDB227B2D680034224E /* card-orange-icon.png in Resources */,
+				6F0BBCE122A167BE006F038D /* ready-btn-click.png in Resources */,
 				6FABDDD4227B2D680034224E /* lobby-btn-halfwidth.png in Resources */,
 				46880B7D19C43A67006E1F66 /* CloseSelected.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
@@ -837,6 +851,7 @@
 				6F4DCE432269A20400FC7278 /* GoogleService-Info.plist in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				6FABDDB7227B2D4A0034224E /* soundeffect-btn.png in Resources */,
+				6F0BBCE022A167BE006F038D /* ready-btn.png in Resources */,
 				6F7B3635229A4E2300090632 /* notification-btn-click.png in Resources */,
 				6FABDDDD227B2D680034224E /* card-blue.png in Resources */,
 				6FABDDB8227B2D4A0034224E /* rank-logo.png in Resources */,
@@ -853,6 +868,7 @@
 				6F9C9A3D224E95B6007834B7 /* LaunchScreenBackground.png in Resources */,
 				6FABDDD6227B2D680034224E /* accept-btn.png in Resources */,
 				6FABDDD5227B2D680034224E /* lobby-btn-fullwidth.png in Resources */,
+				6F0BBCE422A17CCA006F038D /* game-btn.png in Resources */,
 				6F7B3637229A55D100090632 /* lobby-room-btn.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				6F51411B228FC1460054C510 /* fb-login-click.png in Resources */,

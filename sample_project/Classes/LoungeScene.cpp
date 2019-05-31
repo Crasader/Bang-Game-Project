@@ -58,7 +58,7 @@ TableViewCell* LoungeUserTable::tableCellAtIndex(TableView *table, ssize_t idx){
     ss<<ID;
     std::string sID = ss.str();
     auto label = Label::createWithTTF(sID, "fonts/arial.ttf", 35);
-    label->setPosition(Vec2(25, 9));
+    label->setPosition(Vec2(20, 9));
     label->setAnchorPoint(Vec2(0, 0));
     label->setColor(Color3B::BLACK);
     cell->addChild(label);
@@ -69,9 +69,9 @@ TableViewCell* LoungeUserTable::tableCellAtIndex(TableView *table, ssize_t idx){
     const std::string sready = "Ready";
     
     auto readyLabel = Label::createWithTTF(sready, "fonts/arial.ttf" , 25);
-    readyLabel->setPosition(Vec2(240, 10));
+    readyLabel->setPosition(Vec2(225, 10));
     readyLabel->setAnchorPoint(Vec2(0, 0));
-    readyLabel->setColor(Color3B::BLACK);
+    readyLabel->setColor(Color3B::GREEN);
     cell->addChild(readyLabel);
     
     readyLabel->setVisible(UserReady); // if user ready
@@ -98,8 +98,8 @@ bool LoungeUserTable::init(){
      */
     
     //get lounge list from the server
-    //std::thread Tmpthread(&LoungeTable::getLoungListFromServer, this );
-    //Tmpthread.join();
+    std::thread Tmpthread(&LoungeUserTable::getUserListFromServer, this );
+    Tmpthread.join();
     
     
     
@@ -107,7 +107,7 @@ bool LoungeUserTable::init(){
     
     
     //Lounge list
-    TableView * tableview = TableView::create(this, CCSizeMake(300, 480)); //table size
+    tableview = TableView::create(this, CCSizeMake(300, 480)); //table size
     tableview->setDirection(ScrollView::Direction::VERTICAL); // 只能垂直滑動
     tableview->setDelegate(this);
     tableview->ignoreAnchorPointForPosition(false);
@@ -121,12 +121,25 @@ bool LoungeUserTable::init(){
     TopLabel->setColor(Color3B::BLACK);
     TopLabel->setPosition(Vec2(150, visibleSize.height-130));
     this->addChild(TopLabel);
+    
+    
+    this->schedule(schedule_selector(LoungeUserTable::updateUserInfo), 1.0f ); // update user info 
+    
     return true;
     
     
 }
 
+// Called every second. The update is scheduled in `init()`.
+void LoungeUserTable::updateUserInfo(float /*delta*/){
+    std::thread Tmpthread(&LoungeUserTable::getUserListFromServer, this );
+    Tmpthread.join();
+    tableview->reloadData();
+}
+
 void LoungeUserTable::getUserListFromServer(){
+    
+    
     auto client = Client::getInstance();
     
     Udatabase = LoungeUserDatabase::getInstance();
@@ -152,3 +165,5 @@ void LoungeUserTable::getUserListFromServer(){
     }
     
 }
+
+

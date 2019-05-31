@@ -56,12 +56,22 @@ public:
     }
     
     void add_User(LoungeUserInfo *user){
-        data.push_back(user);
+        data_.push_back(user);
         ++size_;
     }
     
+    bool is_all_user_ready(){
+        for(auto i:data_){
+            if(! (i->isReady())){
+                return false;
+            }
+        }
+        return true;
+    }
+    
     const LoungeUserInfo* get_LoungeUserInfo(int idx) const{
-        return data[idx];
+        
+        return data_[idx];
     }
     
     static LoungeUserDatabase * getInstance(){
@@ -71,12 +81,15 @@ public:
         return LoungeUserDatabase::myself;
     }
     void clear(){
+        for(auto i:data_){
+            delete i;
+        }
         size_ = 0;
-        data.clear();
+        data_.clear();
     }
     ~LoungeUserDatabase(){
         size_ = 0;
-        data.clear();
+        data_.clear();
         delete myself;
         
     }
@@ -84,7 +97,7 @@ public:
 private:
     static LoungeUserDatabase * myself;
     int size_;
-    std::vector<LoungeUserInfo*> data;
+    std::vector<LoungeUserInfo*> data_;
     
 };
 
@@ -116,8 +129,10 @@ public:
     void getUserListFromServer();
     LoungeUserDatabase *Udatabase;
     
+    void updateUserInfo(float delta);
     
-    
+private:
+    cocos2d::extension::TableView * tableview;
 };
 
 

@@ -10,6 +10,8 @@
 #include "RankScene.hpp"
 #include "FriendScene.hpp"
 #include "AssisstanceFunc.hpp"
+#include "LoungeScene.hpp"
+
 #include <sstream>
 
 #include <thread>
@@ -99,6 +101,27 @@ bool LobbyScene::init()
     SettingButton->setPosition(Vec2(visibleSize.width/4 + 165 , visibleSize.height/4 - 50 ));
     SettingButton->setTag(3);
     this->addChild(SettingButton);
+    
+    //raady button
+    auto Readybutton  = cocos2d::ui::Button::create("ready-btn.png", "ready-btn-click.png", "ready-btn.png"); //2329 x 636
+    Readybutton->setPosition(Vec2(visibleSize.width/4, visibleSize.height/4));
+    Readybutton->ignoreContentAdaptWithSize(false);
+    Readybutton->setContentSize(Size(2329/4, 636/4));
+    Readybutton->setVisible(intoLounge_);
+    Readybutton->addTouchEventListener(CC_CALLBACK_2(LobbyScene::ReadyCallback, this));
+    Readybutton->setTag(5);
+    this->addChild(Readybutton);
+    
+    //game button
+    auto Gamebutton  = cocos2d::ui::Button::create("game-btn.png", "game-btn-click.png", "game-btn.png"); //2329 x 636
+    Gamebutton->setPosition(Vec2(visibleSize.width/4, visibleSize.height/4));
+    Gamebutton->ignoreContentAdaptWithSize(false);
+    Gamebutton->setContentSize(Size(2329/4, 636/4));
+    Gamebutton->setVisible(false);
+    Gamebutton->addTouchEventListener(CC_CALLBACK_2(LobbyScene::GameCallback, this));
+    Gamebutton->setTag(7);
+    this->addChild(Gamebutton);
+    
     //==============================================================================================================
     
     //======================================
@@ -150,18 +173,7 @@ bool LobbyScene::init()
     this->addChild(MyScore);
     this->addChild(Score);
     
-    /*
-    //start Game button
-    const std::string gameButtonPath = "startgame-btn.png"; ////3245 × 591
-    const std::string gameButtonSelectedPath = "startgame-btn-click.png"; ////3245 × 591
-    auto gameButton = createButton(true, "Game", Color3B::BLACK, gameButtonPath, gameButtonSelectedPath, gameButtonPath);
-    gameButton->setContentSize(Size(3245/4, 591/4));
-    gameButton->setTitleFontSize(85);
-    gameButton->setAnchorPoint(Vec2(0, 0.5));
-    gameButton->setPosition(Vec2(origin.x + 100, origin.y + visibleSize.height/4));
-    gameButton->setTitleOffset(0, 0);
-    this->addChild(gameButton);
-    */
+    
     
     //Lounge list table
     auto lounge_table = LoungeTable::create();
@@ -173,12 +185,21 @@ bool LobbyScene::init()
     this->addChild(lounge_table, 1);
     
     
+    //Lounge User list table
+    auto user_table = LoungeUserTable::create();
+    user_table->setContentSize(Size(1337/4, 750));
+    user_table->ignoreAnchorPointForPosition(false);
+    user_table->setAnchorPoint(Vec2(0.5, 1));
+    user_table->setPosition(Vec2(origin.x + visibleSize.width*3/4, origin.y + visibleSize.height));
+    user_table->setTag(6);
+    this->addChild(user_table, 1);
+    
     
     //lounge list background
     auto friend_bg = Sprite::create("friend-bg.png");
     friend_bg->setContentSize(Size(visibleSize.width/4 + 100, 600));
     friend_bg->setPosition(Vec2(origin.x + visibleSize.width*3/4, origin.y + visibleSize.height/2));
-    this->addChild(friend_bg);
+    this->addChild(friend_bg, 0);
     
     
     // Schedule the update method for this scene.
@@ -188,6 +209,26 @@ bool LobbyScene::init()
     
     
     
+}
+
+// Called automatically every frame. The update is scheduled in `init()`.
+void LobbyScene::update(float /*delta*/){
+    for(int i=0; i<=4; i++){
+        auto sp = this->getChildByTag(i);
+        sp->setVisible(!intoLounge_);
+    }
+    for(int i=5; i<=6; i++){
+        auto sp = this->getChildByTag(i);
+        sp->setVisible(intoLounge_);
+    }
+    
+    if(LoungeUserDatabase::getInstance()->is_all_user_ready()){
+        auto sp = this->getChildByTag(5);
+        sp->setVisible(false);
+        sp = this->getChildByTag(7);
+        sp->setVisible(true);
+        
+    }
 }
 
 
@@ -260,15 +301,40 @@ void LobbyScene::FriendCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventTy
     }
 }
 
-
-
-// Called automatically every frame. The update is scheduled in `init()`.
-void LobbyScene::update(float /*delta*/){
-    for(int i=0; i<=4; i++){
-        auto sp = this->getChildByTag(i);
-        sp->setVisible(!intoLounge_);
+//Select Ready button call back
+void LobbyScene::ReadyCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){
+    switch (type) {
+        case ui::Widget::TouchEventType::ENDED:{
+            std::thread tThread([](){
+                auto client = Client::getInstance();
+                client->userSetready(true);
+            });
+            tThread.join();
+            break;
+        }
+        default:
+            break;
+            
     }
 }
+//Select Game button call back
+void LobbyScene::GameCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){
+    switch (type) {
+        case ui::Widget::TouchEventType::ENDED:{
+            std::thread tThread([](){
+                auto client = Client::getInstance();
+                client->userStartgame();
+            });
+            tThread.join();
+            break;
+        }
+        default:
+            break;
+            
+    }
+}
+
+
 
 //==========================================================================
 
