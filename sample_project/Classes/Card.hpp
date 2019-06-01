@@ -18,7 +18,8 @@ enum class Suits{
 
 class Card{
 public:
-    Card(int id, std::string &cardName, Suits suit, int number){
+    Card(){};
+    Card(int id, const std::string &cardName, int suit, int number){
         card_id_ = id;
         cardName_ = cardName;
         suit_ = suit;
@@ -26,13 +27,13 @@ public:
     }
     int get_id();
     const std::string& get_cardName() const;
-    Suits get_suit();
+    int get_suit();
     int get_number();
     const std::string& get_Description() const;
     
     void set_id(int id);
     void set_Name(std::string &name);
-    void set_suit(Suits suit);
+    void set_suit(int suit);
     void set_number(int number);
     void set_Description(std::string description);
     
@@ -40,8 +41,53 @@ private:
     int card_id_;
     std::string cardName_;
     std::string cardDescription_;
-    Suits suit_;
+    int suit_;
     int number_;
 };
 
+
+class CardDatabase{
+public:
+    
+    CardDatabase():size_(0){};
+    ~CardDatabase(){
+        for(auto i:data_){
+            delete i;
+        }
+        delete myself;
+    }
+    
+    int get_size() const{
+        return size_;
+    }
+    void set_size(int size){
+        size_ = size;
+    }
+    
+    Card* get_Card(int idx){
+        return data_[idx];
+    }
+    void add_Card(Card* card){
+        data_.push_back(card);
+        ++size_;
+    }
+    void delete_Card(int idx){
+        delete data_[idx];
+        data_.erase(data_.begin() + idx);
+    }
+    
+    static CardDatabase* getInstance(){
+        if(CardDatabase::myself == nullptr){
+            CardDatabase::myself = new CardDatabase();
+        }
+        return CardDatabase::myself;
+    }
+    
+    
+private:
+    static CardDatabase *myself;
+    int size_ = 0;
+    std::vector<Card*> data_;
+    
+};
 #endif /* Card_hpp */

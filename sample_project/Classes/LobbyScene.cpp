@@ -18,6 +18,8 @@
 #include <nlohmann/json.hpp>
 
 #include "User.hpp"
+#include "player.hpp"
+#include "Card.hpp"
 #include "NetworkCom.hpp"
 
 USING_NS_CC;
@@ -317,13 +319,41 @@ void LobbyScene::ReadyCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventTyp
             
     }
 }
+
+void initRoomInfo(const json& rec){ // Player database and Card database
+    int p_amount = rec["Player"].size();
+    auto pdb = PlayerDatabase::getInstance();
+    pdb->set_size(p_amount);
+    //"Player Name" : string,
+    //"Position" : int(32-bit), (start from 0)
+    for(int i=0; i<p_amount; i++){
+        //Player(int max_hp, int hp, const std::string &charName, const std::string &PlayerName,  int position, int amount = 0)
+        pdb->add_Player(new Player(0, 0, "", rec["Player"][i]["Player Name"], rec["Player"][i]["Position"], 0));
+    }
+    
+    int  c_amount = rec["Card"].size();
+    auto cdb = CardDatabase::getInstance();
+    cdb->set_size(c_amount);
+    /*
+     "Name" : string,
+     "ID" : int(32-bit)
+     "Suit" : 0 or 1 or 2 or 3,
+     "Number" : 1~13
+     */
+    for(int i=0; i<c_amount; i++){
+        //Card(int id, std::string &cardName, int suit, int number)
+        cdb->add_Card(new Card(rec["Card"][i]["ID"], rec["Card"][i]["Name"], rec["Card"][i]["Suit"], rec["Card"][i]["Number"]));
+        
+    }
+}
 //Select Game button call back
 void LobbyScene::GameCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){
     switch (type) {
         case ui::Widget::TouchEventType::ENDED:{
             std::thread tThread([](){
                 auto client = Client::getInstance();
-                client->userStartgame();
+                json rec = client->userStartgame();
+                initRoomInfo(rec);
             });
             tThread.join();
             break;

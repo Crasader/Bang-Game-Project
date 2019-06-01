@@ -8,6 +8,8 @@
 #include "player.hpp"
 #include "User.hpp"
 
+PlayerDatabase* PlayerDatabase::myself = nullptr;
+
 int Player::get_Max_hp(){
     return Max_hp_;
 }
@@ -17,7 +19,9 @@ int Player::get_hp(){
 const std::string& Player::get_charName() const{
     return charName_;
 }
-
+const std::string& Player::get_PlayerName() const{
+    return PlayerName_;
+}
 int Player::get_holding_card_amount(){
     return holding_card_amount_;
 }
@@ -37,6 +41,10 @@ bool Player::isJail(){
     return isJail_;
 }
 
+void Player::set_PlayerName(const std::string &Name){
+    PlayerName_ = Name;
+}
+
 void Player::set_Max_hp(int max_hp){
     Max_hp_ = max_hp;
 }
@@ -45,7 +53,7 @@ void Player::set_hp(int hp){
     hp_ = hp;
 }
 
-void Player::set_charName(std::string &Name){
+void Player::set_charName( const std::string &Name){
     charName_.assign(Name);
 }
 

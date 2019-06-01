@@ -7,6 +7,8 @@
 
 #include "Card.hpp"
 
+CardDatabase* CardDatabase::myself = nullptr;
+
 int Card::get_id(){
     return card_id_;
 }
@@ -14,7 +16,7 @@ int Card::get_id(){
 const std::string& Card::get_cardName() const{
     return cardName_;
 }
-Suits Card::get_suit(){
+int Card::get_suit(){
     return suit_;
 }
 int Card::get_number(){
@@ -30,7 +32,7 @@ void Card::set_id(int id){
 void Card::set_Name(std::string &name){
     cardName_ = name;
 }
-void Card::set_suit(Suits suit){
+void Card::set_suit(int suit){
     suit_ = suit;
 }
 void Card::set_number(int number){

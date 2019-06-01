@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <string>
+
 class User{
 public:
     User(unsigned int uid, int win, int loss, std::string NickName = ""){
@@ -32,7 +33,8 @@ public:
     void setLose(int Lose);
     void setFirebaseUID(std::string & FUID);
     void setMoney(int money);
-
+    
+    
     
     static User * getInstance();
 private:
