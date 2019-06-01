@@ -114,6 +114,14 @@ public:
         return data[idx];
     }
     
+    void clear(){
+        for(auto i:data){
+            delete i;
+        }
+        data.clear();
+        size_ = 0;
+    }
+    
     static LoungeDatabase * getInstance(){
         if(LoungeDatabase::myself == nullptr){
             LoungeDatabase::myself = new LoungeDatabase();
@@ -157,8 +165,9 @@ public:
     LoungeDatabase* Ldatabase;
     
     void getLoungListFromServer();
-    
-    
+    void updateUserInfo(float delta);
+private:
+    cocos2d::extension::TableView * tableview;
 };
 
 

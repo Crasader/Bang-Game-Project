@@ -389,7 +389,7 @@ CCSize LoungeTable::cellSizeForTable(TableView *table){
 //number of lounge
 ssize_t LoungeTable::numberOfCellsInTableView(TableView *table){
     Ldatabase = LoungeDatabase::getInstance();
-    return Ldatabase->get_size() - 1;
+    return Ldatabase->get_size();
 }
 
 TableViewCell* LoungeTable::tableCellAtIndex(TableView *table, ssize_t idx){
@@ -461,7 +461,7 @@ bool LoungeTable::init(){
     
     
     //Lounge list
-    TableView * tableview = TableView::create(this, CCSizeMake(300, 480)); //table size
+    tableview = TableView::create(this, CCSizeMake(300, 480)); //table size
     tableview->setDirection(ScrollView::Direction::VERTICAL); // 只能垂直滑動
     tableview->setDelegate(this);
     tableview->ignoreAnchorPointForPosition(false);
@@ -475,10 +475,19 @@ bool LoungeTable::init(){
     TopLabel->setColor(Color3B::BLACK);
     TopLabel->setPosition(Vec2(150, visibleSize.height-130));
     this->addChild(TopLabel);
+    
+    this->schedule(schedule_selector(LoungeTable::updateUserInfo), 1.0f ); // update user info
+    
     return true;
     
     
 }
+void LoungeTable::updateUserInfo(float /*delta*/){
+    std::thread Tmpthread(&::LoungeTable::getLoungListFromServer, this );
+    Tmpthread.join();
+    tableview->reloadData();
+}
+
 
 void LoungeTable::getLoungListFromServer(){
     auto client = Client::getInstance();
@@ -486,11 +495,11 @@ void LoungeTable::getLoungListFromServer(){
     Ldatabase = LoungeDatabase::getInstance();
     
     json rec = client->getLoungeinfo();
-    //int loungSize = rec["Lounge Amount"];
+   
     int loungSize = rec["Lounge"].size();
-    Ldatabase->set_size(loungSize);
+    Ldatabase->clear();
     
-    //CCLOG(rec.dump().c_str());
+    
     //Lounge 0, Loung 1 ....
     
     std::string sLounge = "Lounge";

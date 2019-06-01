@@ -29,7 +29,7 @@ CCSize LoungeUserTable::cellSizeForTable(TableView *table){
 //number of lounge
 ssize_t LoungeUserTable::numberOfCellsInTableView(TableView *table){
     Udatabase = LoungeUserDatabase::getInstance();
-    return Udatabase->get_size() - 1;
+    return Udatabase->get_size();
 }
 
 TableViewCell* LoungeUserTable::tableCellAtIndex(TableView *table, ssize_t idx){
@@ -44,13 +44,6 @@ TableViewCell* LoungeUserTable::tableCellAtIndex(TableView *table, ssize_t idx){
     }
     cell->removeAllChildrenWithCleanup(true);
     
-    /*
-    //BK image
-    auto btImage = Sprite::create("lobby-room-btn.png");
-    btImage->setContentSize(Size(300, 80));
-    btImage->setPosition(Vec2(150, 32));
-    cell->addChild(btImage);
-    */
     
     //user id label
     unsigned int ID = Udatabase->get_LoungeUserInfo(idx)->getID();
@@ -139,17 +132,16 @@ void LoungeUserTable::updateUserInfo(float /*delta*/){
 
 void LoungeUserTable::getUserListFromServer(){
     
-    
     auto client = Client::getInstance();
     
     Udatabase = LoungeUserDatabase::getInstance();
-    Udatabase->clear();
+    
     
     json rec = client->getLoungeUserInfo();
     
-    //int loungSize = rec["Lounge Amount"];
     int UserSize = rec["User"].size();
-    Udatabase->set_size(UserSize);
+    Udatabase->clear();
+
     
     //CCLOG(rec.dump().c_str());
     //Lounge 0, Loung 1 ....
