@@ -66,6 +66,13 @@
 		6F0BBCE122A167BE006F038D /* ready-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0BBCDF22A167BE006F038D /* ready-btn-click.png */; };
 		6F0BBCE422A17CCA006F038D /* game-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0BBCE222A17CC9006F038D /* game-btn.png */; };
 		6F0BBCE522A17CCA006F038D /* game-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0BBCE322A17CCA006F038D /* game-btn-click.png */; };
+		6F0BBCEC22A2996A006F038D /* ChooseCharacterScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BBCEA22A2996A006F038D /* ChooseCharacterScene.cpp */; };
+		6F0BBCF322A29F04006F038D /* card-character.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0BBCEE22A29EFF006F038D /* card-character.png */; };
+		6F0BBCF422A29F04006F038D /* choose-bg-purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0BBCEF22A29F00006F038D /* choose-bg-purple.png */; };
+		6F0BBCF522A29F04006F038D /* choose-bg-orange-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0BBCF022A29F01006F038D /* choose-bg-orange-click.png */; };
+		6F0BBCF622A29F04006F038D /* choose-bg-purple-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0BBCF122A29F03006F038D /* choose-bg-purple-click.png */; };
+		6F0BBCF722A29F04006F038D /* choose-bg-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0BBCF222A29F03006F038D /* choose-bg-orange.png */; };
+		6F0BBCFB22A2A077006F038D /* click-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0BBCFA22A2A077006F038D /* click-logo.png */; };
 		6F35115B224FA95700D206EC /* PluginFacebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F351158224FA95700D206EC /* PluginFacebook.framework */; };
 		6F35115C224FA95700D206EC /* sdkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115A224FA95700D206EC /* sdkbox.framework */; };
 		6F351161224FA99700D206EC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115D224FA99700D206EC /* AdSupport.framework */; };
@@ -262,6 +269,14 @@
 		6F0BBCDF22A167BE006F038D /* ready-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ready-btn-click.png"; sourceTree = "<group>"; };
 		6F0BBCE222A17CC9006F038D /* game-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-btn.png"; sourceTree = "<group>"; };
 		6F0BBCE322A17CCA006F038D /* game-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game-btn-click.png"; sourceTree = "<group>"; };
+		6F0BBCEA22A2996A006F038D /* ChooseCharacterScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ChooseCharacterScene.cpp; sourceTree = "<group>"; };
+		6F0BBCEB22A2996A006F038D /* ChooseCharacterScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ChooseCharacterScene.hpp; sourceTree = "<group>"; };
+		6F0BBCEE22A29EFF006F038D /* card-character.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card-character.png"; sourceTree = "<group>"; };
+		6F0BBCEF22A29F00006F038D /* choose-bg-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "choose-bg-purple.png"; sourceTree = "<group>"; };
+		6F0BBCF022A29F01006F038D /* choose-bg-orange-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "choose-bg-orange-click.png"; sourceTree = "<group>"; };
+		6F0BBCF122A29F03006F038D /* choose-bg-purple-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "choose-bg-purple-click.png"; sourceTree = "<group>"; };
+		6F0BBCF222A29F03006F038D /* choose-bg-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "choose-bg-orange.png"; sourceTree = "<group>"; };
+		6F0BBCFA22A2A077006F038D /* click-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "click-logo.png"; sourceTree = "<group>"; };
 		6F351158224FA95700D206EC /* PluginFacebook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PluginFacebook.framework; sourceTree = "<group>"; };
 		6F35115A224FA95700D206EC /* sdkbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = sdkbox.framework; sourceTree = "<group>"; };
 		6F35115D224FA99700D206EC /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
@@ -594,6 +609,12 @@
 				6F0BBCDD22A167BD006F038D /* ready-btn.png */,
 				6F0BBCE322A17CCA006F038D /* game-btn-click.png */,
 				6F0BBCE222A17CC9006F038D /* game-btn.png */,
+				6F0BBCEE22A29EFF006F038D /* card-character.png */,
+				6F0BBCF022A29F01006F038D /* choose-bg-orange-click.png */,
+				6F0BBCF222A29F03006F038D /* choose-bg-orange.png */,
+				6F0BBCF122A29F03006F038D /* choose-bg-purple-click.png */,
+				6F0BBCEF22A29F00006F038D /* choose-bg-purple.png */,
+				6F0BBCFA22A2A077006F038D /* click-logo.png */,
 				B36B421FB393D1A749DC816F /* sdkbox_config.json */,
 			);
 			name = Resources;
@@ -625,6 +646,8 @@
 				6F514127229009D50054C510 /* FriendScene.hpp */,
 				6F0BBCA9229EC223006F038D /* LoungeScene.cpp */,
 				6F0BBCAA229EC223006F038D /* LoungeScene.hpp */,
+				6F0BBCEA22A2996A006F038D /* ChooseCharacterScene.cpp */,
+				6F0BBCEB22A2996A006F038D /* ChooseCharacterScene.hpp */,
 				6F4B30FF2296E12D007A9B20 /* player.cpp */,
 				6F4B31002296E12D007A9B20 /* player.hpp */,
 				6F4B31032296E766007A9B20 /* Card.cpp */,
@@ -820,6 +843,7 @@
 				6FABDDB2227B2D4A0034224E /* startgame-btn.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
+				6F0BBCF322A29F04006F038D /* card-character.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				6FABDDD9227B2D680034224E /* green-dot.png in Resources */,
 				6FABDDB9227B2D4A0034224E /* user-icon.png in Resources */,
@@ -833,13 +857,16 @@
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				6FABDDB6227B2D4A0034224E /* mute-icon.png in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
+				6F0BBCF722A29F04006F038D /* choose-bg-orange.png in Resources */,
 				6FA0ED9A226B269A0090FD52 /* emptyImage.png in Resources */,
 				6FA0ED94226B215E0090FD52 /* ButtonS2.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				6FD8C2F122808D0F007C9DE0 /* mute-progress.png in Resources */,
+				6F0BBCF622A29F04006F038D /* choose-bg-purple-click.png in Resources */,
 				6F51412D2290481B0054C510 /* add-btn-click.png in Resources */,
 				6FABDDB3227B2D4A0034224E /* season-tag.png in Resources */,
+				6F0BBCF522A29F04006F038D /* choose-bg-orange-click.png in Resources */,
 				6FABDDDF227B2D680034224E /* friend-logo.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				6FD8C2EC22808893007C9DE0 /* mute-bg.png in Resources */,
@@ -856,6 +883,7 @@
 				6FABDDDD227B2D680034224E /* card-blue.png in Resources */,
 				6FABDDB8227B2D4A0034224E /* rank-logo.png in Resources */,
 				6FABDDCD227B2D680034224E /* add-btn.png in Resources */,
+				6F0BBCF422A29F04006F038D /* choose-bg-purple.png in Resources */,
 				6F51412B2290455E0054C510 /* accept-btn-click.png in Resources */,
 				6F9C9A38224E9052007834B7 /* Storyboard.storyboard in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
@@ -864,6 +892,7 @@
 				6F7B3634229A4E2300090632 /* notification-btn.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				6FABDDDC227B2D680034224E /* bgm-btn.png in Resources */,
+				6F0BBCFB22A2A077006F038D /* click-logo.png in Resources */,
 				6FABDDD0227B2D680034224E /* card-orange.png in Resources */,
 				6F9C9A3D224E95B6007834B7 /* LaunchScreenBackground.png in Resources */,
 				6FABDDD6227B2D680034224E /* accept-btn.png in Resources */,
@@ -965,6 +994,7 @@
 				6F514128229009D50054C510 /* FriendScene.cpp in Sources */,
 				6F4637CF22982D17003F12FB /* User.cpp in Sources */,
 				6F514120228FC3360054C510 /* RankScene.cpp in Sources */,
+				6F0BBCEC22A2996A006F038D /* ChooseCharacterScene.cpp in Sources */,
 				6F7B362E2298E19100090632 /* ClientSocket.cpp in Sources */,
 				6F4B31012296E12D007A9B20 /* player.cpp in Sources */,
 				4A05661E1DB70C58009CE39C /* FirebaseAuthScene.cpp in Sources */,

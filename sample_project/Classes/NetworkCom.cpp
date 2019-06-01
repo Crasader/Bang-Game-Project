@@ -28,6 +28,14 @@ Client::~Client()
 {
     delete socket;
 }
+json Client::getJBuffer(){
+    json re;
+    if(socket->GetReceived()){
+        re = json::parse(socket->GetBuffer());
+        socket->SetReceived(false);
+    }
+    return re;
+}
 
 json Client::userRegisterLogin(unsigned int userId)
 {
@@ -41,7 +49,7 @@ json Client::userRegisterLogin(unsigned int userId)
     return re;
 }
 
-json Client::userChangenickname(string nickname)
+json Client::userChangenickname(const string& nickname)
 {
     json se ,re;
     se[str_var[0]] = 1;
@@ -97,9 +105,12 @@ json Client::userStartgame()
     re = json::parse(socket->GetBuffer());
     return re;
 }
-void Client::playerChoosecharacter(string charname1, string charname2)
+void Client::playerChoosecharacter(const string &charname)
 {
-    
+    json se;
+    se[str_var[0]] = 6;
+    se["Choose Character Name"] = charname;
+    socket->sendMessage(se.dump());
 }
 void Client::updateplayerinfo()
 {

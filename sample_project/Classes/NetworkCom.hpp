@@ -23,12 +23,12 @@ public:
     Client();
     ~Client();
     json userRegisterLogin(unsigned int);
-    json userChangenickname(string);
+    json userChangenickname(const string& );
     json getLoungeinfo();
     json userJoin(bool join,unsigned int loungeId,unsigned int userId);
     json userSetready(bool);
     json userStartgame();
-    void playerChoosecharacter(string, string );
+    void playerChoosecharacter(const string &charname);
     void updateplayerinfo();
     json playerTurn();
     json playerUsecard(int, int);
@@ -45,6 +45,7 @@ public:
     json showDetermineCard(int);
     json getLoungeUserInfo(); //action 22
     
+    json getJBuffer();
     static Client* getInstance();
     
 private:

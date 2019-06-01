@@ -35,8 +35,11 @@ public:
     void SetReceived(bool received);
     void busyWaitting();
     
+    static CClientSocket* getInstance();
+    
     ~CClientSocket();
 private:
+    static CClientSocket *myself;
     //AF = Address Family
     static constexpr int IPV4 = AF_INET;
     static constexpr int TCP = SOCK_STREAM;

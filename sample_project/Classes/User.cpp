@@ -9,7 +9,9 @@
 
 
 User * User::myself = nullptr;
-
+unsigned int User::getWhereLounge(){
+    return whereLoinge_;
+}
 unsigned int User::getUID(){
     return UID_;
 }
@@ -42,6 +44,9 @@ void User::setLose(int Lose){
     Lose_ = Lose;
 }
 
+void User::setWhereLounge(unsigned int id){
+    whereLoinge_ = id;
+}
 void User::setFirebaseUID(std::string & FUID){
     firebaseUID_ = FUID;
 }

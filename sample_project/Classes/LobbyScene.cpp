@@ -225,10 +225,16 @@ void LobbyScene::update(float /*delta*/){
     }
     
     if(LoungeUserDatabase::getInstance()->is_all_user_ready()){
-        auto sp = this->getChildByTag(5);
-        sp->setVisible(false);
-        sp = this->getChildByTag(7);
-        sp->setVisible(true);
+        
+        
+        if(User::getInstance()->getWhereLounge() == User::getInstance()->getUID()){
+            auto sp = this->getChildByTag(5);//ready button
+            sp->setVisible(false);
+            
+            sp = this->getChildByTag(7);//game button
+            sp->setVisible(true);
+            
+        }
         
     }
 }
@@ -517,6 +523,9 @@ void LoungeTable::getLoungListFromServer(){
 
 void LobbyScene::joinLounge(unsigned int lounge_id){
     auto client = Client::getInstance();
+    auto user = User::getInstance();
+    user->setWhereLounge(lounge_id);
+    
     client->userJoin(true, lounge_id, 0);
     intoLounge_ = true;
 }

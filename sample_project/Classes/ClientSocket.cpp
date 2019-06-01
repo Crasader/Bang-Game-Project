@@ -8,6 +8,16 @@
 #include "ClientSocket.hpp"
 
 #include <string.h>
+
+CClientSocket* CClientSocket::myself = nullptr;
+
+CClientSocket* CClientSocket::getInstance(){
+    if(CClientSocket::myself == nullptr){
+        CClientSocket::myself = new CClientSocket(28716, "104.199.215.104");
+    }
+    return CClientSocket::myself;
+}
+
 timeval CClientSocket::timeout;
 CClientSocket::CClientSocket(int port, const char * ServerIPAddress)
 {
