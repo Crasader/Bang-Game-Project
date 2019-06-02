@@ -9,6 +9,9 @@
 
 
 User * User::myself = nullptr;
+bool User::isReady() const{
+    return isReady_;
+}
 unsigned int User::getWhereLounge(){
     return whereLoinge_;
 }
@@ -60,4 +63,7 @@ User * User::getInstance()
 }
 void User::setMoney(int money){
     money_ = money;
+}
+void User::setReady(bool isReady){
+    isReady_ = isReady;
 }

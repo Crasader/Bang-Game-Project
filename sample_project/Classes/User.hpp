@@ -27,6 +27,7 @@ public:
     const std::string & getFirebaseUID() const;
     int getMoney();
     unsigned int getWhereLounge();
+    bool isReady() const;
     
     void setUID(unsigned int uid);
     void setNickName(std::string NickName);
@@ -35,11 +36,12 @@ public:
     void setFirebaseUID(std::string & FUID);
     void setMoney(int money);
     void setWhereLounge(unsigned int id);
-    
+    void setReady(bool isReady);
     
     static User * getInstance();
 private:
     static User * myself;
+    bool isReady_ = false;
     unsigned int whereLoinge_;
     unsigned int UID_;
     std::string firebaseUID_;

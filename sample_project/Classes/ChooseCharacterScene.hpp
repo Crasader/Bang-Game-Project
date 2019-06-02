@@ -21,12 +21,14 @@ public:
     bool init() override;
     
     
-    
+    static void SetCharacterName(const std::string & Name1, const std::string & Name2);
     CREATE_FUNC(ChooseCharacterScene);
     
     
+    
 private:
-    std::string CH_name0_, CH_name1_;
+    cocos2d::ui::Button *leftButton = nullptr, *rightButton = nullptr;
+    static std::string CH_name0_, CH_name1_;
     void LeftCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
     void RightCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
 };

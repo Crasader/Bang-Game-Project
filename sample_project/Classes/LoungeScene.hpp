@@ -130,8 +130,16 @@ public:
     LoungeUserDatabase *Udatabase;
     
     void updateUserInfo(float delta);
-    
+    /*
+    static LoungeUserTable* getInstance(){
+        if(myself == nullptr){
+            myself = LoungeUserTable::create();
+        }
+        return myself;
+    }
+    */
 private:
+    //static LoungeUserTable* myself;
     cocos2d::extension::TableView * tableview;
 };
 

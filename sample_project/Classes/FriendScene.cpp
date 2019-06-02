@@ -7,13 +7,13 @@
 
 #include "FriendScene.hpp"
 #include "LobbyScene.hpp"
-
+#include "WrapInfo.hpp"
 #include <sstream>
 
 USING_NS_CC;
 
 
-
+FriendScene* FriendScene::myself = nullptr;
 
 // The images for the buttons.
 static const std::string AddButtonImage = "add-btn.png";
@@ -145,11 +145,12 @@ void FriendScene::SearchCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventT
             stringstream ss(strID);
             ss >> UID;
             auto client = Client::getInstance();
-            json rec = client->addFriend(UID);
-            CCLOG(rec.dump().c_str());
+            
+            CClientSocket::getInstance()->sendMessage(WrapInfo::WrapAddUser(UID).dump());
+            CClientSocket::getInstance()->busyWaitting(18);
             
             auto msgLabel = SearchMsgLabel(Search_Msg::Success);
-            if(rec["Result"] != 1){
+            if(Search_state_ != 1){
                 //0代表不能加自己好友
                 //1代表加好友成功
                 //2代表沒有這個人
@@ -338,21 +339,8 @@ void FriendTable::getFriendListFromServer(){
     
     Fdatabase = FriendDatabase::getInstance();
     
-    json rec = client->getFriendlist();
-    int FriendSize = rec["Friend"].size();
-    Fdatabase->set_size(FriendSize);
-    
-    //CCLOG(rec.dump().c_str());
-    //Friend 0, Friend 1 ....
-    
-    std::string sFriend = "Friend";
-    
-    for(int i=0;  i<FriendSize; i++){
-        
-        unsigned int tID = rec[sFriend][i]["Friend ID"];
-        
-        Fdatabase->add_friend(new FriendInfo(tID, true));
-        
-    }
+    CClientSocket::getInstance()->sendMessage(WrapInfo::WrapGetFriendListInfo().dump());
+    CClientSocket::getInstance()->busyWaitting(17);
     
 }
+FriendTable* FriendTable::myself = nullptr;

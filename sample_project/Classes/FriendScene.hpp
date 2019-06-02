@@ -29,11 +29,21 @@ public:
     
     bool init() override;
     
+    void setSearch_state(int state){
+        Search_state_ = state;
+    }
     
-    
+    static FriendScene* getInstance(){
+        if(myself == nullptr){
+            myself = FriendScene::create();
+        }
+        return myself;
+    }
     CREATE_FUNC(FriendScene);
     
 private:
+    static FriendScene* myself;
+    
     cocos2d::ui::EditBox *createEditBox(const std::string &PlaceHolder, const std::string &ImagePath);
     void BackToLoooby(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
     void SearchCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
@@ -44,6 +54,7 @@ private:
     cocos2d::extension::EditBox* UsernameEditbox;
     
     //--------------------------------------------
+    int Search_state_;
     static const std::string ErrMsg;//search friend error msg
     static const std::string SucMsg;//search friend success msg
 };
@@ -160,6 +171,16 @@ public:
     
     FriendDatabase *Fdatabase;
     
+    
+    static FriendTable* getInstance(){
+        if(FriendTable::myself == nullptr){
+            FriendTable::myself = FriendTable::create();
+        }
+        return FriendTable::myself;
+    }
+    
+private:
+    static FriendTable* myself;
     
 };
 

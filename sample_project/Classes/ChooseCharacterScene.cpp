@@ -7,9 +7,18 @@
 
 #include "ChooseCharacterScene.hpp"
 #include "NetworkCom.hpp"
+#include "WrapInfo.hpp"
 #include <thread>
 
 USING_NS_CC;
+std::string ChooseCharacterScene::CH_name0_ = "";
+std::string ChooseCharacterScene::CH_name1_ = "";
+
+void ChooseCharacterScene::SetCharacterName(const std::string & Name1, const std::string & Name2)
+{
+    CH_name0_ = Name1;
+    CH_name1_ = Name2;
+}
 
 
 Scene *ChooseCharacterScene::createScene(){
@@ -31,13 +40,10 @@ bool ChooseCharacterScene::init()
     
     //add backbround
     auto backGroundColor = CCLayerColor::create(ccc4(236, 207, 177, 255)); //RGBA
-    this->addChild(backGroundColor);
+    this->addChild(backGroundColor, 0);
     
     //==============================================================================================================
-    auto client = Client::getInstance();
-    //json CH_info = client->getJBuffer();
     
-    //CH_name0_ = CH_info["Character Name 0"], CH_name1_ = CH_info["Character Name 0"];
     
     //Click to choose your character
     auto TopLogo = Sprite::create("click-logo.png");//1000 x 78
@@ -47,40 +53,48 @@ bool ChooseCharacterScene::init()
     
     const int Button_y_pos = visibleSize.height/2 - 50;
     
+    
     auto leftCH = Sprite::create("card-character.png"); //1029 x 1442
     leftCH->setContentSize(Size(1029/4, 1442/4));
-    auto CH_label1 = Label::createWithTTF("TEST0", "fonts/arial.ttf", 30);
-    leftCH->addChild(CH_label1);
+    leftCH->setPosition(Vec2(2241/8, 2406/8 + 50));
+    
+    auto CH_label1 = Label::createWithTTF(CH_name0_, "fonts/arial.ttf", 30);
     CH_label1->setPosition(1024/8, 1442/4-50);
     CH_label1->setColor(Color3B::BLACK);
     
+    leftCH->addChild(CH_label1);
+    
+    //this->addChild(leftCH);
+    
     auto rightCH = Sprite::create("card-character.png");
     rightCH->setContentSize(Size(1029/4, 1442/4));
-    auto CH_label2 = Label::createWithTTF("TEST1", "fonts/arial.ttf", 30);
-    rightCH->addChild(CH_label2);
+    rightCH->setPosition(Vec2(2241/8, 2406/8 + 50));
+    
+    auto CH_label2 = Label::createWithTTF(CH_name1_, "fonts/arial.ttf", 30);
     CH_label2->setPosition(1024/8, 1442/4-50);
     CH_label2->setColor(Color3B::BLACK);
+    rightCH->addChild(CH_label2);
+    
+    //this->addChild(rightCH);
     
     
-    auto leftButton = ui::Button::create("choose-bg-orange.png", "choose-bg-orange-click.png", "choose-bg-orange.png");//2241 x 2406
+    leftButton = ui::Button::create("choose-bg-orange.png", "choose-bg-orange-click.png", "choose-bg-orange-click.png");//2241 x 2406
     leftButton->ignoreContentAdaptWithSize(false);
     leftButton->setContentSize(Size(2241/4, 2406/4));
     leftButton->setPosition(Vec2(visibleSize.width/2 -275, Button_y_pos));
-    leftButton->addChild(leftCH);
-    leftCH->setPosition(Vec2(2241/8, 2406/8 + 50));
     leftButton->addTouchEventListener(CC_CALLBACK_2(ChooseCharacterScene::LeftCallback, this));
+    leftButton->addChild(leftCH);
     this->addChild(leftButton);
     
     
     
     
-    auto rightButton = ui::Button::create("choose-bg-purple.png", "choose-bg-purple-click.png", "choose-bg-purple.png");//2241 x 2406
+    rightButton = ui::Button::create("choose-bg-purple.png", "choose-bg-purple-click.png", "choose-bg-purple-click.png");//2241 x 2406
     rightButton->ignoreContentAdaptWithSize(false);
     rightButton->setContentSize(Size(2241/4, 2406/4));
     rightButton->setPosition(Vec2(visibleSize.width/2 +275, Button_y_pos));
-    rightButton->addChild(rightCH);
-    rightCH->setPosition(Vec2(2241/8, 2406/8 + 50));
     rightButton->addTouchEventListener(CC_CALLBACK_2(ChooseCharacterScene::RightCallback, this));
+    rightButton->addChild(rightCH);
     this->addChild(rightButton);
     
     
@@ -92,9 +106,12 @@ void ChooseCharacterScene::LeftCallback(cocos2d::Ref*, cocos2d::ui::Widget::Touc
         case ui::Widget::TouchEventType::ENDED:{
             std::thread tThread([this](){
                 auto client = Client::getInstance();
-                client->playerChoosecharacter(this->CH_name0_);
+                CClientSocket::getInstance()->sendMessage(WrapInfo::WrapChooseCharacter(this->CH_name0_).dump());
             });
             tThread.join();
+            
+            leftButton->setEnabled(false);
+            rightButton->setEnabled(false);
             break;
         }
         default:
@@ -107,9 +124,11 @@ void ChooseCharacterScene::RightCallback(cocos2d::Ref*, cocos2d::ui::Widget::Tou
         case ui::Widget::TouchEventType::ENDED:{
             std::thread tThread([this](){
                 auto client = Client::getInstance();
-                client->playerChoosecharacter(this->CH_name1_);
+                CClientSocket::getInstance()->sendMessage(WrapInfo::WrapChooseCharacter(this->CH_name1_).dump());
             });
             tThread.join();
+            leftButton->setEnabled(false);
+            rightButton->setEnabled(false);
             break;
         }
             

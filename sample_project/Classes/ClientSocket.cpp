@@ -6,6 +6,8 @@
 //
 
 #include "ClientSocket.hpp"
+#include <nlohmann/json.hpp>
+#include "NetworkCom.hpp"
 
 #include <string.h>
 
@@ -93,20 +95,18 @@ void CClientSocket::ClientProc(CClientSocket * myself)
         }
         if(FD_ISSET(myself->SocketFD, &ReadFDSet))
         {
-            if(!myself->received)
+            const char * ReceivedData = myself->receiveMessage();
+            if(ReceivedData[0] != '\0')
             {
-                const char * ReceivedData = myself->receiveMessage();
-                if(ReceivedData[0] != '\0')
-                {
-                    //receive
-                    myself->received = 1;
-                    printf("Received: %s\n", ReceivedData);
-                }
-                else
-                {
-                    //如果與伺服器斷線就直接跳(退出thread) 看你在斷線時要什麼機制
-                    break;
-                }
+
+                std::thread ParseThread = std::thread(Client::HandleAction, ReceivedData);
+                ParseThread.detach();
+                printf("Received: %s\n", ReceivedData);
+            }
+            else
+            {
+                //如果與伺服器斷線就直接跳(退出thread) 看你在斷線時要什麼機制
+                break;
             }
         }
     }
@@ -115,19 +115,19 @@ char * CClientSocket::GetBuffer()
 {
     return ReceiveBuffer;
 }
-bool CClientSocket::GetReceived()
+int CClientSocket::GetHandledAction()
 {
-    return received;
+    return HandledAction;
 }
-void CClientSocket::SetReceived(bool received)
+void CClientSocket::SetHandledAction(int HandledAction)
 {
-    this->received = received;
+    this->HandledAction = HandledAction;
 }
 CClientSocket::~CClientSocket()
 {
     shutdown(SocketFD, SHUT_RDWR);
     ClientThread.detach();
 }
-void CClientSocket::busyWaitting(){
-    while (!this->GetReceived()) {};
+void CClientSocket::busyWaitting(int Action){
+    while (this->GetHandledAction() != Action) {};
 }

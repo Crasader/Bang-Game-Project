@@ -6,10 +6,11 @@
 //
 
 #include "LoungeScene.hpp"
-
+#include "WrapInfo.hpp"
 #include <sstream>
 
 //==========================================================================
+
 
 LoungeUserDatabase * LoungeUserDatabase::myself = nullptr;
 
@@ -136,25 +137,7 @@ void LoungeUserTable::getUserListFromServer(){
     
     Udatabase = LoungeUserDatabase::getInstance();
     
-    
-    json rec = client->getLoungeUserInfo();
-    
-    int UserSize = rec["User"].size();
-    Udatabase->clear();
-
-    
-    //CCLOG(rec.dump().c_str());
-    //Lounge 0, Loung 1 ....
-    
-    std::string sUser = "User";
-    
-    for(int i=0;  i<UserSize; i++){
-        
-        unsigned int tID = rec[sUser][i]["ID"];
-        bool isready = rec[sUser][i]["Ready"];
-        
-        Udatabase->add_User(new LoungeUserInfo(tID, isready));
-    }
+    CClientSocket::getInstance()->sendMessage(WrapInfo::WrapLoungeUserInfo().dump());
     
 }
 

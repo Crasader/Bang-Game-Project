@@ -16,7 +16,8 @@
 #include <thread>
 #include "User.hpp"
 #include "NetworkCom.hpp"
-
+#include "WrapInfo.hpp"
+#include "ClientSocket.hpp"
 class LobbyScene : public cocos2d::Scene{
 public:
     static cocos2d::Scene *createScene();
@@ -30,25 +31,25 @@ public:
         auto client = Client::getInstance();
         auto user = User::getInstance();
         
-        json rec = client->userRegisterLogin(user->getUID());
+        CClientSocket::getInstance()->sendMessage(WrapInfo::WrapRegisterUserInfo(user->getUID()).dump());
+        CClientSocket::getInstance()->busyWaitting(0);
         
-        //CCLOG(rec.dump().c_str());
         
-        if(rec["Nick Name"] == ""){
-            client->userChangenickname("Test Name");
-            rec = client->userRegisterLogin(user->getUID());
+        if(user->getNickName() == ""){
+            CClientSocket::getInstance()->sendMessage(WrapInfo::WrapChangeNickName("Test Name").dump());
+            CClientSocket::getInstance()->busyWaitting(0);
         }
-        user->setMoney(rec["User Money"]);
-        user->setNickName(rec["Nick Name"]);
-        user->setWin(rec["User Win"]);
-        user->setLose(rec["User Lose"]);
     }
     
     static void joinLounge(unsigned int lounge_id);
     
+
+    void ListenerStartGame();
     void update(float delta) override;
     
     cocos2d::ui::Button *ReadyButton;
+    
+    
     
     
 private:
@@ -64,6 +65,7 @@ private:
     using json = nlohmann::json;
     json request_info, r2;
     
+    bool isStartGame_ = false;
     static bool intoLounge_;
     
     float nextYPosition;
@@ -166,7 +168,9 @@ public:
     
     void getLoungListFromServer();
     void updateUserInfo(float delta);
+    
 private:
+    
     cocos2d::extension::TableView * tableview;
 };
 

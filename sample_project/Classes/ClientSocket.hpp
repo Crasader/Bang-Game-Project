@@ -31,9 +31,9 @@ public:
     static void ClientProc(CClientSocket * myself);
     char * GetBuffer();
     
-    bool GetReceived();
-    void SetReceived(bool received);
-    void busyWaitting();
+    int GetHandledAction();
+    void SetHandledAction(int HandledAction);
+    void busyWaitting(int Action);
     
     static CClientSocket* getInstance();
     
@@ -49,7 +49,7 @@ private:
     static constexpr int BufferSize = 8192;
     char ReceiveBuffer[BufferSize];
     static timeval timeout;//second, usecond
-    bool received = 0;
+    int HandledAction = -1;
 };
 
 #endif /* ClientSocket_hpp */

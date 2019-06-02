@@ -73,6 +73,7 @@
 		6F0BBCF622A29F04006F038D /* choose-bg-purple-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0BBCF122A29F03006F038D /* choose-bg-purple-click.png */; };
 		6F0BBCF722A29F04006F038D /* choose-bg-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0BBCF222A29F03006F038D /* choose-bg-orange.png */; };
 		6F0BBCFB22A2A077006F038D /* click-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F0BBCFA22A2A077006F038D /* click-logo.png */; };
+		6F0BBCFF22A3907F006F038D /* WrapInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BBCFD22A3907F006F038D /* WrapInfo.cpp */; };
 		6F35115B224FA95700D206EC /* PluginFacebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F351158224FA95700D206EC /* PluginFacebook.framework */; };
 		6F35115C224FA95700D206EC /* sdkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115A224FA95700D206EC /* sdkbox.framework */; };
 		6F351161224FA99700D206EC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115D224FA99700D206EC /* AdSupport.framework */; };
@@ -277,6 +278,8 @@
 		6F0BBCF122A29F03006F038D /* choose-bg-purple-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "choose-bg-purple-click.png"; sourceTree = "<group>"; };
 		6F0BBCF222A29F03006F038D /* choose-bg-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "choose-bg-orange.png"; sourceTree = "<group>"; };
 		6F0BBCFA22A2A077006F038D /* click-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "click-logo.png"; sourceTree = "<group>"; };
+		6F0BBCFD22A3907F006F038D /* WrapInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WrapInfo.cpp; sourceTree = "<group>"; };
+		6F0BBCFE22A3907F006F038D /* WrapInfo.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WrapInfo.hpp; sourceTree = "<group>"; };
 		6F351158224FA95700D206EC /* PluginFacebook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PluginFacebook.framework; sourceTree = "<group>"; };
 		6F35115A224FA95700D206EC /* sdkbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = sdkbox.framework; sourceTree = "<group>"; };
 		6F35115D224FA99700D206EC /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
@@ -658,6 +661,8 @@
 				6F4637D2229837A3003F12FB /* NetworkCom.hpp */,
 				6F7B362C2298E19100090632 /* ClientSocket.cpp */,
 				6F7B362D2298E19100090632 /* ClientSocket.hpp */,
+				6F0BBCFD22A3907F006F038D /* WrapInfo.cpp */,
+				6F0BBCFE22A3907F006F038D /* WrapInfo.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -1002,6 +1007,7 @@
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				4A05661F1DB70C58009CE39C /* FirebaseScene.cpp in Sources */,
 				6F4B31052296E766007A9B20 /* Card.cpp in Sources */,
+				6F0BBCFF22A3907F006F038D /* WrapInfo.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

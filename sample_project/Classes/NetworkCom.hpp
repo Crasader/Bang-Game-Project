@@ -24,7 +24,7 @@ public:
     ~Client();
     json userRegisterLogin(unsigned int);
     json userChangenickname(const string& );
-    json getLoungeinfo();
+    //json getLoungeinfo();
     json userJoin(bool join,unsigned int loungeId,unsigned int userId);
     json userSetready(bool);
     json userStartgame();
@@ -41,11 +41,12 @@ public:
     void updateUserinfo();
     json userExit();
     json getFriendlist();
-    json addFriend(int);
+   // json addFriend(int);
     json showDetermineCard(int);
-    json getLoungeUserInfo(); //action 22
+    //json getLoungeUserInfo(); //action 22
+    static void HandleAction(const string & Message);
     
-    json getJBuffer();
+    
     static Client* getInstance();
     
 private:

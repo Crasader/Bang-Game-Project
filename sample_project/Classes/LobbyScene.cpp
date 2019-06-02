@@ -11,6 +11,7 @@
 #include "FriendScene.hpp"
 #include "AssisstanceFunc.hpp"
 #include "LoungeScene.hpp"
+#include "ChooseCharacterScene.hpp"
 
 #include <sstream>
 
@@ -23,6 +24,8 @@
 #include "NetworkCom.hpp"
 
 USING_NS_CC;
+
+void initRoomInfo(const json& rec);
 
 // The images for the buttons.
 static const std::string kNormalButtonImage = "notification-btn.png";
@@ -41,7 +44,6 @@ static const cocos2d::Size kButtonContentSize = cocos2d::Size(300, 100);
 
 
 
-
 // Print useful error message instead of segfaulting when files are not there.
 static void problemLoading(const char* filename)
 {
@@ -54,6 +56,13 @@ Scene *LobbyScene::createScene(){
     return LobbyScene::create();
 }
 
+
+void LobbyScene::ListenerStartGame(){
+    CClientSocket::getInstance()->busyWaitting(6);
+    std::cout<<"REC ACTION 6\n";
+    isStartGame_ = true;
+}
+
 // on "init" you need to initialize your instance
 bool LobbyScene::init()
 {
@@ -63,6 +72,9 @@ bool LobbyScene::init()
     {
         return false;
     }
+    
+    std::thread tThread(&LobbyScene::ListenerStartGame, this);
+    tThread.detach();
     
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -215,6 +227,10 @@ bool LobbyScene::init()
 
 // Called automatically every frame. The update is scheduled in `init()`.
 void LobbyScene::update(float /*delta*/){
+    if(isStartGame_){
+        auto scene = ChooseCharacterScene::createScene();
+        Director::getInstance()->replaceScene(scene);
+    }
     for(int i=0; i<=4; i++){
         auto sp = this->getChildByTag(i);
         sp->setVisible(!intoLounge_);
@@ -315,7 +331,11 @@ void LobbyScene::ReadyCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventTyp
         case ui::Widget::TouchEventType::ENDED:{
             std::thread tThread([](){
                 auto client = Client::getInstance();
-                client->userSetready(true);
+                auto user = User::getInstance();
+                
+                
+                CClientSocket::getInstance()->sendMessage(WrapInfo::WrapSetReady(!user->isReady()).dump());
+                user->setReady(! (user->isReady()) );
             });
             tThread.join();
             break;
@@ -326,42 +346,23 @@ void LobbyScene::ReadyCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventTyp
     }
 }
 
-void initRoomInfo(const json& rec){ // Player database and Card database
-    int p_amount = rec["Player"].size();
-    auto pdb = PlayerDatabase::getInstance();
-    pdb->set_size(p_amount);
-    //"Player Name" : string,
-    //"Position" : int(32-bit), (start from 0)
-    for(int i=0; i<p_amount; i++){
-        //Player(int max_hp, int hp, const std::string &charName, const std::string &PlayerName,  int position, int amount = 0)
-        pdb->add_Player(new Player(0, 0, "", rec["Player"][i]["Player Name"], rec["Player"][i]["Position"], 0));
-    }
-    
-    int  c_amount = rec["Card"].size();
-    auto cdb = CardDatabase::getInstance();
-    cdb->set_size(c_amount);
-    /*
-     "Name" : string,
-     "ID" : int(32-bit)
-     "Suit" : 0 or 1 or 2 or 3,
-     "Number" : 1~13
-     */
-    for(int i=0; i<c_amount; i++){
-        //Card(int id, std::string &cardName, int suit, int number)
-        cdb->add_Card(new Card(rec["Card"][i]["ID"], rec["Card"][i]["Name"], rec["Card"][i]["Suit"], rec["Card"][i]["Number"]));
-        
-    }
-}
+
 //Select Game button call back
 void LobbyScene::GameCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){
     switch (type) {
         case ui::Widget::TouchEventType::ENDED:{
             std::thread tThread([](){
                 auto client = Client::getInstance();
-                json rec = client->userStartgame();
-                initRoomInfo(rec);
+                CClientSocket::getInstance()->sendMessage(WrapInfo::WrapStartGame().dump());
+                CClientSocket::getInstance()->busyWaitting(5);
+                auto Rscene = ChooseCharacterScene::create();
+                cocos2d::Director::getInstance()->replaceScene(Rscene);
             });
             tThread.join();
+            auto dir = Director::getInstance();
+            auto scene = ChooseCharacterScene::create();
+            dir->replaceScene(scene);
+            
             break;
         }
         default:
@@ -452,6 +453,7 @@ bool LoungeTable::init(){
     if(!CCLayer::init()){
         return false;
     }
+    Ldatabase = LoungeDatabase::getInstance();
     /*
      auto backGroundColor = CCLayerColor::create(ccc4(255,255,255, 255)); //RGBA
      this->addChild(backGroundColor, 0);
@@ -496,28 +498,8 @@ void LoungeTable::updateUserInfo(float /*delta*/){
 
 
 void LoungeTable::getLoungListFromServer(){
-    auto client = Client::getInstance();
     
-    Ldatabase = LoungeDatabase::getInstance();
-    
-    json rec = client->getLoungeinfo();
-   
-    int loungSize = rec["Lounge"].size();
-    Ldatabase->clear();
-    
-    
-    //Lounge 0, Loung 1 ....
-    
-    std::string sLounge = "Lounge";
-    
-    for(int i=0;  i<loungSize; i++){
-        
-        unsigned int tID = rec[sLounge][i]["ID"];
-        int tAmount = rec[sLounge][i]["User Amount"];
-        
-        Ldatabase->add_Lounge(new LoungeInfo(tID, tAmount));
-    }
-    
+    CClientSocket::getInstance()->sendMessage(WrapInfo::WrapGetLoungeListInfo().dump());
 }
 
 
@@ -525,7 +507,9 @@ void LobbyScene::joinLounge(unsigned int lounge_id){
     auto client = Client::getInstance();
     auto user = User::getInstance();
     user->setWhereLounge(lounge_id);
-    
-    client->userJoin(true, lounge_id, 0);
+    CClientSocket::getInstance()->sendMessage(WrapInfo::WrapJoinLounge(true, lounge_id, 0).dump());
+    CClientSocket::getInstance()->busyWaitting(3);
     intoLounge_ = true;
 }
+
+
