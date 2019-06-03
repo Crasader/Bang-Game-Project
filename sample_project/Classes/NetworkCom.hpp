@@ -31,7 +31,7 @@ public:
     void playerChoosecharacter(const string &charname);
     void updateplayerinfo();
     json playerTurn();
-    json playerUsecard(int, int);
+    
     void playerShowcard();
     void playerChoosecard(int, int, int);
     void playerDeciderevolt(bool);

@@ -148,9 +148,9 @@ bool LobbyScene::init()
     //======================================
     
     //Username Label
-    const std::string Username = User::getInstance()->getNickName();
+    showName_ = User::getInstance()->getNickName();
     
-    auto UsernameLabel = Label::createWithTTF(Username, "fonts/arial.ttf", 40);
+    auto UsernameLabel = Label::createWithTTF(showName_, "fonts/arial.ttf", 40);
     UsernameLabel->setAnchorPoint(Vec2(0,1)); //以左上角為緢點
     UsernameLabel->setColor(Color3B::BLACK);
     UsernameLabel->setPosition(Vec2(origin.x + 20, origin.y + visibleSize.height - 20));
@@ -172,14 +172,14 @@ bool LobbyScene::init()
     this->addChild(IntUIDLabel);
 
     //User W/L information
-    int win = User::getInstance()->getWin(), lose = User::getInstance()->getLose();
+    showWin_ = User::getInstance()->getWin(), showLose_ = User::getInstance()->getLose();
     //win = CCUserDefault::sharedUserDefault()->getIntegerForKey("win");
     //lose = CCUserDefault::sharedUserDefault()->getIntegerForKey("lose");
     
     auto MyScore = Label::createWithTTF("My Score:", "fonts/arial_Bold.ttf", 100);
     MyScore->setPosition(Vec2(origin.x + visibleSize.width/4, origin.y+visibleSize.height*2/3));
     MyScore->setColor(Color3B::BLACK);
-    std::string WinAndLoss = std::to_string(win) + "W" + " " +std::to_string(lose) + "L";
+    std::string WinAndLoss = std::to_string(showWin_) + "W" + " " +std::to_string(showLose_) + "L";
     
     auto Score = Label::createWithTTF(WinAndLoss, "fonts/arial_Bold.ttf", 100);
     Score->setPosition(Vec2(origin.x + visibleSize.width/4, origin.y+visibleSize.height*2/3 - MyScore->getContentSize().height ));
@@ -227,6 +227,10 @@ bool LobbyScene::init()
 
 // Called automatically every frame. The update is scheduled in `init()`.
 void LobbyScene::update(float /*delta*/){
+    //update show info
+    showWin_ = User::getInstance()->getWin(), showLose_ = User::getInstance()->getLose();
+    showName_ = User::getInstance()->getNickName();
+    
     if(isStartGame_){
         auto scene = ChooseCharacterScene::createScene();
         Director::getInstance()->replaceScene(scene);

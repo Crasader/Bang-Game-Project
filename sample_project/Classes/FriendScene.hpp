@@ -111,10 +111,11 @@ public:
         //size_ = 1;//test
         //data.push_back(new FriendInfo("testName", true)); //test
     }
-    
+    /*
     void set_size(int s){
         size_ = s;
     }
+     */
     int get_size(){
         return size_;
     }
@@ -133,6 +134,14 @@ public:
             FriendDatabase::myself = new FriendDatabase();
         }
         return FriendDatabase::myself;
+    }
+    
+    void clear(){
+        size_ = 0;
+        for(auto i:data){
+            delete i;
+        }
+        data.clear();
     }
     
     

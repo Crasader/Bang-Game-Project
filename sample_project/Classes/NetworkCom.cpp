@@ -87,12 +87,11 @@ void Client::HandleAction(const string & Message)
         {
             int p_amount = static_cast<int>(Content["Player"].size());
             auto pdb = PlayerDatabase::getInstance();
-            pdb->set_size(p_amount);
             //"Player Name" : string,
             //"Position" : int(32-bit), (start from 0)
             for(int i=0; i<p_amount; i++){
                 //Player(int max_hp, int hp, const std::string &charName, const std::string &PlayerName,  int position, int amount = 0)
-                pdb->add_Player(new Player(0, 0, "", Content["Player"][i]["Player Name"], Content["Player"][i]["Position"], 0));
+                pdb->add_Player(new Player(Content["Player"][i]["Player Name"], Content["Player"][i]["Position"]));
             }
             
             int  c_amount = Content["Card"].size();
@@ -110,10 +109,6 @@ void Client::HandleAction(const string & Message)
                 
             }
             
-           
-            
-            
-            
             break;
         }
         case 6:
@@ -126,16 +121,141 @@ void Client::HandleAction(const string & Message)
             */
             break;
         }
+        case 7:
+        {
+            auto pdb = PlayerDatabase::getInstance();
+            auto mine = pdb->get_Mine();
+            if(mine == nullptr){
+                mine = new Player();
+            }
+            mine->set_Max_hp(Content["Max HP"]);
+            mine->set_hp(Content["HP"]);
+            mine->set_team(Content["Team"]);
+            mine->set_position(Content["Position"]);
+            mine->set_charName(Content["Character Name"]);
+            mine->set_death(Content["Death"]);
+            mine->set_attack_range(Content["Attack Range"]);
+            mine->set_add_range(Content["Add Range"]);
+            mine->set_minus_range(Content["Minus Range"]);
+            mine->set_multi_attack(Content["Multi Attack"]);
+            auto HoldingVec = mine->get_holding();
+            for(int i=0; i<Content["Holding"].size(); i++){
+                HoldingVec.push_back(Content["Holding"][i]);
+            }
+            mine->set_holding_card_amount(HoldingVec.size());
+            mine->set_equipment(Content["Equipment"]);
+            
+            //-------------------------------------------------
+            for(int i=0; i<Content["Player"].size(); i++){
+                int tPos = Content["Player"][i]["Position"];
+                auto player = pdb->get_Player_byPos(tPos);
+                
+                player->set_Max_hp(Content["Player"][i]["Max HP"]);
+                player->set_hp(Content["Player"][i]["HP"]);
+                player->set_charName(Content["Player"][i]["Character Name"]);
+                player->set_death(Content["Player"][i]["Death"]);
+                player->set_team(Content["Player"][i]["Team"]);
+                player->set_position(Content["Player"][i]["Position"]);
+                player->set_attack_range(Content["Player"][i]["Attack Range"]);
+                player->set_add_range(Content["Player"][i]["Add Range"]);
+                player->set_minus_range(Content["Player"][i]["Minus Range"]);
+                player->set_multi_attack(Content["Player"][i]["Multi Attack"]);
+                player->set_holding_card_amount(Content["Player"][i]["Holding Card Amount"]);
+                player->set_equipment(Content["Player"][i]["Equipment"]);
+            }
+            
+            break;
+        }
+        case 8:
+        {
+            //It is my turn;
+            break;
+        }
+        case 9:{
+            //update player info
+            auto pdb = PlayerDatabase::getInstance();
+            auto mine = pdb->get_Mine();
+            if(mine == nullptr){
+                mine = new Player();
+            }
+            mine->set_Max_hp(Content["Max HP"]);
+            mine->set_hp(Content["HP"]);
+            mine->set_team(Content["Team"]);
+            mine->set_position(Content["Position"]);
+            mine->set_charName(Content["Character Name"]);
+            mine->set_death(Content["Death"]);
+            mine->set_attack_range(Content["Attack Range"]);
+            mine->set_add_range(Content["Add Range"]);
+            mine->set_minus_range(Content["Minus Range"]);
+            mine->set_multi_attack(Content["Multi Attack"]);
+            auto HoldingVec = mine->get_holding();
+            for(int i=0; i<Content["Holding"].size(); i++){
+                HoldingVec.push_back(Content["Holding"][i]);
+            }
+            mine->set_holding_card_amount(HoldingVec.size());
+            mine->set_equipment(Content["Equipment"]);
+            
+            //-------------------------------------------------
+            for(int i=0; i<Content["Player"].size(); i++){
+                int tPos = Content["Player"][i]["Position"];
+                auto player = pdb->get_Player_byPos(tPos);
+                
+                player->set_Max_hp(Content["Player"][i]["Max HP"]);
+                player->set_hp(Content["Player"][i]["HP"]);
+                player->set_charName(Content["Player"][i]["Character Name"]);
+                player->set_death(Content["Player"][i]["Death"]);
+                player->set_team(Content["Player"][i]["Team"]);
+                player->set_position(Content["Player"][i]["Position"]);
+                player->set_attack_range(Content["Player"][i]["Attack Range"]);
+                player->set_add_range(Content["Player"][i]["Add Range"]);
+                player->set_minus_range(Content["Player"][i]["Minus Range"]);
+                player->set_multi_attack(Content["Player"][i]["Multi Attack"]);
+                player->set_holding_card_amount(Content["Player"][i]["Holding Card Amount"]);
+                player->set_equipment(Content["Player"][i]["Equipment"]);
+            }
+            break;
+        }
+        case 10:
+        {
+            //Player show card to another;
+            /*
+             "Shower Position" : int,
+             "Showee Position" : int,
+             "Card" :
+             [
+             {
+             "ID" : int(32-bit)
+             },
+             ...
+             ]
+             */
+            int shower_pos = Content["Shower Position"];
+            int showee_pos = Content["Showee Position"];
+            int show_amount = Content["Card"].size();
+            for(int i=0; i<show_amount; i++){
+                //need write something
+                //...
+            }
+            
+            break;
+        }
+        case 16:
+        {
+            auto user = User::getInstance();
+            user->setNickName(Content["Nick Name"]);
+            user->setMoney(Content["User Money"]);
+            user->setWin(Content["User Win"]);
+            user->setLose(Content["User Lose"]);
+            
+            break;
+        }
         case 17:
         {
             int FriendSize = static_cast<int>(Content["Friend"].size());
-            FriendDatabase::getInstance()->set_size(FriendSize);
             
-            //CCLOG(rec.dump().c_str());
             //Friend 0, Friend 1 ....
-            
+            FriendDatabase::getInstance()->clear();
             std::string sFriend = "Friend";
-            
             for(int i=0;  i<FriendSize; i++){
                 
                 unsigned int tID = Content[sFriend][i]["Friend ID"];
@@ -187,10 +307,7 @@ void Client::playerChoosecharacter(const string &charname)
     se["Choose Character Name"] = charname;
     socket->sendMessage(se.dump());
 }
-void Client::updateplayerinfo()
-{
-    
-}
+
 /*
 json Client::playerTurn()
 {
@@ -202,18 +319,7 @@ json Client::playerTurn()
     re = json::parse(socket->GetBuffer());
     return re;
 }
-json Client::playerUsecard(int cardId, int target)
-{
-    json se ,re;
-    se[str_var[0]] = 9;
-    se["Card ID"] = cardId;
-    se["Target Position"] = target;
-    socket->sendMessage(se.dump());
-    socket->busyWaitting();
-    socket->SetReceived(false);
-    re = json::parse(socket->GetBuffer());
-    return re;
-}
+
 void Client::playerShowcard()
 {
     

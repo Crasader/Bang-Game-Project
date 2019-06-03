@@ -77,3 +77,16 @@ json WrapInfo::WrapLoungeUserInfo()
     Buffer["Action"] = 22;
     return Buffer;
 }
+
+json WrapPlayerUseCard(int card_id, int target){
+    json Buffer;
+    Buffer["Action"] = 9;
+    Buffer["Card ID"] = card_id;
+    Buffer["Target Position"] = target;
+    return Buffer;
+}
+json WrapUserExit(){
+    json Buffer;
+    Buffer["Action"] = 21;
+    return Buffer;
+}

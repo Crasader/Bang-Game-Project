@@ -67,7 +67,10 @@ private:
     
     bool isStartGame_ = false;
     static bool intoLounge_;
-    
+    //show info========================
+    int showWin_ = 0, showLose_ = 0;
+    std::string showName_;
+    //=================================
     float nextYPosition;
 };
 

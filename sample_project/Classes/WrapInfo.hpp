@@ -24,6 +24,8 @@ namespace WrapInfo
     nlohmann::json WrapGetFriendListInfo();
     nlohmann::json WrapAddUser(uint32_t UID);
     nlohmann::json WrapLoungeUserInfo();
+    nlohmann::json WrapPlayerUseCard(int card_id, int target);
+    nlohmann::json WrapUserExit();
 }
 
 #endif /* WrapInfo_hpp */
