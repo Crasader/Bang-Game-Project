@@ -44,6 +44,7 @@ private:
     cocos2d::Label * charNameL = nullptr;
     cocos2d::Label * hpL = nullptr;
     
+    
     std::string username_ = "username";
     std::string charName_ = "character";
     int hp_ = 0;

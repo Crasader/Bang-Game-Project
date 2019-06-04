@@ -76,6 +76,7 @@
 		6F0BBCFF22A3907F006F038D /* WrapInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BBCFD22A3907F006F038D /* WrapInfo.cpp */; };
 		6F2A04C422A5431700870EAF /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F2A04C222A5431700870EAF /* GameScene.cpp */; };
 		6F2A04C822A56B5200870EAF /* hp-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2A04C622A56B5100870EAF /* hp-logo.png */; };
+		6F2A04CC22A6049700870EAF /* cap-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2A04CA22A6049700870EAF /* cap-logo.png */; };
 		6F35115B224FA95700D206EC /* PluginFacebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F351158224FA95700D206EC /* PluginFacebook.framework */; };
 		6F35115C224FA95700D206EC /* sdkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115A224FA95700D206EC /* sdkbox.framework */; };
 		6F351161224FA99700D206EC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115D224FA99700D206EC /* AdSupport.framework */; };
@@ -285,6 +286,7 @@
 		6F2A04C222A5431700870EAF /* GameScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
 		6F2A04C322A5431700870EAF /* GameScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameScene.hpp; sourceTree = "<group>"; };
 		6F2A04C622A56B5100870EAF /* hp-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hp-logo.png"; sourceTree = "<group>"; };
+		6F2A04CA22A6049700870EAF /* cap-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cap-logo.png"; sourceTree = "<group>"; };
 		6F351158224FA95700D206EC /* PluginFacebook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PluginFacebook.framework; sourceTree = "<group>"; };
 		6F35115A224FA95700D206EC /* sdkbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = sdkbox.framework; sourceTree = "<group>"; };
 		6F35115D224FA99700D206EC /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
@@ -624,6 +626,7 @@
 				6F0BBCEF22A29F00006F038D /* choose-bg-purple.png */,
 				6F0BBCFA22A2A077006F038D /* click-logo.png */,
 				6F2A04C622A56B5100870EAF /* hp-logo.png */,
+				6F2A04CA22A6049700870EAF /* cap-logo.png */,
 				B36B421FB393D1A749DC816F /* sdkbox_config.json */,
 			);
 			name = Resources;
@@ -902,6 +905,7 @@
 				6F9C9A38224E9052007834B7 /* Storyboard.storyboard in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				6FABDDDE227B2D680034224E /* back-icon.png in Resources */,
+				6F2A04CC22A6049700870EAF /* cap-logo.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				6F7B3634229A4E2300090632 /* notification-btn.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,

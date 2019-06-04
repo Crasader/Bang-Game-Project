@@ -40,9 +40,7 @@ bool GameScene::init()
     
     //==============================================================================================================
     
-    
-    //show Player Head and information
-    
+    //temp test info============
     auto playerDB = PlayerDatabase::getInstance();
     
     playerDB->set_Mine(5, 5, 1, "tt", "tt", 11);
@@ -50,27 +48,52 @@ bool GameScene::init()
     for(int i=0; i<3; i++){
         playerDB->add_Player(new Player(5, 4, 0, "Username", "Test", i, 0));
     }
+    //==========================
+    
+    
+    //show Player Head and information
     
     for(int i=0; i<playerDB->get_size(); i++){
         if(playerDB->get_Player(i)->get_position() != playerDB->get_Mine()->get_position()){
             ShowPlayer[i] = PlayerHead::create();
-            ShowPlayer[i]->setPosition(Vec2(calculate_pos(i, playerDB->get_size() ) , visibleSize.height-150));
+            ShowPlayer[i]->setPosition(Vec2(calculate_pos(i, playerDB->get_size() ) , visibleSize.height-175));
             ShowPlayer[i]->init(playerDB->get_Player(i)->get_PlayerName() , playerDB->get_Player(i)->get_charName(), playerDB->get_Player(i)->get_hp(), playerDB->get_Player(i)->get_team(), playerDB->get_Player(i)->isJail());
             this->addChild(ShowPlayer[i]);
         }
     }
     
-    // show blood
+    // show my blood
     myHP_ = playerDB->get_Mine()->get_hp();
     Sprite* mpSprite[6] = {};
     for(int i=0; i<myHP_; i++){
         mpSprite[i] = Sprite::create("hp-logo.png"); // 174 x 253
-        mpSprite[i]->setContentSize(Size(174/8, 253/8));
-        // not finish
+        mpSprite[i]->setContentSize(Size(174/4, 253/4));
+        // not finish 6/3
+        
+        mpSprite[i]->setPosition(Vec2(visibleSize.width - 50 - (i*40), visibleSize.height - 40));
+        this->addChild(mpSprite[i]);
     }
     
+    //show my character name
+    auto charNameLabel = Label::createWithTTF("character " + playerDB->get_Mine()->get_charName(), "fonts/arial.ttf", 40);
+    charNameLabel->setColor(Color3B::BLACK);
+    charNameLabel->setAnchorPoint(Vec2(0, 0.5));
+    charNameLabel->setPosition(Vec2(30, visibleSize.height- 40));
+    this->addChild(charNameLabel);
     
-   
+    //show if I am 警長
+    auto SergeantLabel = Sprite::create("cap-logo.png"); // 227 x 258
+    SergeantLabel->setContentSize(Size(227/4, 258/4));
+    SergeantLabel->setPosition(Vec2(charNameLabel->getPosition().x + charNameLabel->getContentSize().width + 50, charNameLabel->getPosition().y));
+    if(playerDB->get_Mine()->get_team() == 1){
+        SergeantLabel->setVisible(true);
+    }
+    else{
+        SergeantLabel->setVisible(false);
+    }
+    this->addChild(SergeantLabel);
+    
+    
     return true;
 }
 
