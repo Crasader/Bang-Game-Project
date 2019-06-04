@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/GameScene.cpp"
-            timestampString = "581305791.410731"
+            timestampString = "581331774.916626"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
             landmarkName = "PlayerHead::init(const std::string username, const std::string charName, int hp, int team, bool isJail)"
             landmarkType = "7">
          </BreakpointContent>

@@ -133,11 +133,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
     //auto scene = CreateFirebaseScene();
     //auto scene = HelloWorld::createScene();
     
-    auto scene = StartScene::createScene();
+    //auto scene = StartScene::createScene();
     
     //auto scene = ChooseCharacterScene::createScene();
     
-    //auto scene = GameScene::createScene();
+    auto scene = GameScene::createScene();
     // Run the scene.
     director->runWithScene(scene);
     

@@ -77,6 +77,10 @@
 		6F2A04C422A5431700870EAF /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F2A04C222A5431700870EAF /* GameScene.cpp */; };
 		6F2A04C822A56B5200870EAF /* hp-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2A04C622A56B5100870EAF /* hp-logo.png */; };
 		6F2A04CC22A6049700870EAF /* cap-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2A04CA22A6049700870EAF /* cap-logo.png */; };
+		6F2A04D422A65E9C00870EAF /* card-blue-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2A04CF22A65E9900870EAF /* card-blue-dark.png */; };
+		6F2A04D522A65E9C00870EAF /* card-orange-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2A04D122A65E9A00870EAF /* card-orange-dark.png */; };
+		6F2A04D622A65E9C00870EAF /* card-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2A04D222A65E9B00870EAF /* card-orange.png */; };
+		6F2A04D722A65E9C00870EAF /* card-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2A04D322A65E9B00870EAF /* card-blue.png */; };
 		6F35115B224FA95700D206EC /* PluginFacebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F351158224FA95700D206EC /* PluginFacebook.framework */; };
 		6F35115C224FA95700D206EC /* sdkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115A224FA95700D206EC /* sdkbox.framework */; };
 		6F351161224FA99700D206EC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115D224FA99700D206EC /* AdSupport.framework */; };
@@ -287,6 +291,10 @@
 		6F2A04C322A5431700870EAF /* GameScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameScene.hpp; sourceTree = "<group>"; };
 		6F2A04C622A56B5100870EAF /* hp-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hp-logo.png"; sourceTree = "<group>"; };
 		6F2A04CA22A6049700870EAF /* cap-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cap-logo.png"; sourceTree = "<group>"; };
+		6F2A04CF22A65E9900870EAF /* card-blue-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card-blue-dark.png"; sourceTree = "<group>"; };
+		6F2A04D122A65E9A00870EAF /* card-orange-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card-orange-dark.png"; sourceTree = "<group>"; };
+		6F2A04D222A65E9B00870EAF /* card-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card-orange.png"; sourceTree = "<group>"; };
+		6F2A04D322A65E9B00870EAF /* card-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card-blue.png"; sourceTree = "<group>"; };
 		6F351158224FA95700D206EC /* PluginFacebook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PluginFacebook.framework; sourceTree = "<group>"; };
 		6F35115A224FA95700D206EC /* sdkbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = sdkbox.framework; sourceTree = "<group>"; };
 		6F35115D224FA99700D206EC /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
@@ -660,6 +668,10 @@
 				6F0BBCAA229EC223006F038D /* LoungeScene.hpp */,
 				6F0BBCEA22A2996A006F038D /* ChooseCharacterScene.cpp */,
 				6F0BBCEB22A2996A006F038D /* ChooseCharacterScene.hpp */,
+				6F2A04CF22A65E9900870EAF /* card-blue-dark.png */,
+				6F2A04D322A65E9B00870EAF /* card-blue.png */,
+				6F2A04D122A65E9A00870EAF /* card-orange-dark.png */,
+				6F2A04D222A65E9B00870EAF /* card-orange.png */,
 				6F2A04C222A5431700870EAF /* GameScene.cpp */,
 				6F2A04C322A5431700870EAF /* GameScene.hpp */,
 				6F4B30FF2296E12D007A9B20 /* player.cpp */,
@@ -868,6 +880,7 @@
 				6F0BBCE522A17CCA006F038D /* game-btn-click.png in Resources */,
 				6FABDDDB227B2D680034224E /* card-orange-icon.png in Resources */,
 				6F0BBCE122A167BE006F038D /* ready-btn-click.png in Resources */,
+				6F2A04D522A65E9C00870EAF /* card-orange-dark.png in Resources */,
 				6FABDDD4227B2D680034224E /* lobby-btn-halfwidth.png in Resources */,
 				46880B7D19C43A67006E1F66 /* CloseSelected.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
@@ -900,6 +913,7 @@
 				6FABDDDD227B2D680034224E /* card-blue.png in Resources */,
 				6FABDDB8227B2D4A0034224E /* rank-logo.png in Resources */,
 				6FABDDCD227B2D680034224E /* add-btn.png in Resources */,
+				6F2A04D622A65E9C00870EAF /* card-orange.png in Resources */,
 				6F0BBCF422A29F04006F038D /* choose-bg-purple.png in Resources */,
 				6F51412B2290455E0054C510 /* accept-btn-click.png in Resources */,
 				6F9C9A38224E9052007834B7 /* Storyboard.storyboard in Resources */,
@@ -921,6 +935,7 @@
 				6F51411B228FC1460054C510 /* fb-login-click.png in Resources */,
 				46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */,
 				6FABDDD8227B2D680034224E /* card-blue-icon.png in Resources */,
+				6F2A04D422A65E9C00870EAF /* card-blue-dark.png in Resources */,
 				6FABDDCF227B2D680034224E /* bang-logo.png in Resources */,
 				6FABDDD7227B2D680034224E /* brown-dot.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
@@ -931,6 +946,7 @@
 				68EE4014B4496DA13CC9D837 /* sdkbox_config.json in Resources */,
 				6FA0ED95226B215E0090FD52 /* ButtonS1.png in Resources */,
 				6FABDDD3227B2D680034224E /* login-btn.png in Resources */,
+				6F2A04D722A65E9C00870EAF /* card-blue.png in Resources */,
 				6FE53BF2227756D600B838F4 /* FriendBackground.png in Resources */,
 				6F73C71D22944BD800AFF6E7 /* friend-bg.png in Resources */,
 			);

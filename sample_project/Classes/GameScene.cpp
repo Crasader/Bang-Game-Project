@@ -12,10 +12,17 @@
 USING_NS_CC;
 
 
-float calculate_pos(int pos, int n){
+float calculate_head_pos(int pos, int n){
     float delta = 1134/n;
-    return 100 + pos*(1134/n) + 1134/(n*2);
+    return 100 + pos*delta + 1134/(n*2);
 }
+float calculate_card_pos(int pos, int n){
+    // 257 一張卡
+    float edge = (1334 - ((n-1)/2)*257 - 257) / 2 + 257/2;
+    float delta = 257/2;
+    return edge + pos*delta;
+}
+
 
 Scene *GameScene::createScene(){
     return GameScene::create();
@@ -56,7 +63,7 @@ bool GameScene::init()
     for(int i=0; i<playerDB->get_size(); i++){
         if(playerDB->get_Player(i)->get_position() != playerDB->get_Mine()->get_position()){
             ShowPlayer[i] = PlayerHead::create();
-            ShowPlayer[i]->setPosition(Vec2(calculate_pos(i, playerDB->get_size() ) , visibleSize.height-175));
+            ShowPlayer[i]->setPosition(Vec2(calculate_head_pos(i, playerDB->get_size() ) , visibleSize.height-175));
             ShowPlayer[i]->init(playerDB->get_Player(i)->get_PlayerName() , playerDB->get_Player(i)->get_charName(), playerDB->get_Player(i)->get_hp(), playerDB->get_Player(i)->get_team(), playerDB->get_Player(i)->isJail());
             this->addChild(ShowPlayer[i]);
         }
@@ -93,6 +100,17 @@ bool GameScene::init()
     }
     this->addChild(SergeantLabel);
     
+    //===========================================================================================
+    
+    // Card partion
+    CardButton *card[10];
+    for(int i=0; i<3; i++){
+        card[i] = CardButton::create(CardColor::BLUE);
+        card[i]->setPosition(Vec2(calculate_card_pos(i, 3), 100));
+        card[i]->my_init("BANG!", 1, 1);
+        this->addChild(card[i]);
+    }
+    
     
     return true;
 }
@@ -120,7 +138,7 @@ PlayerHead* PlayerHead::create()
     if (sprite && sprite->initWithFile("user-icon.png"))
     {
         sprite->autorelease();
-        sprite->ignoreAnchorPointForPosition(false);
+        //sprite->ignoreAnchorPointForPosition(false);
         sprite->setContentSize(Size(579/4, 642/4)); //579 x 642
         return sprite;
     }
@@ -174,6 +192,7 @@ void PlayerHead::init(const std::string username, const std::string charName, in
     charNameL = Label::createWithTTF(charName, fontpath, fontSize);
     hpL = Label::createWithTTF("[HP:" + std::to_string(hp) + "]", fontpath, fontSize);
     
+    //Jail logo
     JailL = Sprite::create("card-blue-icon.png");//602 x 224
     JailL->setContentSize(Size(602/5, 224/5));
     auto jLabel = Label::createWithTTF("JAIL", fontpath, fontSize);
@@ -183,6 +202,17 @@ void PlayerHead::init(const std::string username, const std::string charName, in
     JailL->addChild(jLabel);
     JailL->setVisible(isJail);
     
+    // Sergent logo
+    SergeantL = Sprite::create("cap-logo.png");
+    SergeantL->setContentSize(Size(227/4, 258/4));
+    SergeantL->setPosition(Vec2(this->getContentSize().width/2, this->getContentSize().height/2 - 33));
+    if(team_ == 1){
+        SergeantL->setVisible(true);
+    }
+    else{
+        SergeantL->setVisible(false);
+    }
+    this->addChild(SergeantL);
     
     usernameL->setColor(Color3B::BLACK);
     charNameL->setColor(Color3B::BLACK);
@@ -227,3 +257,47 @@ void PlayerHead::set_team(int team){
 void PlayerHead::set_Jail(bool isJail){
     isJail_ = isJail;
 }
+
+//==============CardButton class=====================
+/*
+ PlayerHead::PlayerHead(const std::string username, const std::string charName, int hp, int team):username_(username), charName_(charName), hp_(hp), team_(team){
+ 
+ };
+ PlayerHead::PlayerHead(){};
+ */
+
+
+CardButton* CardButton::create(const CardColor &color){
+    CardButton *button = new CardButton();
+    if (button)
+    {
+        if(color == CardColor::BLUE){
+            if(button->init(bluepath, bluepath, blue_dark_path)){
+                button->autorelease();
+                button->ignoreContentAdaptWithSize(false);
+                button->setContentSize(Size(1154/4.5, 1644/4.5)); //1152 x 1644
+                return button;
+            }
+        }
+        else if(color == CardColor::ORANGE){
+            if(button->init(orangepath, orangepath, orange_dark_path)){
+                button->autorelease();
+                button->ignoreContentAdaptWithSize(false);
+                button->setContentSize(Size(1154/4.5, 1644/4.5)); //1152 x 1644
+                return button;
+            }
+        }
+        
+        
+    }
+    CC_SAFE_DELETE(button);
+    return nullptr;
+}
+
+void CardButton::my_init(const std::string &cardName, int number, int suit){
+    auto nameL = Label::createWithTTF(cardName, fontpath, fontSize);
+    nameL->setColor(Color3B::BLACK);
+    nameL->setPosition(Vec2(this->getContentSize().width/2, this->getContentSize().height - 50));
+    this->addChild(nameL);
+}
+
