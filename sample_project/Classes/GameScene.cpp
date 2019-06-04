@@ -18,8 +18,8 @@ float calculate_head_pos(int pos, int n){
 }
 float calculate_card_pos(int pos, int n){
     // 257 一張卡
-    float edge = (1334 - ((n-1)/2)*257 - 257) / 2 + 257/2;
-    float delta = 257/2;
+    float edge = (1334 - ((n-1)/1.5)*257 - 257) / 2 + 257/1.5;
+    float delta = 257/1.5;
     return edge + pos*delta;
 }
 
@@ -102,21 +102,68 @@ bool GameScene::init()
     
     //===========================================================================================
     
-    // Card partion
-    CardButton *card[10];
+    
+    
+    
+    
+   
+    this->cardbutton_amount = 3;
     for(int i=0; i<3; i++){
-        card[i] = CardButton::create(CardColor::BLUE);
-        card[i]->setPosition(Vec2(calculate_card_pos(i, 3), 100));
-        card[i]->my_init("BANG!", 1, 1);
-        this->addChild(card[i]);
+        
+        
+        cardbutton[i] = CardButton::create(CardColor::BLUE);
+        cardbutton[i]->setTag(i);
+        cardbutton[i]->setPosition(Vec2(calculate_card_pos(i, 3), 100));
+        cardbutton[i]->my_init("BANG!", 1, 1);
+        cardbutton[i]->addTouchEventListener(CC_CALLBACK_1(GameScene::CardTouchCallback, this, i));
+        
+        this->addChild(cardbutton[i], 0);
+        
     }
     
+    /*
+    Listenter->onTouchBegan = [](Touch* touch, Event* event){
+        auto target = static_cast<Sprite*>(event->getCurrentTarget());
+        std::cout<<"target "<<target->getTag()<<std::endl;
+        if(target->getTag() >=0 && target->getTag() <3){
+            
+            target->runAction(CardButton::moveUp);
+            return true;
+        }
+        return false;
+    };
+    
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(Listenter, this);
+*/
+    
+    
+    this->scheduleUpdate();
     
     return true;
 }
 
 
-
+void GameScene::update(float /*delta*/) {
+    
+    for(int i=0; i<cardbutton_amount; i++){
+        
+        if(cardbutton[i]->isTouched()){
+            if(!cardbutton[i]->is_Move()){
+                cardbutton[i]->set_Move(true);
+                cardbutton[i]->setZOrder(100);
+                cardbutton[i]->runAction(MoveBy::create(0.2, Vec2(0, 50)));
+            }
+            
+        }
+        else if(!cardbutton[i]->isTouched()){
+            if(cardbutton[i]->is_Move()){
+                cardbutton[i]->set_Move(false);
+                cardbutton[i]->setZOrder(i+1);
+                cardbutton[i]->runAction(MoveBy::create(0.2, Vec2(0, -50)));
+            }
+        }
+    }
+}
 
 
 
@@ -266,7 +313,6 @@ void PlayerHead::set_Jail(bool isJail){
  PlayerHead::PlayerHead(){};
  */
 
-
 CardButton* CardButton::create(const CardColor &color){
     CardButton *button = new CardButton();
     if (button)
@@ -300,4 +346,15 @@ void CardButton::my_init(const std::string &cardName, int number, int suit){
     nameL->setPosition(Vec2(this->getContentSize().width/2, this->getContentSize().height - 50));
     this->addChild(nameL);
 }
-
+//=======================GaneScene=======================
+void GameScene::CardTouchCallback(cocos2d::Ref*, int idx){
+    //std::cout<<"idx = "<<idx<<std::endl;
+    for(int i=0; i<cardbutton_amount; i++){
+        if(i!=idx){
+            cardbutton[i]->set_touch(false);
+        }
+        else{
+            cardbutton[i]->set_touch(true);
+        }
+    }
+}

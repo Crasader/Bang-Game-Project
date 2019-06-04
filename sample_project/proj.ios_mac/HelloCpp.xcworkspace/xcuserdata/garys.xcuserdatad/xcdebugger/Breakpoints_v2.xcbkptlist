@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/FirebaseAuthScene.cpp"
-            timestampString = "581170967.9542969"
+            timestampString = "581355184.951743"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Classes/GameScene.cpp"
-            timestampString = "581331774.916626"
+            timestampString = "581355968.804285"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
             landmarkName = "PlayerHead::init(const std::string username, const std::string charName, int hp, int team, bool isJail)"
             landmarkType = "7">
          </BreakpointContent>

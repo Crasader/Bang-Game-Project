@@ -12,6 +12,7 @@
 #include <string>
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+#include <iostream>
 
 
 
@@ -64,7 +65,30 @@ public:
     static CardButton * create(const CardColor &color);
     void my_init(const std::string& cardName, int number, int suit);
     
+    
+    
+    bool is_Move() const{
+        return isMoved_;
+    }
+    
+    void set_Move(bool isMove){
+        isMoved_ = isMove;
+    }
+    
+    bool isTouched(){
+        return touched_;
+    }
+    
+    void set_touch(bool touch){
+        touched_ = touch;
+    }
+    
 private:
+    
+    
+    bool isMoved_ = false;
+    
+    bool touched_ = false;
     const int static fontSize = 50;
     constexpr char static *fontpath = "fonts/arial_Bold.ttf";
     constexpr char static *bluepath = "card-blue.png";
@@ -85,9 +109,12 @@ public:
     
     CREATE_FUNC(GameScene);
     
+    void CardTouchCallback(cocos2d::Ref*, int idx);
     
+    void update(float delta) override;
     
-    
+    CardButton* cardbutton[10] = {};
+    int cardbutton_amount = 0;
 private:
     PlayerHead *ShowPlayer[6] = {};
     int myHP_ = 0;
