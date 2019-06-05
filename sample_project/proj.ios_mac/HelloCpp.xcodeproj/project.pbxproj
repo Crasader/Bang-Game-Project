@@ -81,6 +81,7 @@
 		6F2A04D522A65E9C00870EAF /* card-orange-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2A04D122A65E9A00870EAF /* card-orange-dark.png */; };
 		6F2A04D622A65E9C00870EAF /* card-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2A04D222A65E9B00870EAF /* card-orange.png */; };
 		6F2A04D722A65E9C00870EAF /* card-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2A04D322A65E9B00870EAF /* card-blue.png */; };
+		6F2A04DD22A7F01B00870EAF /* UseCardHolding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F2A04DB22A7F01B00870EAF /* UseCardHolding.cpp */; };
 		6F35115B224FA95700D206EC /* PluginFacebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F351158224FA95700D206EC /* PluginFacebook.framework */; };
 		6F35115C224FA95700D206EC /* sdkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115A224FA95700D206EC /* sdkbox.framework */; };
 		6F351161224FA99700D206EC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115D224FA99700D206EC /* AdSupport.framework */; };
@@ -295,6 +296,8 @@
 		6F2A04D122A65E9A00870EAF /* card-orange-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card-orange-dark.png"; sourceTree = "<group>"; };
 		6F2A04D222A65E9B00870EAF /* card-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card-orange.png"; sourceTree = "<group>"; };
 		6F2A04D322A65E9B00870EAF /* card-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card-blue.png"; sourceTree = "<group>"; };
+		6F2A04DB22A7F01B00870EAF /* UseCardHolding.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UseCardHolding.cpp; sourceTree = "<group>"; };
+		6F2A04DC22A7F01B00870EAF /* UseCardHolding.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UseCardHolding.hpp; sourceTree = "<group>"; };
 		6F351158224FA95700D206EC /* PluginFacebook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PluginFacebook.framework; sourceTree = "<group>"; };
 		6F35115A224FA95700D206EC /* sdkbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = sdkbox.framework; sourceTree = "<group>"; };
 		6F35115D224FA99700D206EC /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
@@ -674,6 +677,8 @@
 				6F2A04D222A65E9B00870EAF /* card-orange.png */,
 				6F2A04C222A5431700870EAF /* GameScene.cpp */,
 				6F2A04C322A5431700870EAF /* GameScene.hpp */,
+				6F2A04DB22A7F01B00870EAF /* UseCardHolding.cpp */,
+				6F2A04DC22A7F01B00870EAF /* UseCardHolding.hpp */,
 				6F4B30FF2296E12D007A9B20 /* player.cpp */,
 				6F4B31002296E12D007A9B20 /* player.hpp */,
 				6F4B31032296E766007A9B20 /* Card.cpp */,
@@ -1038,6 +1043,7 @@
 				4A05661F1DB70C58009CE39C /* FirebaseScene.cpp in Sources */,
 				6F4B31052296E766007A9B20 /* Card.cpp in Sources */,
 				6F0BBCFF22A3907F006F038D /* WrapInfo.cpp in Sources */,
+				6F2A04DD22A7F01B00870EAF /* UseCardHolding.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,7 @@
 #include "player.hpp"
 #include "Card.hpp"
 #include "LoungeScene.hpp"
+#include "GameScene.hpp"
 
 #include <iostream>
 #include <string>
@@ -45,6 +46,11 @@ void Client::HandleAction(const string & Message)
     int Action = Content["Action"];
     auto client = Client::getInstance();
     auto user = User::getInstance();
+    
+    auto gameScene = GameScene::getInstance();
+    if(gameScene != nullptr){
+        gameScene->set_action(Action);
+    }
     
     switch(Action)
     {
@@ -123,6 +129,7 @@ void Client::HandleAction(const string & Message)
         }
         case 7:
         {
+            
             auto pdb = PlayerDatabase::getInstance();
             auto mine = pdb->get_Mine();
             if(mine == nullptr){

@@ -90,3 +90,16 @@ json WrapUserExit(){
     Buffer["Action"] = 21;
     return Buffer;
 }
+json UserUseCard(int card_id, int target){
+    json Buffer;
+    Buffer["Action"] = 9;
+    Buffer["Card ID"] = card_id;
+    Buffer["Target Position"] = target;
+    
+    return Buffer;
+}
+json UserEndTurn(){
+    json Buffer;
+    Buffer["Action"] = 13;
+    return Buffer;
+}

@@ -7,7 +7,9 @@
 
 #include "GameScene.hpp"
 #include "player.hpp"
-
+#include "ClientSocket.hpp"
+#include "WrapInfo.hpp"
+#include "UseCardHolding.hpp"
 
 USING_NS_CC;
 
@@ -25,7 +27,8 @@ float calculate_card_pos(int pos, int n){
 
 
 Scene *GameScene::createScene(){
-    return GameScene::create();
+    myself = GameScene::create();
+    return myself;
 }
 
 // on "init" you need to initialize your instance
@@ -47,6 +50,18 @@ bool GameScene::init()
     
     //==============================================================================================================
     
+    //turn end button
+    endButton = ui::Button::create("login-btn.png");
+    endButton->ignoreContentAdaptWithSize(false);
+    endButton->setContentSize(Size(200, 75));
+    auto endLabel = Label::createWithTTF("End", "fonts/arial.ttf", 40);
+    endLabel->setPosition(Vec2(endButton->getContentSize().width/2, endButton->getContentSize().height/2));
+    endButton->addChild(endLabel);
+    endButton->setPosition(Vec2(visibleSize.width-150, visibleSize.height/2-50));
+    endButton->setVisible(false); //Only in my turn visiable
+    this->addChild(endButton);
+    
+    
     //temp test info============
     auto playerDB = PlayerDatabase::getInstance();
     
@@ -64,7 +79,7 @@ bool GameScene::init()
         if(playerDB->get_Player(i)->get_position() != playerDB->get_Mine()->get_position()){
             ShowPlayer[i] = PlayerHead::create();
             ShowPlayer[i]->setPosition(Vec2(calculate_head_pos(i, playerDB->get_size() ) , visibleSize.height-175));
-            ShowPlayer[i]->init(playerDB->get_Player(i)->get_PlayerName() , playerDB->get_Player(i)->get_charName(), playerDB->get_Player(i)->get_hp(), playerDB->get_Player(i)->get_team(), playerDB->get_Player(i)->isJail());
+            ShowPlayer[i]->init(playerDB->get_Player(i)->get_PlayerName() , playerDB->get_Player(i)->get_charName(), playerDB->get_Player(i)->get_hp(), playerDB->get_Player(i)->get_team(), playerDB->get_Player(i)->isJail(), playerDB->get_Player(i)->get_position());
             this->addChild(ShowPlayer[i]);
         }
     }
@@ -108,14 +123,13 @@ bool GameScene::init()
     
    
     this->cardbutton_amount = 3;
+    
     for(int i=0; i<3; i++){
-        
-        
         cardbutton[i] = CardButton::create(CardColor::BLUE);
         cardbutton[i]->setTag(i);
         cardbutton[i]->setPosition(Vec2(calculate_card_pos(i, 3), 100));
-        cardbutton[i]->my_init("BANG!", 1, 1);
-        cardbutton[i]->addTouchEventListener(CC_CALLBACK_1(GameScene::CardTouchCallback, this, i));
+        cardbutton[i]->my_init("Bang!", 1, 1);
+        cardbutton[i]->addTouchEventListener(CC_CALLBACK_2(GameScene::CardTouchCallback, this, i));
         
         this->addChild(cardbutton[i], 0);
         
@@ -142,16 +156,47 @@ bool GameScene::init()
     return true;
 }
 
+//auto updata in every frame
 
 void GameScene::update(float /*delta*/) {
     
-    for(int i=0; i<cardbutton_amount; i++){
+    for(int i=0; i<PlayerDatabase::getInstance()->get_size(); i++){
+        if(ShowPlayer[i]->get_position() != PlayerDatabase::getInstance()->get_Mine()->get_position()){
+            ShowPlayer[i]->set_selectVisiable(false);
+        }
+    }
+    
+    for(int i=0; i<cardbutton_amount; i++){ //card
+        cardbutton[i]->setEnabled(false); // set card disable, if not my turn
         
-        if(cardbutton[i]->isTouched()){
-            if(!cardbutton[i]->is_Move()){
+        
+        if(cardbutton[i]->isTouched()){ 
+            if(!cardbutton[i]->is_Move()){  //show card up
                 cardbutton[i]->set_Move(true);
                 cardbutton[i]->setZOrder(100);
                 cardbutton[i]->runAction(MoveBy::create(0.2, Vec2(0, 50)));
+            }
+            else if(cardbutton[i]->isDoubleSelect()){  // use card
+                auto cardHoding = UseCardHolding::getInstance();
+                cardHoding->set_cardID(cardbutton[i]->get_cardID());
+                cardHoding->set_cardName(cardbutton[i]->get_cardName());
+                //std::cout<<"i\n";
+                
+                if(cardHoding->shouldChooseTarget()){ // if use card need to choose target
+                    //std::cout<<"shoud choose\n";
+                    
+                    for(int i=0; i<PlayerDatabase::getInstance()->get_size(); i++){
+                        if(ShowPlayer[i]->get_position() != PlayerDatabase::getInstance()->get_Mine()->get_position()){
+                            ShowPlayer[i]->set_selectVisiable(true);
+                        }
+                    }
+                }
+                //Send Use card Message
+                if(cardHoding->infoFinish()){
+                    auto client = CClientSocket::getInstance();
+                    client->sendMessage(WrapInfo::UserUseCard(cardHoding->get_cardID(), cardHoding->get_target()));
+                    cardHoding->reset(); //reset the CardHolding infomation
+                }
             }
             
         }
@@ -163,6 +208,29 @@ void GameScene::update(float /*delta*/) {
             }
         }
     }
+    
+    switch(action_){
+        case 8:{
+            //your turn
+            endButton->setVisible(true);
+            for(int i=0; i<cardbutton_amount; i++){
+                cardbutton[i]->setEnabled(true);
+            }
+            break;
+        }
+            
+        case 13:{
+            //end your turn
+            action_ = -1;
+            break;
+        }
+            
+        default:{
+            action_ = -1;
+            break;
+        }
+    }
+    
 }
 
 
@@ -227,17 +295,27 @@ void PlayerHead::updataInfo(const std::string username, const std::string charNa
     
 
 }
-void PlayerHead::init(const std::string username, const std::string charName, int hp, int team, bool isJail){
+void PlayerHead::init(const std::string username, const std::string charName, int hp, int team, bool isJail, int position){
     username_ = username;
     charName_ = charName;
     hp_ = hp;
     team_ = team;
     isJail_ = isJail;
-    
+    position_ = position;
     
     usernameL = Label::createWithTTF(username, fontpath, fontSize);
     charNameL = Label::createWithTTF(charName, fontpath, fontSize);
     hpL = Label::createWithTTF("[HP:" + std::to_string(hp) + "]", fontpath, fontSize);
+    
+    //select button
+    selectB = ui::Button::create("brown-dot.png");
+    selectB->ignoreContentAdaptWithSize(false);
+    selectB->setContentSize(Size(90, 90));
+    selectB->setPosition(Vec2(this->getContentSize().width/2, - this->getContentSize().height + 20));
+    selectB->setVisible(selectVisiable_);
+    selectB->addTouchEventListener(CC_CALLBACK_0(PlayerHead::SelectButtonCallback, this));
+    
+    this->addChild(selectB);
     
     //Jail logo
     JailL = Sprite::create("card-blue-icon.png");//602 x 224
@@ -274,9 +352,13 @@ void PlayerHead::init(const std::string username, const std::string charName, in
     charNameL->setPosition(Vec2(this->getContentSize().width/2 ,-40));
     hpL->setPosition(Vec2(this->getContentSize().width/2, -70));
     JailL->setPosition(Vec2(this->getContentSize().width/2, -100));
+    
+    this->scheduleUpdate();
 }
 
-
+void PlayerHead::update(float /*delta*/){
+    selectB->setVisible(selectVisiable_);
+}
 
 
 int PlayerHead::get_hp() const{
@@ -304,7 +386,17 @@ void PlayerHead::set_team(int team){
 void PlayerHead::set_Jail(bool isJail){
     isJail_ = isJail;
 }
+void PlayerHead::set_selectVisiable(bool visiable){
+    selectVisiable_ = visiable;
+}
+int PlayerHead::get_position() const{
+    return position_;
+}
 
+void PlayerHead::SelectButtonCallback(){
+    auto uch = UseCardHolding::getInstance();
+    uch->set_target(this->get_position());
+}
 //==============CardButton class=====================
 /*
  PlayerHead::PlayerHead(const std::string username, const std::string charName, int hp, int team):username_(username), charName_(charName), hp_(hp), team_(team){
@@ -341,20 +433,57 @@ CardButton* CardButton::create(const CardColor &color){
 }
 
 void CardButton::my_init(const std::string &cardName, int number, int suit){
-    auto nameL = Label::createWithTTF(cardName, fontpath, fontSize);
+    set_cardName(cardName);
+    auto nameL = Label::createWithTTF(cardName_, fontpath, fontSize);
     nameL->setColor(Color3B::BLACK);
     nameL->setPosition(Vec2(this->getContentSize().width/2, this->getContentSize().height - 50));
     this->addChild(nameL);
 }
 //=======================GaneScene=======================
-void GameScene::CardTouchCallback(cocos2d::Ref*, int idx){
-    //std::cout<<"idx = "<<idx<<std::endl;
-    for(int i=0; i<cardbutton_amount; i++){
-        if(i!=idx){
-            cardbutton[i]->set_touch(false);
+
+void GameScene::CardTouchCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type, int idx){
+    switch (type) {
+        case ui::Widget::TouchEventType::BEGAN:{
+            //std::cout<<"touch\n";
+            for(int i=0; i<cardbutton_amount; i++){
+                if(i!=idx){
+                    cardbutton[i]->set_touch(false);
+                }
+                else{
+                    if(cardbutton[i]->isTouched()){
+                        cardbutton[i]->set_DoubleSelect(true);
+                    }
+                    else{
+                        cardbutton[i]->set_touch(true);
+                    }
+                }
+            }
+            break;
         }
-        else{
-            cardbutton[i]->set_touch(true);
-        }
+        default:
+            break;
+            
     }
 }
+
+void GameScene::myTurnEnded(){
+    auto client = CClientSocket::getInstance();
+    client->sendMessage(WrapInfo::UserEndTurn());
+    endButton->setVisible(false);
+    action_ = -1;
+}
+
+GameScene* GameScene::myself = nullptr;
+
+void GameScene::endButtonCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){
+    switch (type) {
+        case ui::Widget::TouchEventType::ENDED:{
+            GameScene::myTurnEnded();
+            break;
+        }
+        default:
+            break;
+            
+    }
+}
+

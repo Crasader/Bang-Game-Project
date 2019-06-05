@@ -26,6 +26,8 @@ namespace WrapInfo
     nlohmann::json WrapLoungeUserInfo();
     nlohmann::json WrapPlayerUseCard(int card_id, int target);
     nlohmann::json WrapUserExit();
+    nlohmann::json UserUseCard(int card_id, int target);
+    nlohmann::json UserEndTurn();
 }
 
 #endif /* WrapInfo_hpp */
