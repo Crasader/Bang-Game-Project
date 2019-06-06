@@ -17,7 +17,7 @@ namespace WrapInfo
     nlohmann::json WrapRegisterUserInfo(uint32_t UID);
     nlohmann::json WrapChangeNickName(std::string);
     nlohmann::json WrapGetLoungeListInfo();
-    nlohmann::json WrapJoinLounge(bool JoinMethod, uint32_t LoungeID, uint32_t UserID);
+    nlohmann::json WrapJoinLounge(bool JoinMethod, unsigned int LoungeID, unsigned int UserID);
     nlohmann::json WrapSetReady(bool Ready);
     nlohmann::json WrapStartGame();
     nlohmann::json WrapChooseCharacter(const std::string & name);
@@ -26,8 +26,10 @@ namespace WrapInfo
     nlohmann::json WrapLoungeUserInfo();
     nlohmann::json WrapPlayerUseCard(int card_id, int target);
     nlohmann::json WrapUserExit();
-    nlohmann::json UserUseCard(int card_id, int target);
-    nlohmann::json UserEndTurn();
+    nlohmann::json WrapUserUseCard(int card_id, int target);
+    nlohmann::json WrapUserEndTurn();
+    nlohmann::json WrapUseMissed(bool isUsed);
+    nlohmann::json WrapChooseCard(int cardID, int chooser, int choosee, bool cod);
 }
 
 #endif /* WrapInfo_hpp */

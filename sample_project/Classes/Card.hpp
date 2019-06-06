@@ -64,6 +64,14 @@ public:
         size_ = size;
     }
     
+    Card* get_Card_byID(int id){
+        for(auto i:data_){
+            if(i->get_id() == id){
+                return i;
+            }
+        }
+        return nullptr;
+    }
     Card* get_Card(int idx){
         return data_[idx];
     }

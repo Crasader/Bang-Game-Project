@@ -7,6 +7,7 @@
 
 #include "WrapInfo.hpp"
 #include <stdint.h>
+
 using namespace nlohmann;
 json WrapInfo::WrapRegisterUserInfo(uint32_t UID)
 {
@@ -28,7 +29,7 @@ json WrapInfo::WrapGetLoungeListInfo()
     Buffer["Action"] = 2;
     return Buffer;
 }
-json WrapInfo::WrapJoinLounge(bool JoinMethod, uint32_t LoungeID, uint32_t UserID)
+json WrapInfo::WrapJoinLounge(bool JoinMethod, unsigned int LoungeID, unsigned int UserID)
 {
     json Buffer;
     Buffer["Action"] = 3;
@@ -78,19 +79,19 @@ json WrapInfo::WrapLoungeUserInfo()
     return Buffer;
 }
 
-json WrapPlayerUseCard(int card_id, int target){
+json WrapInfo::WrapPlayerUseCard(int card_id, int target){
     json Buffer;
     Buffer["Action"] = 9;
     Buffer["Card ID"] = card_id;
     Buffer["Target Position"] = target;
     return Buffer;
 }
-json WrapUserExit(){
+json WrapInfo::WrapUserExit(){
     json Buffer;
     Buffer["Action"] = 21;
     return Buffer;
 }
-json UserUseCard(int card_id, int target){
+json WrapInfo::WrapUserUseCard(int card_id, int target){
     json Buffer;
     Buffer["Action"] = 9;
     Buffer["Card ID"] = card_id;
@@ -98,8 +99,23 @@ json UserUseCard(int card_id, int target){
     
     return Buffer;
 }
-json UserEndTurn(){
+json WrapInfo::WrapUserEndTurn(){
     json Buffer;
     Buffer["Action"] = 13;
+    return Buffer;
+}
+json WrapInfo::WrapUseMissed(bool isUsed){
+    json Buffer;
+    Buffer["Action"] = 12;
+    Buffer["Revolt"] = isUsed;
+    return Buffer;
+}
+json WrapInfo::WrapChooseCard(int cardID, int chooser, int choosee, bool cod){
+    json Buffer;
+    Buffer["Action"] = 11;
+    Buffer["Chooser Position"] = chooser;
+    Buffer["Choosee Position"] = choosee;
+    Buffer["Choose Card ID"] = cardID;
+    Buffer["Choose or Discard"] = cod;
     return Buffer;
 }

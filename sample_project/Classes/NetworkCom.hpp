@@ -44,7 +44,7 @@ public:
    // json addFriend(int);
     json showDetermineCard(int);
     //json getLoungeUserInfo(); //action 22
-    static void HandleAction(const string & Message);
+    static void HandleAction(const string Message);
     
     
     static Client* getInstance();

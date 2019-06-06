@@ -39,7 +39,7 @@ const std::string& Player::get_PlayerName() const{
     return PlayerName_;
 }
 int Player::get_holding_card_amount() const{
-    return holding_card_amount_;
+    return holding_.size();
 }
 std::vector<int>& Player::get_holding(){
     return holding_;
@@ -89,9 +89,6 @@ void Player::set_charName( const std::string &Name){
     charName_.assign(Name);
 }
 
-void Player::set_holding_card_amount(int amount){
-    holding_card_amount_ = amount;
-}
 
 bool Player::use_card(int card){
     for(auto i = holding_.begin(); i!=holding_.end(); i++){

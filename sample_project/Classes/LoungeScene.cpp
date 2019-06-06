@@ -117,7 +117,7 @@ bool LoungeUserTable::init(){
     this->addChild(TopLabel);
     
     
-    this->schedule(schedule_selector(LoungeUserTable::updateUserInfo), 1.0f ); // update user info 
+    this->schedule(schedule_selector(LoungeUserTable::updateUserInfo), 2.0f ); // update user info 
     
     return true;
     
@@ -126,8 +126,10 @@ bool LoungeUserTable::init(){
 
 // Called every second. The update is scheduled in `init()`.
 void LoungeUserTable::updateUserInfo(float /*delta*/){
-    std::thread Tmpthread(&LoungeUserTable::getUserListFromServer, this );
-    Tmpthread.join();
+    if(!LoungeUserDatabase::getInstance()->is_all_user_ready()){
+        std::thread Tmpthread(&LoungeUserTable::getUserListFromServer, this );
+        Tmpthread.join();
+    }
     tableview->reloadData();
 }
 

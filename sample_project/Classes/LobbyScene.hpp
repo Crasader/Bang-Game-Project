@@ -43,16 +43,22 @@ public:
     
     static void joinLounge(unsigned int lounge_id);
     
+    bool isIntoLounge() const{
+        return intoLounge_;
+    }
 
     void ListenerStartGame();
     void update(float delta) override;
     
     cocos2d::ui::Button *ReadyButton;
     
-    
+    static LobbyScene* getInstance(){
+        return myself;
+    }
     
     
 private:
+    static LobbyScene* myself;
     cocos2d::ui::Button *createButton(
                                       bool buttonEnabled, const std::string& buttonTitleText,
                                       const cocos2d::Color3B& buttonColor, const std::string& ImagePath1,const  std::string& ImagePath2, const std::string& ImagePath3);

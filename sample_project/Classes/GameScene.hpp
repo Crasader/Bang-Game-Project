@@ -13,8 +13,8 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include <iostream>
-
-
+#include "ChooseMissPopOut.hpp"
+#include "ChooseCardScene.hpp"
 
 class PlayerHead : public cocos2d::Sprite{
 public:
@@ -113,7 +113,7 @@ private:
     
     bool isMoved_ = false;
     bool touched_ = false;
-    const int static fontSize = 50;
+    const int static fontSize = 30;
     constexpr char static *fontpath = "fonts/arial_Bold.ttf";
     constexpr char static *bluepath = "card-blue.png";
     constexpr char static *blue_dark_path = "card-blue-dark.png";
@@ -141,6 +141,7 @@ public:
         action_ = action;
     }
     void myTurnEnded();
+    
     static GameScene* getInstance(){
         if(myself != nullptr){
             return myself;
@@ -155,10 +156,16 @@ public:
     CardButton* cardbutton[10] = {};
     int cardbutton_amount = 0;
     
+    std::vector<int> chooseList;
+    
 private:
     cocos2d::ui::Button* endButton = nullptr;
     static GameScene* myself;
-    int action_ = -1;
+    
+    static int action_;
+    
+    MissLayer* popMenu = nullptr;
+    
     
     PlayerHead *ShowPlayer[6] = {};
     int myHP_ = 0;

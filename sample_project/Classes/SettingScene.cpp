@@ -89,14 +89,13 @@ bool SettingScene::init()
     LogoutButton->setPosition(Vec2(ButtonXPosition, origin.y + 100 ));
     LogoutButton->addTouchEventListener([this](Ref* , cocos2d::ui::Widget::TouchEventType type) {
         switch (type) {
-            case cocos2d::ui::Widget::TouchEventType::ENDED: {
+            case cocos2d::ui::Widget::TouchEventType::BEGAN: {
                 if(MySdkbox::isLoggedIn()){//logout FB
                     MySdkbox::logout();
                 }
                 firebase::auth::Auth *auth = firebase::auth::Auth::GetAuth(firebase::App::GetInstance());
-                if(auth->current_user() != nullptr){ //logout firebase;
-                    auth->SignOut();
-                }
+                auth->SignOut();
+                
                 auto scene = FirebaseAuthScene::createScene();
                 auto director = Director::getInstance();
                 director->replaceScene(scene);

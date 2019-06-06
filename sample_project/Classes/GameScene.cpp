@@ -10,7 +10,9 @@
 #include "ClientSocket.hpp"
 #include "WrapInfo.hpp"
 #include "UseCardHolding.hpp"
-
+#include "ChooseMissPopOut.hpp"
+#include "ChooseCardScene.hpp"
+#include "Card.hpp"
 USING_NS_CC;
 
 
@@ -62,14 +64,16 @@ bool GameScene::init()
     this->addChild(endButton);
     
     
-    //temp test info============
     auto playerDB = PlayerDatabase::getInstance();
     
+    //temp test info============
+    /*
     playerDB->set_Mine(5, 5, 1, "tt", "tt", 11);
     
     for(int i=0; i<3; i++){
         playerDB->add_Player(new Player(5, 4, 0, "Username", "Test", i, 0));
     }
+     */
     //==========================
     
     
@@ -107,7 +111,7 @@ bool GameScene::init()
     auto SergeantLabel = Sprite::create("cap-logo.png"); // 227 x 258
     SergeantLabel->setContentSize(Size(227/4, 258/4));
     SergeantLabel->setPosition(Vec2(charNameLabel->getPosition().x + charNameLabel->getContentSize().width + 50, charNameLabel->getPosition().y));
-    if(playerDB->get_Mine()->get_team() == 1){
+    if(playerDB->get_Mine()->get_team() == 0){
         SergeantLabel->setVisible(true);
     }
     else{
@@ -122,34 +126,36 @@ bool GameScene::init()
     
     
    
-    this->cardbutton_amount = 3;
+    this->cardbutton_amount = playerDB->get_Mine()->get_holding_card_amount();
+    auto cardVec = playerDB->get_Mine()->get_holding();
     
-    for(int i=0; i<3; i++){
+    
+    for(int i=0; i<cardVec.size(); i++){
+        
+        auto card = CardDatabase::getInstance()->get_Card_byID(cardVec[i]);
+        
         cardbutton[i] = CardButton::create(CardColor::BLUE);
-        cardbutton[i]->setTag(i);
-        cardbutton[i]->setPosition(Vec2(calculate_card_pos(i, 3), 100));
-        cardbutton[i]->my_init("Bang!", 1, 1);
+        cardbutton[i]->setPosition(Vec2(calculate_card_pos(i, cardVec.size()), 100));
+        cardbutton[i]->my_init(card->get_cardName(), card->get_number(), card->get_suit());
+        cardbutton[i]->set_cardID(card->get_id());
+        
         cardbutton[i]->addTouchEventListener(CC_CALLBACK_2(GameScene::CardTouchCallback, this, i));
         
         this->addChild(cardbutton[i], 0);
         
     }
     
-    /*
-    Listenter->onTouchBegan = [](Touch* touch, Event* event){
-        auto target = static_cast<Sprite*>(event->getCurrentTarget());
-        std::cout<<"target "<<target->getTag()<<std::endl;
-        if(target->getTag() >=0 && target->getTag() <3){
-            
-            target->runAction(CardButton::moveUp);
-            return true;
-        }
-        return false;
-    };
+    //choose miss window
+    popMenu = MissLayer::create();
+    popMenu->setVisible(false);
+    this->addChild(popMenu, 200);
     
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(Listenter, this);
-*/
+    //choose card window
     
+    auto ChooseLayer = ChooseCardLayer::create();
+    this->addChild(ChooseLayer, 200);
+    ChooseLayer->setVisible(false);
+    ChooseLayer->setTag(2);
     
     this->scheduleUpdate();
     
@@ -157,58 +163,13 @@ bool GameScene::init()
 }
 
 //auto updata in every frame
+int GameScene::action_ = -1;
 
 void GameScene::update(float /*delta*/) {
     
-    for(int i=0; i<PlayerDatabase::getInstance()->get_size(); i++){
-        if(ShowPlayer[i]->get_position() != PlayerDatabase::getInstance()->get_Mine()->get_position()){
-            ShowPlayer[i]->set_selectVisiable(false);
-        }
-    }
     
-    for(int i=0; i<cardbutton_amount; i++){ //card
-        cardbutton[i]->setEnabled(false); // set card disable, if not my turn
-        
-        
-        if(cardbutton[i]->isTouched()){ 
-            if(!cardbutton[i]->is_Move()){  //show card up
-                cardbutton[i]->set_Move(true);
-                cardbutton[i]->setZOrder(100);
-                cardbutton[i]->runAction(MoveBy::create(0.2, Vec2(0, 50)));
-            }
-            else if(cardbutton[i]->isDoubleSelect()){  // use card
-                auto cardHoding = UseCardHolding::getInstance();
-                cardHoding->set_cardID(cardbutton[i]->get_cardID());
-                cardHoding->set_cardName(cardbutton[i]->get_cardName());
-                //std::cout<<"i\n";
-                
-                if(cardHoding->shouldChooseTarget()){ // if use card need to choose target
-                    //std::cout<<"shoud choose\n";
-                    
-                    for(int i=0; i<PlayerDatabase::getInstance()->get_size(); i++){
-                        if(ShowPlayer[i]->get_position() != PlayerDatabase::getInstance()->get_Mine()->get_position()){
-                            ShowPlayer[i]->set_selectVisiable(true);
-                        }
-                    }
-                }
-                //Send Use card Message
-                if(cardHoding->infoFinish()){
-                    auto client = CClientSocket::getInstance();
-                    client->sendMessage(WrapInfo::UserUseCard(cardHoding->get_cardID(), cardHoding->get_target()));
-                    cardHoding->reset(); //reset the CardHolding infomation
-                }
-            }
-            
-        }
-        else if(!cardbutton[i]->isTouched()){
-            if(cardbutton[i]->is_Move()){
-                cardbutton[i]->set_Move(false);
-                cardbutton[i]->setZOrder(i+1);
-                cardbutton[i]->runAction(MoveBy::create(0.2, Vec2(0, -50)));
-            }
-        }
-    }
     
+    std::cout<<"action : "<<action_<<std::endl;
     switch(action_){
         case 8:{
             //your turn
@@ -218,13 +179,69 @@ void GameScene::update(float /*delta*/) {
             }
             break;
         }
-            
+        case 12:{
+            //you were bang!
+            popMenu->setVisible(true);
+            break;
+        }
         case 13:{
             //end your turn
             action_ = -1;
             break;
         }
+        case -1:{
+            popMenu->setVisible(false);
             
+            for(int i=0; i<PlayerDatabase::getInstance()->get_size(); i++){
+                if(ShowPlayer[i]->get_position() != PlayerDatabase::getInstance()->get_Mine()->get_position()){
+                    ShowPlayer[i]->set_selectVisiable(false);
+                }
+            }
+            
+            for(int i=0; i<cardbutton_amount; i++){ //card
+                cardbutton[i]->setEnabled(false); // set card disable, if not my turn
+                
+                
+                if(cardbutton[i]->isTouched()){
+                    if(!cardbutton[i]->is_Move()){  //show card up
+                        cardbutton[i]->set_Move(true);
+                        cardbutton[i]->setZOrder(100);
+                        cardbutton[i]->runAction(MoveBy::create(0.2, Vec2(0, 50)));
+                    }
+                    else if(cardbutton[i]->isDoubleSelect()){  // use card
+                        auto cardHoding = UseCardHolding::getInstance();
+                        cardHoding->set_cardID(cardbutton[i]->get_cardID());
+                        cardHoding->set_cardName(cardbutton[i]->get_cardName());
+                        //std::cout<<"i\n";
+                        
+                        if(cardHoding->shouldChooseTarget()){ // if use card need to choose target
+                            //std::cout<<"shoud choose\n";
+                            
+                            for(int i=0; i<PlayerDatabase::getInstance()->get_size(); i++){
+                                if(ShowPlayer[i]->get_position() != PlayerDatabase::getInstance()->get_Mine()->get_position()){
+                                    ShowPlayer[i]->set_selectVisiable(true);
+                                }
+                            }
+                        }
+                        //Send Use card Message
+                        if(cardHoding->infoFinish()){
+                            auto client = CClientSocket::getInstance();
+                            client->sendMessage(WrapInfo::WrapUserUseCard(cardHoding->get_cardID(), cardHoding->get_target()));
+                            cardHoding->reset(); //reset the CardHolding infomation
+                        }
+                    }
+                    
+                }
+                else if(!cardbutton[i]->isTouched()){
+                    if(cardbutton[i]->is_Move()){
+                        cardbutton[i]->set_Move(false);
+                        cardbutton[i]->setZOrder(i+1);
+                        cardbutton[i]->runAction(MoveBy::create(0.2, Vec2(0, -50)));
+                    }
+                }
+            }
+            break;
+        }
         default:{
             action_ = -1;
             break;
@@ -468,7 +485,7 @@ void GameScene::CardTouchCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEvent
 
 void GameScene::myTurnEnded(){
     auto client = CClientSocket::getInstance();
-    client->sendMessage(WrapInfo::UserEndTurn());
+    client->sendMessage(WrapInfo::WrapUserEndTurn());
     endButton->setVisible(false);
     action_ = -1;
 }

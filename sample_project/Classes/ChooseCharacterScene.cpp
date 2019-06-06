@@ -8,6 +8,7 @@
 #include "ChooseCharacterScene.hpp"
 #include "NetworkCom.hpp"
 #include "WrapInfo.hpp"
+#include "GameScene.hpp"
 #include <thread>
 
 USING_NS_CC;
@@ -20,6 +21,10 @@ void ChooseCharacterScene::SetCharacterName(const std::string & Name1, const std
     CH_name1_ = Name2;
 }
 
+void ChooseCharacterScene::ListenerStartGame(){
+    CClientSocket::getInstance()->busyWaitting(7);
+    isStart = true;
+}
 
 Scene *ChooseCharacterScene::createScene(){
     return ChooseCharacterScene::create();
@@ -34,6 +39,8 @@ bool ChooseCharacterScene::init()
     {
         return false;
     }
+    std::thread tThread(&ChooseCharacterScene::ListenerStartGame, this);
+    tThread.detach();
     
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -97,10 +104,18 @@ bool ChooseCharacterScene::init()
     rightButton->addChild(rightCH);
     this->addChild(rightButton);
     
+    // Schedule the update method for this scene.
+    this->scheduleUpdate();
     
     return true;
 }
 
+void ChooseCharacterScene::update(float){
+    if(isStart){
+        auto scene = GameScene::createScene();
+        Director::getInstance()->replaceScene(scene);
+    }
+}
 void ChooseCharacterScene::LeftCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){
     switch (type) {
         case ui::Widget::TouchEventType::ENDED:{

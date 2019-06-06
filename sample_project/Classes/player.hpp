@@ -20,22 +20,22 @@ public:
         position_ = position;
         
     }
-    Player(int max_hp, int hp, int team, const std::string &PlayerName ,const std::string &charName,   int position, int amount = 0){
+    Player(int max_hp, int hp, int team, const std::string &PlayerName ,const std::string &charName,   int position){
         Max_hp_ = hp;
         hp_ = hp;
         team_ = team;
         PlayerName_ = PlayerName;
         charName_ = charName;
         position_ = position;
-        holding_card_amount_ = amount;
+        
     }
-    Player(int max_hp, int hp, int team, const std::string &charName,   int position, int amount = 0){
+    Player(int max_hp, int hp, int team, const std::string &charName,   int position){
         Max_hp_ = hp;
         hp_ = hp;
         team_ = team;
         charName_ = charName;
         position_ = position;
-        holding_card_amount_ = amount;
+
     }
     
     int get_Max_hp() const;
@@ -53,7 +53,9 @@ public:
     const std::string& get_charName() const;
     const std::string& get_PlayerName() const;
     int get_holding_card_amount() const;
+    
     std::vector<int>& get_holding();
+    
     int get_equipment() const;
     int get_position() const;
     bool isJail() const;
@@ -69,7 +71,7 @@ public:
     
     void set_charName(const std::string &Name);
     void set_PlayerName(const std::string &Name);
-    void set_holding_card_amount(int amount);
+    //void set_holding_card_amount(int amount);
     void set_equipment(int equ){
         equipment_ = equ;
     }
@@ -80,6 +82,8 @@ public:
     void set_attack_range(int range){
         attack_range_ = range;
     }
+    
+    std::vector<int> holding_;
     
 private:
     int Max_hp_ = 0;
@@ -99,8 +103,8 @@ private:
     int minus_range_ = 0;
     bool multi_attack_ = false;
     
-    int holding_card_amount_ = 0;
-    std::vector<int> holding_;
+    //int holding_card_amount_ = 0;
+    
     
     int equipment_  = 0xffffffff;
     int position_ = -1;
@@ -150,9 +154,16 @@ public:
         data_.push_back(player);
         ++size_;
     }
-    void delete_Player(int idx){
-        delete data_[idx];
-        data_.erase(data_.begin() + idx);
+    void delete_Player_by_pos(int pos){
+        for(int i=0; i<data_.size(); i++){
+            if(data_[i]->get_position() == pos){
+                delete data_[i];
+                data_.erase(data_.begin() + i);
+                break;
+            }
+        }
+        --size_;
+        
     }
     
     static PlayerDatabase* getInstance(){
@@ -162,9 +173,9 @@ public:
         return PlayerDatabase::myself;
     }
     
-    void set_Mine(int max_hp, int hp, int team, const std::string PlayerName, const std::string &charName,   int position, int amount = 0){
+    void set_Mine(int max_hp, int hp, int team, const std::string PlayerName, const std::string &charName,   int position){
         if(mine_ == nullptr){
-            mine_ = new Player( max_hp,  hp, team, PlayerName ,charName, position, amount = 0);
+            mine_ = new Player( max_hp,  hp, team, PlayerName ,charName, position);
         }
         else{
             mine_->set_Max_hp(max_hp);
@@ -173,7 +184,7 @@ public:
             mine_->set_PlayerName(PlayerName);
             mine_->set_charName(charName);
             mine_->set_position(position);
-            mine_->set_holding_card_amount(amount);
+            
         }
     }
 private:

@@ -15,7 +15,8 @@ CClientSocket* CClientSocket::myself = nullptr;
 
 CClientSocket* CClientSocket::getInstance(){
     if(CClientSocket::myself == nullptr){
-        CClientSocket::myself = new CClientSocket(28716, "104.199.215.104");
+        //CClientSocket::myself = new CClientSocket(28716, "104.199.215.104");
+        CClientSocket::myself = new CClientSocket(28716, "192.168.0.103");
     }
     return CClientSocket::myself;
 }
@@ -98,7 +99,6 @@ void CClientSocket::ClientProc(CClientSocket * myself)
             const char * ReceivedData = myself->receiveMessage();
             if(ReceivedData[0] != '\0')
             {
-
                 std::thread ParseThread = std::thread(Client::HandleAction, ReceivedData);
                 ParseThread.detach();
                 printf("Received: %s\n", ReceivedData);

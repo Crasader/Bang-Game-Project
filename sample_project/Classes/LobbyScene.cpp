@@ -52,8 +52,12 @@ static void problemLoading(const char* filename)
 }
 
 bool LobbyScene::intoLounge_ = false;
+
+LobbyScene* LobbyScene::myself = nullptr;
+
 Scene *LobbyScene::createScene(){
-    return LobbyScene::create();
+    myself = LobbyScene::create();
+    return myself;
 }
 
 
@@ -488,15 +492,17 @@ bool LoungeTable::init(){
     TopLabel->setPosition(Vec2(150, visibleSize.height-130));
     this->addChild(TopLabel);
     
-    this->schedule(schedule_selector(LoungeTable::updateUserInfo), 1.0f ); // update user info
+    this->schedule(schedule_selector(LoungeTable::updateUserInfo), 2.0f ); // update user info
     
     return true;
     
     
 }
 void LoungeTable::updateUserInfo(float /*delta*/){
-    std::thread Tmpthread(&::LoungeTable::getLoungListFromServer, this );
-    Tmpthread.join();
+    if(! LobbyScene::getInstance()->isIntoLounge()){
+        std::thread Tmpthread(&::LoungeTable::getLoungListFromServer, this );
+        Tmpthread.join();
+    }
     tableview->reloadData();
 }
 

@@ -15,10 +15,12 @@
 #include "LoungeScene.hpp"
 #include "GameScene.hpp"
 
+#include <thread>
 #include <iostream>
 #include <string>
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+
 Client* Client::myself = nullptr;
 
 Client* Client::getInstance(){
@@ -40,17 +42,14 @@ Client::~Client()
 }
 
 
-void Client::HandleAction(const string & Message)
+void Client::HandleAction(const string Message)
 {
     json Content = json::parse(Message);
     int Action = Content["Action"];
     auto client = Client::getInstance();
     auto user = User::getInstance();
     
-    auto gameScene = GameScene::getInstance();
-    if(gameScene != nullptr){
-        gameScene->set_action(Action);
-    }
+    
     
     switch(Action)
     {
@@ -91,30 +90,29 @@ void Client::HandleAction(const string & Message)
         }
         case 5:
         {
-            int p_amount = static_cast<int>(Content["Player"].size());
+            
+            json cpContent = Content;
+            int p_amount = static_cast<int>(cpContent["Player"].size());
             auto pdb = PlayerDatabase::getInstance();
             //"Player Name" : string,
             //"Position" : int(32-bit), (start from 0)
             for(int i=0; i<p_amount; i++){
                 //Player(int max_hp, int hp, const std::string &charName, const std::string &PlayerName,  int position, int amount = 0)
-                pdb->add_Player(new Player(Content["Player"][i]["Player Name"], Content["Player"][i]["Position"]));
+                pdb->add_Player(new Player(cpContent["Player"][i]["Player Name"], cpContent["Player"][i]["Position"]));
             }
             
-            int  c_amount = Content["Card"].size();
+            int  c_amount = cpContent["Card"].size();
             auto cdb = CardDatabase::getInstance();
             cdb->set_size(c_amount);
-            /*
-             "Name" : string,
-             "ID" : int(32-bit)
-             "Suit" : 0 or 1 or 2 or 3,
-             "Number" : 1~13
-             */
+            
             for(int i=0; i<c_amount; i++){
                 //Card(int id, std::string &cardName, int suit, int number)
-                cdb->add_Card(new Card(Content["Card"][i]["ID"], Content["Card"][i]["Name"], Content["Card"][i]["Suit"], Content["Card"][i]["Number"]));
+                cdb->add_Card(new Card(cpContent["Card"][i]["ID"], cpContent["Card"][i]["Name"], cpContent["Card"][i]["Suit"], cpContent["Card"][i]["Number"]));
                 
             }
             
+            
+        
             break;
         }
         case 6:
@@ -132,9 +130,7 @@ void Client::HandleAction(const string & Message)
             
             auto pdb = PlayerDatabase::getInstance();
             auto mine = pdb->get_Mine();
-            if(mine == nullptr){
-                mine = new Player();
-            }
+
             mine->set_Max_hp(Content["Max HP"]);
             mine->set_hp(Content["HP"]);
             mine->set_team(Content["Team"]);
@@ -145,29 +141,44 @@ void Client::HandleAction(const string & Message)
             mine->set_add_range(Content["Add Range"]);
             mine->set_minus_range(Content["Minus Range"]);
             mine->set_multi_attack(Content["Multi Attack"]);
-            auto HoldingVec = mine->get_holding();
+            
+            auto &HoldingVec = mine->holding_;
+            HoldingVec.clear();
+            
             for(int i=0; i<Content["Holding"].size(); i++){
-                HoldingVec.push_back(Content["Holding"][i]);
+                HoldingVec.push_back(Content["Holding"][i]["Card ID"]);
+                std::cout<<"push_back "<<Content["Holding"][i]["Card ID"]<<std::endl;
             }
-            mine->set_holding_card_amount(HoldingVec.size());
+            
+            //mine->set_holding_card_amount(HoldingVec.size());
             mine->set_equipment(Content["Equipment"]);
+            
+            pdb->delete_Player_by_pos(mine->get_position());
             
             //-------------------------------------------------
             for(int i=0; i<Content["Player"].size(); i++){
                 int tPos = Content["Player"][i]["Position"];
-                auto player = pdb->get_Player_byPos(tPos);
+                Player* player;
+                if(tPos != pdb->get_Mine()->get_position()){
+                    player = pdb->get_Player_byPos(tPos);
+                }
+                else{
+                    player = pdb->get_Mine();
+                }
                 
                 player->set_Max_hp(Content["Player"][i]["Max HP"]);
                 player->set_hp(Content["Player"][i]["HP"]);
                 player->set_charName(Content["Player"][i]["Character Name"]);
                 player->set_death(Content["Player"][i]["Death"]);
-                player->set_team(Content["Player"][i]["Team"]);
+                if(Content["Player"][i].find("Team") != Content["Player"][i].end()){
+                    player->set_team(Content["Player"][i]["Team"]);
+                }
                 player->set_position(Content["Player"][i]["Position"]);
                 player->set_attack_range(Content["Player"][i]["Attack Range"]);
                 player->set_add_range(Content["Player"][i]["Add Range"]);
                 player->set_minus_range(Content["Player"][i]["Minus Range"]);
                 player->set_multi_attack(Content["Player"][i]["Multi Attack"]);
-                player->set_holding_card_amount(Content["Player"][i]["Holding Card Amount"]);
+                //player->set_holding_card_amount(Content["Player"][i]["Holding Card Amount"]);
                 player->set_equipment(Content["Player"][i]["Equipment"]);
             }
             
@@ -199,7 +210,7 @@ void Client::HandleAction(const string & Message)
             for(int i=0; i<Content["Holding"].size(); i++){
                 HoldingVec.push_back(Content["Holding"][i]);
             }
-            mine->set_holding_card_amount(HoldingVec.size());
+            //mine->set_holding_card_amount(HoldingVec.size());
             mine->set_equipment(Content["Equipment"]);
             
             //-------------------------------------------------
@@ -211,13 +222,15 @@ void Client::HandleAction(const string & Message)
                 player->set_hp(Content["Player"][i]["HP"]);
                 player->set_charName(Content["Player"][i]["Character Name"]);
                 player->set_death(Content["Player"][i]["Death"]);
-                player->set_team(Content["Player"][i]["Team"]);
+                if(Content["Player"][i].find("Team") != Content["Player"][i].end()){
+                    player->set_team(Content["Player"][i]["Team"]);
+                }
                 player->set_position(Content["Player"][i]["Position"]);
                 player->set_attack_range(Content["Player"][i]["Attack Range"]);
                 player->set_add_range(Content["Player"][i]["Add Range"]);
                 player->set_minus_range(Content["Player"][i]["Minus Range"]);
                 player->set_multi_attack(Content["Player"][i]["Multi Attack"]);
-                player->set_holding_card_amount(Content["Player"][i]["Holding Card Amount"]);
+                //player->set_holding_card_amount(Content["Player"][i]["Holding Card Amount"]);
                 player->set_equipment(Content["Player"][i]["Equipment"]);
             }
             break;
@@ -242,6 +255,19 @@ void Client::HandleAction(const string & Message)
             for(int i=0; i<show_amount; i++){
                 //need write something
                 //...
+            }
+            
+            break;
+        }
+        case 11:{
+            
+            int chooser_pos = Content["Chooser Position"];
+            int choosee_pos = Content["Choosee Position"];
+            int card_amount = Content["Card"].size();
+            auto gs = GameScene::getInstance();
+            gs->chooseList.clear();
+            for(int i=0; i<card_amount; i++){
+                gs->chooseList.push_back(Content["Card"][i]["ID"]);
             }
             
             break;
@@ -301,6 +327,11 @@ void Client::HandleAction(const string & Message)
         }
     }
     CClientSocket::getInstance()->SetHandledAction(Action);
+    
+    auto gameScene = GameScene::getInstance();
+    if(gameScene != nullptr){
+        gameScene->set_action(Action);
+    }
 }
 
 
