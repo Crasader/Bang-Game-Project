@@ -14,6 +14,7 @@
 #include "Card.hpp"
 #include "LoungeScene.hpp"
 #include "GameScene.hpp"
+#include "ChooseCardScene.hpp"
 
 #include <thread>
 #include <iostream>
@@ -103,7 +104,7 @@ void Client::HandleAction(const string Message)
             
             int  c_amount = cpContent["Card"].size();
             auto cdb = CardDatabase::getInstance();
-            cdb->set_size(c_amount);
+            //cdb->set_size(c_amount);
             
             for(int i=0; i<c_amount; i++){
                 //Card(int id, std::string &cardName, int suit, int number)
@@ -118,11 +119,6 @@ void Client::HandleAction(const string Message)
         case 6:
         {
             ChooseCharacterScene::SetCharacterName(Content["Character Name 0"], Content["Character Name 1"]);
-            /*
-            auto dir = cocos2d::Director::getInstance();
-            auto Rscene = ChooseCharacterScene::createScene();
-            dir->replaceScene(Rscene);
-            */
             break;
         }
         case 7:
@@ -142,7 +138,7 @@ void Client::HandleAction(const string Message)
             mine->set_minus_range(Content["Minus Range"]);
             mine->set_multi_attack(Content["Multi Attack"]);
             
-            auto &HoldingVec = mine->holding_;
+            auto &HoldingVec = mine->get_holding();
             HoldingVec.clear();
             
             for(int i=0; i<Content["Holding"].size(); i++){
@@ -190,12 +186,12 @@ void Client::HandleAction(const string Message)
             break;
         }
         case 9:{
+            //player use card
             //update player info
+            
             auto pdb = PlayerDatabase::getInstance();
             auto mine = pdb->get_Mine();
-            if(mine == nullptr){
-                mine = new Player();
-            }
+ 
             mine->set_Max_hp(Content["Max HP"]);
             mine->set_hp(Content["HP"]);
             mine->set_team(Content["Team"]);
@@ -206,17 +202,27 @@ void Client::HandleAction(const string Message)
             mine->set_add_range(Content["Add Range"]);
             mine->set_minus_range(Content["Minus Range"]);
             mine->set_multi_attack(Content["Multi Attack"]);
-            auto HoldingVec = mine->get_holding();
+            
+            auto &HoldingVec = mine->get_holding();
+            HoldingVec.clear();
+            
             for(int i=0; i<Content["Holding"].size(); i++){
-                HoldingVec.push_back(Content["Holding"][i]);
+                HoldingVec.push_back(Content["Holding"][i]["Card ID"]);
+                std::cout<<"push_back "<<Content["Holding"][i]["Card ID"]<<std::endl;
             }
-            //mine->set_holding_card_amount(HoldingVec.size());
+           
             mine->set_equipment(Content["Equipment"]);
             
             //-------------------------------------------------
             for(int i=0; i<Content["Player"].size(); i++){
                 int tPos = Content["Player"][i]["Position"];
-                auto player = pdb->get_Player_byPos(tPos);
+                Player* player;
+                if(tPos != pdb->get_Mine()->get_position()){
+                    player = pdb->get_Player_byPos(tPos);
+                }
+                else{
+                    player = pdb->get_Mine();
+                }
                 
                 player->set_Max_hp(Content["Player"][i]["Max HP"]);
                 player->set_hp(Content["Player"][i]["HP"]);
@@ -261,13 +267,22 @@ void Client::HandleAction(const string Message)
         }
         case 11:{
             
-            int chooser_pos = Content["Chooser Position"];
-            int choosee_pos = Content["Choosee Position"];
+            
+            auto gs = cocos2d::Director::getInstance()->getRunningScene();
+            auto ChooseL = static_cast<ChooseCardLayer*>(gs->getChildByTag(2)); // Choose card Layer
+            
+            ChooseL->chooser_ = Content["Chooser Position"];
+            ChooseL->choosee_ = Content["Choosee Position"];
+            ChooseL->set_ChooseOrDiscard(Content["Choose or Discard"]);
+            
             int card_amount = Content["Card"].size();
-            auto gs = GameScene::getInstance();
-            gs->chooseList.clear();
+            
+            auto &cardList = ChooseL->cardList_;
+            
+            //gs->chooseList.clear();
             for(int i=0; i<card_amount; i++){
-                gs->chooseList.push_back(Content["Card"][i]["ID"]);
+                //gs->chooseList.push_back(Content["Card"][i]["ID"]);
+                cardList.push_back(Content["Card"][i]["ID"]);
             }
             
             break;
@@ -301,7 +316,8 @@ void Client::HandleAction(const string Message)
         case 18:
         {
             int State = Content["Result"];
-            FriendScene::getInstance()->setSearch_state(State);
+            static_cast<FriendScene*>(cocos2d::Director::getInstance()->getRunningScene())->setSearch_state(State);
+            //FriendScene::getInstance()->setSearch_state(State);
             break;
         }
         case 22:
@@ -325,13 +341,15 @@ void Client::HandleAction(const string Message)
 
             break;
         }
+        default:
+            break;
     }
+    
     CClientSocket::getInstance()->SetHandledAction(Action);
     
-    auto gameScene = GameScene::getInstance();
-    if(gameScene != nullptr){
-        gameScene->set_action(Action);
-    }
+   
+    GameScene::set_action(Action);
+
 }
 
 

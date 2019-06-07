@@ -66,15 +66,13 @@ void MissLayer::MissCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType 
     switch (type) {
         case ui::Widget::TouchEventType::BEGAN:{
             auto client = CClientSocket::getInstance();
-            client->sendMessage(WrapInfo::WrapUseMissed(true));
+            client->sendMessage(WrapInfo::WrapUseMissed(true).dump());
             
-            GameScene::getInstance()->set_action(-1);
+            GameScene::set_action(-1);
             
+            this->setVisible(false);
             break;
         }
-            
-            
-            
         default:
             break;
     }
@@ -84,12 +82,12 @@ void MissLayer::DoNothingCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEvent
     switch (type) {
         case ui::Widget::TouchEventType::BEGAN:{
             auto client = CClientSocket::getInstance();
-            client->sendMessage(WrapInfo::WrapUseMissed(true));
+            client->sendMessage(WrapInfo::WrapUseMissed(true).dump());
             
-            GameScene::getInstance()->set_action(-1);
+            GameScene::set_action(-1);
+            this->setVisible(false);
             break;
         }
-            
         default:
             break;
     }

@@ -362,7 +362,7 @@ void LobbyScene::GameCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType
             std::thread tThread([](){
                 auto client = Client::getInstance();
                 CClientSocket::getInstance()->sendMessage(WrapInfo::WrapStartGame().dump());
-                CClientSocket::getInstance()->busyWaitting(5);
+                CClientSocket::getInstance()->busyWaitting(6);
                 auto Rscene = ChooseCharacterScene::create();
                 cocos2d::Director::getInstance()->replaceScene(Rscene);
             });

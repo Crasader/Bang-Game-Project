@@ -160,6 +160,7 @@ bool FirebaseAuthScene::init() {
                                                             switch (type) {
                                                                 case cocos2d::ui::Widget::TouchEventType::ENDED: {
                                                                     //this->logMessage("Logging in...");
+                                                                    std::cout<<"log in \n";
 
                                                                     const char *email = email_editbox->getText();
                                                                     const char *password = password_editbox->getText();
@@ -188,12 +189,12 @@ bool FirebaseAuthScene::init() {
                                                  [this, auth](Ref* /**/ , cocos2d::ui::Widget::TouchEventType type) {
                                                      switch (type) {
                                                          case cocos2d::ui::Widget::TouchEventType::ENDED: {
+                                                             std::cout<<"register \n";
                                                              //this->logMessage("Registering user...");
                                                              const char* email = email_editbox->getText();
                                                              const char* password = password_editbox->getText();
-                                                             this->create_user_future_ =
-                                                             auth->CreateUserWithEmailAndPassword(email, password);
-                                                             this->register_user_button_->setEnabled(false);
+                                                             this->create_user_future_ = auth->CreateUserWithEmailAndPassword(email, password);
+                                                             //this->register_user_button_->setEnabled(false);
                                                              
                                                              if (create_user_future_.status() == firebase::kFutureStatusComplete) {
                                                                  if (create_user_future_.error() == firebase::auth::kAuthErrorNone) {
@@ -240,7 +241,7 @@ bool FirebaseAuthScene::init() {
                                                                 }
                                                                 
                                                                 
-                                                                this->credentialed_sign_in_button_->setEnabled(false);
+                                                                //this->credentialed_sign_in_button_->setEnabled(false);
                                                                 //this->sign_out_button_->setEnabled(true);
                                                                 break;
                                                             }

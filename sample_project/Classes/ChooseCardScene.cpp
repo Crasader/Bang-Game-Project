@@ -48,15 +48,30 @@ bool ChooseCardLayer::init()
         auto card = cardDB->get_Card_byID(cardID);
         
         cardbutton[i] = CardButton::create(CardColor::BLUE);
-        cardbutton[i]->setPosition(Vec2(card_pos(i, 3), 0));
+        cardbutton[i]->setPosition(Vec2(card_pos(i, cardList_.size()), 0));
         cardbutton[i]->my_init(card->get_cardName(), card->get_number(), card->get_suit());
         cardbutton[i]->addTouchEventListener(CC_CALLBACK_2(ChooseCardLayer::cardCallback, this, i));
         
+        cardbutton[i]->setTag(i);//set tag
         this->addChild(cardbutton[i], 0);
     }
      
-    
+    this->scheduleUpdate();
     return true;
+}
+
+void ChooseCardLayer::update(float){
+    for(int i=0; i<cardList_.size(); i++){
+        int cardID = cardList_[i];
+        auto cardDB = CardDatabase::getInstance();
+        auto card = cardDB->get_Card_byID(cardID);
+        
+        auto cardbutton = static_cast<CardButton*>(this->getChildByTag(i));
+        cardbutton->setPosition(Vec2(card_pos(i, cardList_.size()), 0));
+        cardbutton->addTouchEventListener(CC_CALLBACK_2(ChooseCardLayer::cardCallback, this, i));
+        
+        
+    }
 }
 
 void ChooseCardLayer::set_all(int chooser, int choosee, bool COD, std::vector<int>& cardlist){
@@ -78,7 +93,7 @@ void ChooseCardLayer::cardCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEven
     switch(type){
         case cocos2d::ui::Widget::TouchEventType::BEGAN:{
             auto client = CClientSocket::getInstance();
-            client->sendMessage(WrapInfo::WrapChooseCard(cardList_[idx], chooser_, choosee_, ChooseOrDiscard));
+            client->sendMessage(WrapInfo::WrapChooseCard(cardList_[idx], chooser_, choosee_, ChooseOrDiscard).dump());
             
             break;
         }

@@ -13,7 +13,7 @@
 USING_NS_CC;
 
 
-FriendScene* FriendScene::myself = nullptr;
+//FriendScene* FriendScene::myself = nullptr;
 
 // The images for the buttons.
 static const std::string AddButtonImage = "add-btn.png";
@@ -246,7 +246,7 @@ CCSize FriendTable::cellSizeForTable(TableView *table){
 //number of friend
 ssize_t FriendTable::numberOfCellsInTableView(TableView *table){
     auto database = FriendDatabase::getInstance();
-    return database->get_size() - 1;
+    return database->get_size();
 }
 
 TableViewCell* FriendTable::tableCellAtIndex(TableView *table, ssize_t idx){

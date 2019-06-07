@@ -15,8 +15,8 @@ CClientSocket* CClientSocket::myself = nullptr;
 
 CClientSocket* CClientSocket::getInstance(){
     if(CClientSocket::myself == nullptr){
-        //CClientSocket::myself = new CClientSocket(28716, "104.199.215.104");
-        CClientSocket::myself = new CClientSocket(28716, "192.168.0.103");
+        CClientSocket::myself = new CClientSocket(28716, "104.199.215.104");
+        //CClientSocket::myself = new CClientSocket(28716, "192.168.0.103");
     }
     return CClientSocket::myself;
 }
@@ -67,13 +67,21 @@ void CClientSocket::SetSocketFD(int SocketFD)
 const char * CClientSocket::receiveMessage()
 {
     // true if there is some data need to be receive, otherwise the other side's socket has closed
-    int ReceiveLength;
-    if((ReceiveLength = recv(this->SocketFD, ReceiveBuffer, BufferSize-1, 0)) <= 0)
+    int ReceiveLength, CurrentReceive = 0;
+    if((ReceiveLength = recv(GetSocketFD(), ReceiveBuffer + CurrentReceive, BufferSize-1, 0)) <= 0)
     {
         ReceiveBuffer[0] = '\0';
     }
     /*somehow it receive byte string without '\0'*/
-    ReceiveBuffer[ReceiveLength] = '\0';
+    if(ReceiveLength > 0)
+    {
+        CurrentReceive += ReceiveLength;
+        while(ReceiveBuffer[CurrentReceive-1] != '\0')
+        {
+            ReceiveLength = recv(GetSocketFD(), ReceiveBuffer + CurrentReceive, BufferSize-1, 0);
+            CurrentReceive += ReceiveLength;
+        }
+    }
     return ReceiveBuffer;
 }
 bool CClientSocket::sendMessage(const std::string & Buffer)
@@ -97,16 +105,20 @@ void CClientSocket::ClientProc(CClientSocket * myself)
         if(FD_ISSET(myself->SocketFD, &ReadFDSet))
         {
             const char * ReceivedData = myself->receiveMessage();
-            if(ReceivedData[0] != '\0')
+            if(ReceivedData)
             {
-                std::thread ParseThread = std::thread(Client::HandleAction, ReceivedData);
-                ParseThread.detach();
-                printf("Received: %s\n", ReceivedData);
-            }
-            else
-            {
-                //如果與伺服器斷線就直接跳(退出thread) 看你在斷線時要什麼機制
-                break;
+                if(ReceivedData[0] != '\0')
+                {
+                    //receive
+                    std::thread ParseThread = std::thread(Client::HandleAction, ReceivedData);
+                    ParseThread.detach();
+                    printf("Received: %s\n", ReceivedData);
+                }
+                else
+                {
+                    //如果與伺服器斷線就直接跳(退出thread) 看你在斷線時要什麼機制
+                    break;
+                }
             }
         }
     }

@@ -32,17 +32,18 @@ public:
     void setSearch_state(int state){
         Search_state_ = state;
     }
-    
+    /*
     static FriendScene* getInstance(){
         if(myself == nullptr){
             myself = FriendScene::create();
         }
         return myself;
     }
+     */
     CREATE_FUNC(FriendScene);
     
 private:
-    static FriendScene* myself;
+    //static FriendScene* myself;
     
     cocos2d::ui::EditBox *createEditBox(const std::string &PlaceHolder, const std::string &ImagePath);
     void BackToLoooby(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);

@@ -41,6 +41,7 @@ public:
     void SelectButtonCallback();
     
     void update(float delta) override;
+    
 private:
     const int static fontSize = 25;
     constexpr char static *fontpath = "fonts/arial.ttf";
@@ -137,17 +138,19 @@ public:
     
     void update(float delta) override;
     
-    void set_action(int action){
-        action_ = action;
+    static void set_action(int action){
+        GameScene::action_ = action;
     }
+    
     void myTurnEnded();
     
+    /*
     static GameScene* getInstance(){
-        if(myself != nullptr){
-            return myself;
+        if(myself == nullptr){
+            myself = GameScene::create();
         }
-        return nullptr;
-    }
+        return myself;
+    }*/
     
     void CardTouchCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type, int idx);
     void endButtonCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
@@ -156,13 +159,17 @@ public:
     CardButton* cardbutton[10] = {};
     int cardbutton_amount = 0;
     
+    
+    //choose card list
     std::vector<int> chooseList;
     
 private:
-    cocos2d::ui::Button* endButton = nullptr;
-    static GameScene* myself;
+    
+    //static GameScene* myself;
     
     static int action_;
+    
+    cocos2d::ui::Button* endButton = nullptr;
     
     MissLayer* popMenu = nullptr;
     

@@ -18,7 +18,7 @@
 class ChooseCardLayer : public cocos2d::Layer{
 public:
     bool init() override;
-    
+    void update(float) override;
     
     void set_all(int chooser, int choosee, bool COD, std::vector<int>& cardlist);
     

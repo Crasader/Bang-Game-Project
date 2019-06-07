@@ -83,12 +83,14 @@ public:
         attack_range_ = range;
     }
     
-    std::vector<int> holding_;
+    
     
 private:
     int Max_hp_ = 0;
     int hp_ = 0;
     int team_ = -1;
+    
+    std::vector<int> holding_;
     /*
      Sergeant = 0, //警長
      ChiefSergeant = 1, //副警長

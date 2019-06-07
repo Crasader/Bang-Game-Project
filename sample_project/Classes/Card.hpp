@@ -82,6 +82,7 @@ public:
     void delete_Card(int idx){
         delete data_[idx];
         data_.erase(data_.begin() + idx);
+        --size_;
     }
     
     static CardDatabase* getInstance(){

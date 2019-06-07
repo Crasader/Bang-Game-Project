@@ -29,8 +29,7 @@ float calculate_card_pos(int pos, int n){
 
 
 Scene *GameScene::createScene(){
-    myself = GameScene::create();
-    return myself;
+    return GameScene::create();
 }
 
 // on "init" you need to initialize your instance
@@ -67,13 +66,13 @@ bool GameScene::init()
     auto playerDB = PlayerDatabase::getInstance();
     
     //temp test info============
-    /*
-    playerDB->set_Mine(5, 5, 1, "tt", "tt", 11);
+    
+    playerDB->set_Mine(5, 5, 1, "Gary", "Gary", 11);
     
     for(int i=0; i<3; i++){
-        playerDB->add_Player(new Player(5, 4, 0, "Username", "Test", i, 0));
+        playerDB->add_Player(new Player(5, 4, 0, "Username", "Test", i));
     }
-     */
+     
     //==========================
     
     
@@ -83,21 +82,24 @@ bool GameScene::init()
         if(playerDB->get_Player(i)->get_position() != playerDB->get_Mine()->get_position()){
             ShowPlayer[i] = PlayerHead::create();
             ShowPlayer[i]->setPosition(Vec2(calculate_head_pos(i, playerDB->get_size() ) , visibleSize.height-175));
+            
             ShowPlayer[i]->init(playerDB->get_Player(i)->get_PlayerName() , playerDB->get_Player(i)->get_charName(), playerDB->get_Player(i)->get_hp(), playerDB->get_Player(i)->get_team(), playerDB->get_Player(i)->isJail(), playerDB->get_Player(i)->get_position());
+            
             this->addChild(ShowPlayer[i]);
         }
     }
     
     // show my blood
     myHP_ = playerDB->get_Mine()->get_hp();
-    Sprite* mpSprite[6] = {};
-    for(int i=0; i<myHP_; i++){
-        mpSprite[i] = Sprite::create("hp-logo.png"); // 174 x 253
-        mpSprite[i]->setContentSize(Size(174/4, 253/4));
+    cocos2d::Sprite* hpSprite[6] = {};
+    for(int i=0; i<6; i++){
+        hpSprite[i] = Sprite::create("hp-logo.png"); // 174 x 253
+        hpSprite[i]->setContentSize(Size(174/4, 253/4));
         // not finish 6/3
-        
-        mpSprite[i]->setPosition(Vec2(visibleSize.width - 50 - (i*40), visibleSize.height - 40));
-        this->addChild(mpSprite[i]);
+        hpSprite[i]->setPosition(Vec2(visibleSize.width - 50 - (i*40), visibleSize.height - 40));
+        hpSprite[i]->setVisible(false);
+        hpSprite[i]->setTag(i+10);
+        this->addChild(hpSprite[i]);
     }
     
     //show my character name
@@ -126,14 +128,26 @@ bool GameScene::init()
     
     
    
-    this->cardbutton_amount = playerDB->get_Mine()->get_holding_card_amount();
+    //this->cardbutton_amount = playerDB->get_Mine()->get_holding_card_amount();
+    this->cardbutton_amount = 4;
     auto cardVec = playerDB->get_Mine()->get_holding();
     
-    
+    //test card
+    for(int i=0; i<4; i++){
+        //auto card = CardDatabase::getInstance()->get_Card_byID(cardVec[i]);
+        cardbutton[i] = CardButton::create(CardColor::BLUE);
+        cardbutton[i]->setPosition(Vec2(calculate_card_pos(i, 4), 100));
+        cardbutton[i]->my_init("Bang!", 1,1);
+        //cardbutton[i]->set_cardID(card->get_id());
+        
+        cardbutton[i]->addTouchEventListener(CC_CALLBACK_2(GameScene::CardTouchCallback, this, i));
+        
+        this->addChild(cardbutton[i], 0);
+        
+    }
+    /*
     for(int i=0; i<cardVec.size(); i++){
-        
         auto card = CardDatabase::getInstance()->get_Card_byID(cardVec[i]);
-        
         cardbutton[i] = CardButton::create(CardColor::BLUE);
         cardbutton[i]->setPosition(Vec2(calculate_card_pos(i, cardVec.size()), 100));
         cardbutton[i]->my_init(card->get_cardName(), card->get_number(), card->get_suit());
@@ -143,7 +157,7 @@ bool GameScene::init()
         
         this->addChild(cardbutton[i], 0);
         
-    }
+    }*/
     
     //choose miss window
     popMenu = MissLayer::create();
@@ -162,14 +176,95 @@ bool GameScene::init()
     return true;
 }
 
+
+
 //auto updata in every frame
-int GameScene::action_ = -1;
 
 void GameScene::update(float /*delta*/) {
     
     
     
     std::cout<<"action : "<<action_<<std::endl;
+    
+    //Game show update-------------------------------
+    //update card amount
+    //this->cardbutton_amount = playerDB->get_Mine()->get_holding_card_amount();
+    //update HP
+    auto playerDB = PlayerDatabase::getInstance();
+    myHP_ = playerDB->get_Mine()->get_hp();
+    //tag 10~16
+    for(int i=10; i< 16 ; i++){
+        if(i<10+myHP_)
+            this->getChildByTag(i)->setVisible(true);
+        else
+            this->getChildByTag(i)->setVisible(false);
+    }
+    
+    //Update Palyer head
+    for(int i=0; i<playerDB->get_size(); i++){
+        for(int j=0; j<playerDB->get_size(); j++){
+            if(ShowPlayer[j]){
+                if(playerDB->get_Player(i)->get_position() == ShowPlayer[j]->get_position()){
+                    auto player = playerDB->get_Player(i);
+                    ShowPlayer[j]->updataInfo(player->get_PlayerName(), player->get_charName(), player->get_hp(), player->get_team(), player->isJail());
+                }
+            }
+            
+        }
+    }
+    //set select dis visible
+    for(int i=0; i<PlayerDatabase::getInstance()->get_size(); i++){
+        if(ShowPlayer[i]->get_position() != PlayerDatabase::getInstance()->get_Mine()->get_position()){
+            ShowPlayer[i]->set_selectVisiable(false);
+        }
+    }
+    
+    for(int i=0; i<cardbutton_amount; i++){ //card
+        //cardbutton[i]->setEnabled(false); // set card disable, if not my turn
+        
+        
+        if(cardbutton[i]->isTouched()){
+            if(!cardbutton[i]->is_Move()){  //show card up
+                cardbutton[i]->set_Move(true);
+                cardbutton[i]->setZOrder(100);
+                cardbutton[i]->runAction(MoveBy::create(0.2, Vec2(0, 50)));
+            }
+            else if(cardbutton[i]->isDoubleSelect()){  // use card
+                auto cardHoding = UseCardHolding::getInstance();
+                cardHoding->set_cardID(cardbutton[i]->get_cardID());
+                cardHoding->set_cardName(cardbutton[i]->get_cardName());
+                //std::cout<<"i\n";
+                
+                if(cardHoding->shouldChooseTarget()){ // if use card need to choose target
+                    //std::cout<<"shoud choose\n";
+                    
+                    for(int i=0; i<PlayerDatabase::getInstance()->get_size(); i++){
+                        if(ShowPlayer[i]->get_position() != PlayerDatabase::getInstance()->get_Mine()->get_position()){
+                            ShowPlayer[i]->set_selectVisiable(true);
+                        }
+                    }
+                }
+                //Send Use card Message
+                if(cardHoding->infoFinish()){
+                    auto client = CClientSocket::getInstance();
+                    client->sendMessage(WrapInfo::WrapUserUseCard(cardHoding->get_cardID(), cardHoding->get_target()).dump());
+                    cardHoding->reset(); //reset the CardHolding infomation
+                }
+            }
+            
+        }
+        else if(!cardbutton[i]->isTouched()){
+            if(cardbutton[i]->is_Move()){
+                cardbutton[i]->set_Move(false);
+                cardbutton[i]->setZOrder(i+1);
+                cardbutton[i]->runAction(MoveBy::create(0.2, Vec2(0, -50)));
+            }
+        }
+    }
+    
+    
+    //-----------------------------------------------
+    
     switch(action_){
         case 8:{
             //your turn
@@ -178,6 +273,9 @@ void GameScene::update(float /*delta*/) {
                 cardbutton[i]->setEnabled(true);
             }
             break;
+        }
+        case 11:{
+            
         }
         case 12:{
             //you were bang!
@@ -192,55 +290,9 @@ void GameScene::update(float /*delta*/) {
         case -1:{
             popMenu->setVisible(false);
             
-            for(int i=0; i<PlayerDatabase::getInstance()->get_size(); i++){
-                if(ShowPlayer[i]->get_position() != PlayerDatabase::getInstance()->get_Mine()->get_position()){
-                    ShowPlayer[i]->set_selectVisiable(false);
-                }
-            }
             
-            for(int i=0; i<cardbutton_amount; i++){ //card
-                cardbutton[i]->setEnabled(false); // set card disable, if not my turn
-                
-                
-                if(cardbutton[i]->isTouched()){
-                    if(!cardbutton[i]->is_Move()){  //show card up
-                        cardbutton[i]->set_Move(true);
-                        cardbutton[i]->setZOrder(100);
-                        cardbutton[i]->runAction(MoveBy::create(0.2, Vec2(0, 50)));
-                    }
-                    else if(cardbutton[i]->isDoubleSelect()){  // use card
-                        auto cardHoding = UseCardHolding::getInstance();
-                        cardHoding->set_cardID(cardbutton[i]->get_cardID());
-                        cardHoding->set_cardName(cardbutton[i]->get_cardName());
-                        //std::cout<<"i\n";
-                        
-                        if(cardHoding->shouldChooseTarget()){ // if use card need to choose target
-                            //std::cout<<"shoud choose\n";
-                            
-                            for(int i=0; i<PlayerDatabase::getInstance()->get_size(); i++){
-                                if(ShowPlayer[i]->get_position() != PlayerDatabase::getInstance()->get_Mine()->get_position()){
-                                    ShowPlayer[i]->set_selectVisiable(true);
-                                }
-                            }
-                        }
-                        //Send Use card Message
-                        if(cardHoding->infoFinish()){
-                            auto client = CClientSocket::getInstance();
-                            client->sendMessage(WrapInfo::WrapUserUseCard(cardHoding->get_cardID(), cardHoding->get_target()));
-                            cardHoding->reset(); //reset the CardHolding infomation
-                        }
-                    }
-                    
-                }
-                else if(!cardbutton[i]->isTouched()){
-                    if(cardbutton[i]->is_Move()){
-                        cardbutton[i]->set_Move(false);
-                        cardbutton[i]->setZOrder(i+1);
-                        cardbutton[i]->runAction(MoveBy::create(0.2, Vec2(0, -50)));
-                    }
-                }
-            }
             break;
+            
         }
         default:{
             action_ = -1;
@@ -461,7 +513,7 @@ void CardButton::my_init(const std::string &cardName, int number, int suit){
 void GameScene::CardTouchCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type, int idx){
     switch (type) {
         case ui::Widget::TouchEventType::BEGAN:{
-            //std::cout<<"touch\n";
+            std::cout<<"touch\n";
             for(int i=0; i<cardbutton_amount; i++){
                 if(i!=idx){
                     cardbutton[i]->set_touch(false);
@@ -485,12 +537,14 @@ void GameScene::CardTouchCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEvent
 
 void GameScene::myTurnEnded(){
     auto client = CClientSocket::getInstance();
-    client->sendMessage(WrapInfo::WrapUserEndTurn());
+    client->sendMessage(WrapInfo::WrapUserEndTurn().dump());
     endButton->setVisible(false);
     action_ = -1;
 }
 
-GameScene* GameScene::myself = nullptr;
+//GameScene* GameScene::myself = nullptr;
+
+int GameScene::action_ = -1;
 
 void GameScene::endButtonCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){
     switch (type) {
