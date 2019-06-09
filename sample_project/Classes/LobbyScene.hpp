@@ -67,6 +67,7 @@ private:
     void FriendCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
     void ReadyCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
     void GameCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
+    void ExitCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
     
     using json = nlohmann::json;
     json request_info, r2;

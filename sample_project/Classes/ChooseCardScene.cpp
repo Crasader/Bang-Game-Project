@@ -88,13 +88,30 @@ void ChooseCardLayer::set_ChooseOrDiscard(bool cod){
 bool ChooseCardLayer::get_ChooseOrDiscard() const{
     return ChooseOrDiscard;
 }
+void ChooseCardLayer::set_should_dis_amount(int amount){
+    should_dis_amount_ = amount;
+}
+void ChooseCardLayer::set_now_dis_amount(int amount){
+    now_dis_amount_ = amount;
+}
+void ChooseCardLayer::set_state(int state){
+    state_ = state;
+}
 
 void ChooseCardLayer::cardCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type, int idx){
     switch(type){
         case cocos2d::ui::Widget::TouchEventType::BEGAN:{
             auto client = CClientSocket::getInstance();
             client->sendMessage(WrapInfo::WrapChooseCard(cardList_[idx], chooser_, choosee_, ChooseOrDiscard).dump());
+            now_dis_amount_ += 1;
             
+            if( (state_ == 0)  && (now_dis_amount_ >= should_dis_amount_) ){
+                auto client = CClientSocket::getInstance();
+                client->sendMessage(WrapInfo::WrapUserEndTurn().dump());
+                GameScene::set_action(-1);
+                state_ = -1;
+                this->setVisible(false);
+            }
             break;
         }
         default:

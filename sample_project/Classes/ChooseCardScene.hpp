@@ -26,9 +26,12 @@ public:
     void set_ChooseOrDiscard(bool cod);
     bool get_ChooseOrDiscard() const;
     
+    void set_should_dis_amount(int amount);
+    void set_now_dis_amount(int amount);
+    void set_state(int state);
 
-    int chooser_;
-    int choosee_;
+    int chooser_ = -1;
+    int choosee_ = -1;
     std::vector<int> cardList_;
     
     CREATE_FUNC(ChooseCardLayer);
@@ -39,6 +42,11 @@ public:
     //void DoNothingCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
     
 private:
+    
+    int now_dis_amount_ = 0;
+    int should_dis_amount_ = 0;
+    
+    int state_ = -1; // 0 end turn dis card , 
     
     bool ChooseOrDiscard;
     const cocos2d::Size  ButtonSize_ = cocos2d::Size(1546/4, 439/4);

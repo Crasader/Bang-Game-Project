@@ -271,6 +271,10 @@ void Client::HandleAction(const string Message)
             auto gs = cocos2d::Director::getInstance()->getRunningScene();
             auto ChooseL = static_cast<ChooseCardLayer*>(gs->getChildByTag(2)); // Choose card Layer
             
+            if(Content["Chooser Position"] != PlayerDatabase::getInstance()->get_Mine()->get_position()){
+                break;
+            }
+            
             ChooseL->chooser_ = Content["Chooser Position"];
             ChooseL->choosee_ = Content["Choosee Position"];
             ChooseL->set_ChooseOrDiscard(Content["Choose or Discard"]);
@@ -279,9 +283,9 @@ void Client::HandleAction(const string Message)
             
             auto &cardList = ChooseL->cardList_;
             
-            //gs->chooseList.clear();
+            cardList.clear();
+            
             for(int i=0; i<card_amount; i++){
-                //gs->chooseList.push_back(Content["Card"][i]["ID"]);
                 cardList.push_back(Content["Card"][i]["ID"]);
             }
             

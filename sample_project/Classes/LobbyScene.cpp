@@ -91,6 +91,18 @@ bool LobbyScene::init()
     //Button X pos
     const float  ButtonXPosition = origin.x + visibleSize.width - 100;
     
+    //exit lounge button
+    const std::string backButtonImage = "back-icon.png"; //square
+    const std::string backButtonSelectedImage = "back-icon-click.png";//square
+    auto exitButton = ui::Button::create(backButtonImage, backButtonSelectedImage, backButtonImage);
+    exitButton->ignoreContentAdaptWithSize(false);
+    exitButton->setContentSize(Size(100, 100));
+    exitButton->setPosition(Vec2(visibleSize.width/2+100, 150));
+    exitButton->addTouchEventListener(CC_CALLBACK_2(LobbyScene::ExitCallback, this));
+    exitButton->setVisible(intoLounge_);
+    exitButton->setTag(8);
+    this->addChild(exitButton, 3);
+    
     //Rank button
     auto RankButton = createButton(true, "Rank", cocos2d::Color3B::WHITE, kNormalButtonImage, kSelectedButtonImage, kDisabledButtonImage);
     nextYPosition = origin.y + visibleSize.height * 2 / 3;
@@ -248,6 +260,9 @@ void LobbyScene::update(float /*delta*/){
         sp->setVisible(intoLounge_);
     }
     
+    auto tmpSP = this->getChildByTag(8);//Exit button
+    tmpSP->setVisible(intoLounge_);
+    
     if(LoungeUserDatabase::getInstance()->is_all_user_ready()){
         
         
@@ -379,7 +394,19 @@ void LobbyScene::GameCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType
             
     }
 }
-
+//Exit button call back
+void LobbyScene::ExitCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){
+    switch (type) {
+        case ui::Widget::TouchEventType::ENDED:{
+            this->intoLounge_ = false;
+            CClientSocket::getInstance()->sendMessage(WrapInfo::WrapUserExit().dump());
+            break;
+        }
+        default:
+            break;
+            
+    }
+}
 
 
 //==========================================================================

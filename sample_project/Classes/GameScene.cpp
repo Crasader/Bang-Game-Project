@@ -165,7 +165,7 @@ bool GameScene::init()
     popMenu->setVisible(false);
     this->addChild(popMenu, 200);
     
-    //choose card window
+    //choose card window : tag = 2
     
     auto ChooseLayer = ChooseCardLayer::create();
     this->addChild(ChooseLayer, 200);
@@ -189,11 +189,12 @@ void GameScene::update(float /*delta*/) {
     
     auto playerDB = PlayerDatabase::getInstance();
     //Game show update-------------------------------
+    
     //update card amount
     this->cardbutton_amount = playerDB->get_Mine()->get_holding_card_amount();
     //update HP
     myHP_ = playerDB->get_Mine()->get_hp();
-    //tag 10~16
+    //hp tag 10~16
     for(int i=10; i< 16 ; i++){
         if(i<10+myHP_)
             this->getChildByTag(i)->setVisible(true);
@@ -276,7 +277,12 @@ void GameScene::update(float /*delta*/) {
             break;
         }
         case 11:{
+            auto chCard = static_cast<ChooseCardLayer*>(this->getChildByTag(2));
             
+            if(chCard->chooser_ == playerDB->get_Mine()->get_position()){
+                chCard->setVisible(true);
+            }
+            break;
         }
         case 12:{
             //you were bang!
@@ -535,12 +541,34 @@ void GameScene::CardTouchCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEvent
             
     }
 }
-
+/*
 void GameScene::myTurnEnded(){
     auto client = CClientSocket::getInstance();
     client->sendMessage(WrapInfo::WrapUserEndTurn().dump());
     endButton->setVisible(false);
     action_ = -1;
+}
+*/
+void GameScene::myTurnEnded(){
+    auto playerDB = PlayerDatabase::getInstance();
+    int my_hp = playerDB->get_Mine()->get_hp();
+    int my_holding_amount = playerDB->get_Mine()->get_holding().size();
+    
+    auto chCard = static_cast<ChooseCardLayer*>(this->getChildByTag(2)); // choose card layer
+    
+    if( my_holding_amount > my_hp ){
+        chCard->set_ChooseOrDiscard(0);
+        chCard->set_should_dis_amount(my_holding_amount - my_hp);
+        chCard->set_now_dis_amount(0);
+        chCard->cardList_ = playerDB->get_Mine()->get_holding();
+        chCard->setVisible(true);
+    }
+    else{
+        auto client = CClientSocket::getInstance();
+        client->sendMessage(WrapInfo::WrapUserEndTurn().dump());
+        action_ = -1;
+    }
+    
 }
 
 //GameScene* GameScene::myself = nullptr;
