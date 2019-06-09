@@ -66,13 +66,13 @@ bool GameScene::init()
     auto playerDB = PlayerDatabase::getInstance();
     
     //temp test info============
-    
+    /*
     playerDB->set_Mine(5, 5, 1, "Gary", "Gary", 11);
     
     for(int i=0; i<3; i++){
         playerDB->add_Player(new Player(5, 4, 0, "Username", "Test", i));
     }
-     
+     */
     //==========================
     
     
@@ -128,11 +128,12 @@ bool GameScene::init()
     
     
    
-    //this->cardbutton_amount = playerDB->get_Mine()->get_holding_card_amount();
-    this->cardbutton_amount = 4;
+    this->cardbutton_amount = playerDB->get_Mine()->get_holding_card_amount();
+    //this->cardbutton_amount = 4;
     auto cardVec = playerDB->get_Mine()->get_holding();
     
     //test card
+    /*
     for(int i=0; i<4; i++){
         //auto card = CardDatabase::getInstance()->get_Card_byID(cardVec[i]);
         cardbutton[i] = CardButton::create(CardColor::BLUE);
@@ -145,7 +146,7 @@ bool GameScene::init()
         this->addChild(cardbutton[i], 0);
         
     }
-    /*
+    */
     for(int i=0; i<cardVec.size(); i++){
         auto card = CardDatabase::getInstance()->get_Card_byID(cardVec[i]);
         cardbutton[i] = CardButton::create(CardColor::BLUE);
@@ -157,7 +158,7 @@ bool GameScene::init()
         
         this->addChild(cardbutton[i], 0);
         
-    }*/
+    }
     
     //choose miss window
     popMenu = MissLayer::create();
@@ -186,11 +187,11 @@ void GameScene::update(float /*delta*/) {
     
     std::cout<<"action : "<<action_<<std::endl;
     
+    auto playerDB = PlayerDatabase::getInstance();
     //Game show update-------------------------------
     //update card amount
-    //this->cardbutton_amount = playerDB->get_Mine()->get_holding_card_amount();
+    this->cardbutton_amount = playerDB->get_Mine()->get_holding_card_amount();
     //update HP
-    auto playerDB = PlayerDatabase::getInstance();
     myHP_ = playerDB->get_Mine()->get_hp();
     //tag 10~16
     for(int i=10; i< 16 ; i++){
@@ -220,7 +221,7 @@ void GameScene::update(float /*delta*/) {
     }
     
     for(int i=0; i<cardbutton_amount; i++){ //card
-        //cardbutton[i]->setEnabled(false); // set card disable, if not my turn
+        cardbutton[i]->setEnabled(false); // set card disable, if not my turn
         
         
         if(cardbutton[i]->isTouched()){

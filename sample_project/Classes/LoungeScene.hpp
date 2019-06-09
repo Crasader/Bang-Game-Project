@@ -61,6 +61,8 @@ public:
     }
     
     bool is_all_user_ready(){
+        if(data_.size() < 4)
+            return false;
         for(auto i:data_){
             if(! (i->isReady())){
                 return false;

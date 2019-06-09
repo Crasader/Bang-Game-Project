@@ -359,17 +359,18 @@ void LobbyScene::ReadyCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventTyp
 void LobbyScene::GameCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){
     switch (type) {
         case ui::Widget::TouchEventType::ENDED:{
-            std::thread tThread([](){
+            std::thread tThread([&](){
                 auto client = Client::getInstance();
                 CClientSocket::getInstance()->sendMessage(WrapInfo::WrapStartGame().dump());
                 CClientSocket::getInstance()->busyWaitting(6);
-                auto Rscene = ChooseCharacterScene::create();
-                cocos2d::Director::getInstance()->replaceScene(Rscene);
+                isStartGame_ = true;
             });
             tThread.join();
+            /*
             auto dir = Director::getInstance();
             auto scene = ChooseCharacterScene::create();
             dir->replaceScene(scene);
+             */
             
             break;
         }

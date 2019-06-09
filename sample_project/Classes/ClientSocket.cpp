@@ -15,7 +15,7 @@ CClientSocket* CClientSocket::myself = nullptr;
 
 CClientSocket* CClientSocket::getInstance(){
     if(CClientSocket::myself == nullptr){
-        CClientSocket::myself = new CClientSocket(28716, "104.199.215.104");
+        CClientSocket::myself = new CClientSocket(28716, "34.80.242.251");
         //CClientSocket::myself = new CClientSocket(28716, "192.168.0.103");
     }
     return CClientSocket::myself;
