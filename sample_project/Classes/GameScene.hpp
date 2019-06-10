@@ -15,6 +15,7 @@
 #include <iostream>
 #include "ChooseMissPopOut.hpp"
 #include "ChooseCardScene.hpp"
+#include "EndGameScene.hpp"
 
 class PlayerHead : public cocos2d::Sprite{
 public:
@@ -144,13 +145,6 @@ public:
     
     void myTurnEnded();
     
-    /*
-    static GameScene* getInstance(){
-        if(myself == nullptr){
-            myself = GameScene::create();
-        }
-        return myself;
-    }*/
     
     void CardTouchCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type, int idx);
     void endButtonCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
@@ -159,6 +153,7 @@ public:
     CardButton* cardbutton[10] = {};
     int cardbutton_amount = 0;
     
+    void set_WinOrLose(WinAndLose worl);
     
     //choose card list
     std::vector<int> chooseList;
@@ -167,6 +162,8 @@ private:
     
     //static GameScene* myself;
     
+    WinAndLose WorL_;
+
     static int action_;
     
     cocos2d::ui::Button* endButton = nullptr;

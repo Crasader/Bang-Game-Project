@@ -91,6 +91,9 @@
 		6F351162224FA99700D206EC /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115E224FA99700D206EC /* StoreKit.framework */; };
 		6F351163224FA99700D206EC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F35115F224FA99700D206EC /* Security.framework */; };
 		6F351164224FA99700D206EC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F351160224FA99700D206EC /* SystemConfiguration.framework */; };
+		6F3722FA22AE3588004B242D /* EndGameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F3722F822AE3588004B242D /* EndGameScene.cpp */; };
+		6F3722FE22AE3D51004B242D /* ok-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3722FC22AE3D51004B242D /* ok-btn.png */; };
+		6F37230122AE3D8A004B242D /* ok-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F37230022AE3D8A004B242D /* ok-btn-click.png */; };
 		6F43B6552271AA6300CA5A6C /* SettingScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F43B6532271AA6300CA5A6C /* SettingScene.cpp */; };
 		6F4637CF22982D17003F12FB /* User.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F4637CD22982D17003F12FB /* User.cpp */; };
 		6F4637D3229837A3003F12FB /* NetworkCom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F4637D1229837A3003F12FB /* NetworkCom.cpp */; };
@@ -313,6 +316,10 @@
 		6F35115F224FA99700D206EC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		6F351160224FA99700D206EC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		6F35116B224FB2A500D206EC /* HelloCpp-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HelloCpp-mobile.entitlements"; sourceTree = "<group>"; };
+		6F3722F822AE3588004B242D /* EndGameScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EndGameScene.cpp; sourceTree = "<group>"; };
+		6F3722F922AE3588004B242D /* EndGameScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EndGameScene.hpp; sourceTree = "<group>"; };
+		6F3722FC22AE3D51004B242D /* ok-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ok-btn.png"; sourceTree = "<group>"; };
+		6F37230022AE3D8A004B242D /* ok-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ok-btn-click.png"; sourceTree = "<group>"; };
 		6F43B6532271AA6300CA5A6C /* SettingScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SettingScene.cpp; sourceTree = "<group>"; };
 		6F43B6542271AA6300CA5A6C /* SettingScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SettingScene.hpp; sourceTree = "<group>"; };
 		6F4637CD22982D17003F12FB /* User.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = User.cpp; sourceTree = "<group>"; };
@@ -651,6 +658,8 @@
 				6F2A04CA22A6049700870EAF /* cap-logo.png */,
 				6F2A04E622A8B1B500870EAF /* donothing-btn.png */,
 				6F2A04E822A8B1C200870EAF /* donothing-btn-click.png */,
+				6F3722FC22AE3D51004B242D /* ok-btn.png */,
+				6F37230022AE3D8A004B242D /* ok-btn-click.png */,
 				B36B421FB393D1A749DC816F /* sdkbox_config.json */,
 			);
 			name = Resources;
@@ -690,6 +699,8 @@
 				6F2A04E122A8A8FE00870EAF /* ChooseMissPopOut.hpp */,
 				6F2A04F622A8E4A600870EAF /* ChooseCardScene.cpp */,
 				6F2A04F722A8E4A600870EAF /* ChooseCardScene.hpp */,
+				6F3722F822AE3588004B242D /* EndGameScene.cpp */,
+				6F3722F922AE3588004B242D /* EndGameScene.hpp */,
 				6F2A04DB22A7F01B00870EAF /* UseCardHolding.cpp */,
 				6F2A04DC22A7F01B00870EAF /* UseCardHolding.hpp */,
 				6F4B30FF2296E12D007A9B20 /* player.cpp */,
@@ -899,6 +910,7 @@
 				6F2A04E722A8B1B500870EAF /* donothing-btn.png in Resources */,
 				6FABDDDB227B2D680034224E /* card-orange-icon.png in Resources */,
 				6F0BBCE122A167BE006F038D /* ready-btn-click.png in Resources */,
+				6F3722FE22AE3D51004B242D /* ok-btn.png in Resources */,
 				6FABDDD4227B2D680034224E /* lobby-btn-halfwidth.png in Resources */,
 				46880B7D19C43A67006E1F66 /* CloseSelected.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
@@ -922,6 +934,7 @@
 				6FABDDE1227B31E90034224E /* lobby-btn-fullwidth2.png in Resources */,
 				6FABDDDA227B2D680034224E /* background.png in Resources */,
 				6F2A04F322A8E18600870EAF /* card-blue-dark.png in Resources */,
+				6F37230122AE3D8A004B242D /* ok-btn-click.png in Resources */,
 				6FABDDB5227B2D4A0034224E /* username-input.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
@@ -1055,6 +1068,7 @@
 				4A05661E1DB70C58009CE39C /* FirebaseAuthScene.cpp in Sources */,
 				6F8657E6226D9C6E009BA43D /* LobbyScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				6F3722FA22AE3588004B242D /* EndGameScene.cpp in Sources */,
 				4A05661F1DB70C58009CE39C /* FirebaseScene.cpp in Sources */,
 				6F4B31052296E766007A9B20 /* Card.cpp in Sources */,
 				6F2A04F822A8E4A600870EAF /* ChooseCardScene.cpp in Sources */,

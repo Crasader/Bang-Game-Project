@@ -10,6 +10,7 @@
 #include "FirebaseAuthScene.h"
 #include "AssisstanceFunc.hpp"
 #include "User.hpp"
+
 USING_NS_CC;
 
 
@@ -118,7 +119,9 @@ bool StartScene::init()
     }
     
     
-   
+
+    
+    
     return true;
 }
 

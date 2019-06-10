@@ -13,6 +13,7 @@
 #include "ChooseMissPopOut.hpp"
 #include "ChooseCardScene.hpp"
 #include "Card.hpp"
+#include "EndGameScene.hpp"
 USING_NS_CC;
 
 
@@ -166,12 +167,16 @@ bool GameScene::init()
     this->addChild(popMenu, 200);
     
     //choose card window : tag = 2
-    
     auto ChooseLayer = ChooseCardLayer::create();
     this->addChild(ChooseLayer, 200);
     ChooseLayer->setVisible(false);
     ChooseLayer->setTag(2);
     
+    
+    //end game layer : tag = 20
+    auto endGameLayer = EndGameLayer::create();
+    endGameLayer->setVisible(false);
+    this->addChild(endGameLayer);
     this->scheduleUpdate();
     
     return true;
@@ -292,6 +297,14 @@ void GameScene::update(float /*delta*/) {
         case 13:{
             //end your turn
             action_ = -1;
+            break;
+        }
+        case 15:{
+            //end game
+            auto endGameLayer = static_cast<EndGameLayer*>(this->getChildByTag(20));
+            endGameLayer->set_WinOrLose(WorL_);
+            endGameLayer->updateInfo();
+            endGameLayer->setVisible(true);
             break;
         }
         case -1:{
@@ -585,5 +598,9 @@ void GameScene::endButtonCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEvent
             break;
             
     }
+}
+
+void GameScene::set_WinOrLose(WinAndLose worl){
+    WorL_ = worl;
 }
 

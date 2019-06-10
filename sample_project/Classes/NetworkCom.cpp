@@ -291,6 +291,19 @@ void Client::HandleAction(const string Message)
             
             break;
         }
+        case 15:
+        {
+            bool result = Content["WinOrLose"]; // true is win.
+            WinAndLose re;
+            if(result){
+                re = WinAndLose::WIN;
+            }
+            else{
+                re = WinAndLose::LOSE;
+            }
+            static_cast<GameScene*>(cocos2d::Director::getInstance()->getRunningScene())->set_WinOrLose(re);
+            break;
+        }
         case 16:
         {
             auto user = User::getInstance();
