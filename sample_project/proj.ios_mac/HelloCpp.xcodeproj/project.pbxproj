@@ -108,6 +108,7 @@
 		6F514128229009D50054C510 /* FriendScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F514126229009D50054C510 /* FriendScene.cpp */; };
 		6F51412B2290455E0054C510 /* accept-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F51412A2290455E0054C510 /* accept-btn-click.png */; };
 		6F51412D2290481B0054C510 /* add-btn-click.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F51412C2290481B0054C510 /* add-btn-click.png */; };
+		6F6297AE22B148D8006E8CE7 /* StoreScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F6297AC22B148D8006E8CE7 /* StoreScene.cpp */; };
 		6F73C71D22944BD800AFF6E7 /* friend-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F73C71C22944BD800AFF6E7 /* friend-bg.png */; };
 		6F7B362E2298E19100090632 /* ClientSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B362C2298E19100090632 /* ClientSocket.cpp */; };
 		6F7B3634229A4E2300090632 /* notification-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7B3631229A4E2100090632 /* notification-btn.png */; };
@@ -341,6 +342,8 @@
 		6F514127229009D50054C510 /* FriendScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FriendScene.hpp; sourceTree = "<group>"; };
 		6F51412A2290455E0054C510 /* accept-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "accept-btn-click.png"; sourceTree = "<group>"; };
 		6F51412C2290481B0054C510 /* add-btn-click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-btn-click.png"; sourceTree = "<group>"; };
+		6F6297AC22B148D8006E8CE7 /* StoreScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StoreScene.cpp; sourceTree = "<group>"; };
+		6F6297AD22B148D8006E8CE7 /* StoreScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StoreScene.hpp; sourceTree = "<group>"; };
 		6F73C71C22944BD800AFF6E7 /* friend-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "friend-bg.png"; sourceTree = "<group>"; };
 		6F7B362C2298E19100090632 /* ClientSocket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ClientSocket.cpp; sourceTree = "<group>"; };
 		6F7B362D2298E19100090632 /* ClientSocket.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ClientSocket.hpp; sourceTree = "<group>"; };
@@ -689,6 +692,8 @@
 				6F51411F228FC3360054C510 /* RankScene.hpp */,
 				6F514126229009D50054C510 /* FriendScene.cpp */,
 				6F514127229009D50054C510 /* FriendScene.hpp */,
+				6F6297AC22B148D8006E8CE7 /* StoreScene.cpp */,
+				6F6297AD22B148D8006E8CE7 /* StoreScene.hpp */,
 				6F0BBCA9229EC223006F038D /* LoungeScene.cpp */,
 				6F0BBCAA229EC223006F038D /* LoungeScene.hpp */,
 				6F0BBCEA22A2996A006F038D /* ChooseCharacterScene.cpp */,
@@ -1067,6 +1072,7 @@
 				6F4B31012296E12D007A9B20 /* player.cpp in Sources */,
 				4A05661E1DB70C58009CE39C /* FirebaseAuthScene.cpp in Sources */,
 				6F8657E6226D9C6E009BA43D /* LobbyScene.cpp in Sources */,
+				6F6297AE22B148D8006E8CE7 /* StoreScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				6F3722FA22AE3588004B242D /* EndGameScene.cpp in Sources */,
 				4A05661F1DB70C58009CE39C /* FirebaseScene.cpp in Sources */,

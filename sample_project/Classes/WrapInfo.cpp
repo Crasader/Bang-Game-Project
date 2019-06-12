@@ -119,3 +119,8 @@ json WrapInfo::WrapChooseCard(int cardID, int chooser, int choosee, bool cod){
     Buffer["Choose or Discard"] = cod;
     return Buffer;
 }
+json WrapInfo::WrapGetStoreInfo(){
+    json Buffer;
+    Buffer["Action"] = 25;
+    return Buffer;
+}

@@ -30,6 +30,7 @@ namespace WrapInfo
     nlohmann::json WrapUserEndTurn();
     nlohmann::json WrapUseMissed(bool isUsed);
     nlohmann::json WrapChooseCard(int cardID, int chooser, int choosee, bool cod);
+    nlohmann::json WrapGetStoreInfo();
 }
 
 #endif /* WrapInfo_hpp */

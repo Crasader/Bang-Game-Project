@@ -15,6 +15,7 @@
 #include "LoungeScene.hpp"
 #include "GameScene.hpp"
 #include "ChooseCardScene.hpp"
+#include "StoreScene.hpp"
 
 #include <thread>
 #include <iostream>
@@ -356,6 +357,21 @@ void Client::HandleAction(const string Message)
                 LoungeUserDatabase::getInstance()->add_User(new LoungeUserInfo(tID, isready));
             }
 
+            break;
+        }
+        case 25:{
+            //get store info
+            auto sdb = StoreDatabase::getInstance();
+            sdb->clear();
+            int size = Content["Character Card"].size();
+            for(int i=0; i<size; i++){
+                sdb->add_card(new CardInfo(Content["Character Card"][i]["ID"], Content["Character Card"][i]["Cost"], Content["Character Card"][i]["Name"], Content["Character Card"][i]["Description"]));
+            }
+            size = Content["Effect And Equipment Card"].size();
+            for(int i=0; i<size; i++){
+                sdb->add_card(new CardInfo(Content["Effect And Equipment Card"][i]["ID"], Content["Effect And Equipment Card"][i]["Cost"], Content["Effect And Equipment Card"][i]["Name"], Content["Effect And Equipment Card"][i]["Description"]));
+            }
+            
             break;
         }
         default:

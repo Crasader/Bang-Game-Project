@@ -12,6 +12,7 @@
 #include "AssisstanceFunc.hpp"
 #include "LoungeScene.hpp"
 #include "ChooseCharacterScene.hpp"
+#include "StoreScene.hpp"
 
 #include <sstream>
 
@@ -115,6 +116,7 @@ bool LobbyScene::init()
     //Store button
     auto StoreButton = createButton(true, "Store", cocos2d::Color3B::WHITE, kNormalButtonImage, kSelectedButtonImage, kDisabledButtonImage);
     StoreButton->setPosition(Vec2(visibleSize.width/4 + 165 , visibleSize.height/4 + 50 ));
+    StoreButton->addTouchEventListener(CC_CALLBACK_2(LobbyScene::StoreCallback, this));
     StoreButton->setTag(1);
     this->addChild(StoreButton);
     
@@ -322,6 +324,21 @@ void LobbyScene::RankCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType
     switch (type) {
         case ui::Widget::TouchEventType::ENDED:{
             auto scene = RankScene::createScene();
+            auto director = Director::getInstance();
+            director->replaceScene(scene);
+            break;
+        }
+            
+        default:
+            break;
+            
+    }
+}
+//Select Store button call back
+void LobbyScene::StoreCallback(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType type){
+    switch (type) {
+        case ui::Widget::TouchEventType::ENDED:{
+            auto scene = StoreScene::createScene();
             auto director = Director::getInstance();
             director->replaceScene(scene);
             break;
