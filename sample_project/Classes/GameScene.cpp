@@ -61,6 +61,7 @@ bool GameScene::init()
     endButton->addChild(endLabel);
     endButton->setPosition(Vec2(visibleSize.width-150, visibleSize.height/2-50));
     endButton->setVisible(false); //Only in my turn visiable
+    endButton->addTouchEventListener(CC_CALLBACK_2(GameScene::endButtonCallback, this));
     this->addChild(endButton);
     
     
@@ -207,6 +208,9 @@ void GameScene::update(float /*delta*/) {
             this->getChildByTag(i)->setVisible(false);
     }
     
+    //end button state
+    endButton->setVisible(false);
+    
     //Update Palyer head
     for(int i=0; i<playerDB->get_size(); i++){
         for(int j=0; j<playerDB->get_size(); j++){
@@ -256,6 +260,7 @@ void GameScene::update(float /*delta*/) {
                     auto client = CClientSocket::getInstance();
                     client->sendMessage(WrapInfo::WrapUserUseCard(cardHoding->get_cardID(), cardHoding->get_target()).dump());
                     cardHoding->reset(); //reset the CardHolding infomation
+                    cardbutton[i]->set_DoubleSelect(false);
                 }
             }
             
@@ -270,15 +275,18 @@ void GameScene::update(float /*delta*/) {
     }
     
     
+    if(myturn_){
+        endButton->setVisible(true);
+        for(int i=0; i<cardbutton_amount; i++){
+            cardbutton[i]->setEnabled(true);
+        }
+    }
     //-----------------------------------------------
     
     switch(action_){
         case 8:{
             //your turn
-            endButton->setVisible(true);
-            for(int i=0; i<cardbutton_amount; i++){
-                cardbutton[i]->setEnabled(true);
-            }
+            myturn_ = true;
             break;
         }
         case 11:{
@@ -579,6 +587,7 @@ void GameScene::myTurnEnded(){
     else{
         auto client = CClientSocket::getInstance();
         client->sendMessage(WrapInfo::WrapUserEndTurn().dump());
+        myturn_ = false;
         action_ = -1;
     }
     

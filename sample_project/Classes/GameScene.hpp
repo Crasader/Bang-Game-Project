@@ -165,6 +165,7 @@ private:
     WinAndLose WorL_;
 
     static int action_;
+    bool myturn_ = false;
     
     cocos2d::ui::Button* endButton = nullptr;
     

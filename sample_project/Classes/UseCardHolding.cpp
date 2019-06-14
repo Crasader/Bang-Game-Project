@@ -70,6 +70,7 @@ void UseCardHolding::reset(){
 UseCardHolding::UseCardHolding(){
     ShouldChooseTargetCard["Bang!"] = 1;
     ShouldChooseTargetCard["Duel"] = 1;
-    ShouldChooseTargetCard["Cat Baiou"] = 1;
+    ShouldChooseTargetCard["Cat Balou"] = 1;
     ShouldChooseTargetCard["Panic"] = 1;
+    ShouldChooseTargetCard["Jail"] = 1;
 }

@@ -119,14 +119,15 @@ public:
     static cocos2d::Scene *createScene();
     
     bool init() override;
-    void update(float);
+    //void update(float);
     
     CREATE_FUNC(StoreScene);
     
-    void set_description_L(const std::string str);
+    void set_description_L(const std::string str, int cost);
     
 private:
-    Label * desL_;
+    cocos2d::Label * desL_;
+    cocos2d::Label * costL_;
     void BackToLoooby(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType);
     
     

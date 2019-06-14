@@ -47,7 +47,7 @@ bool StoreScene::init()
     this->addChild(BackButton);
     
     //Store Label
-    auto storeL = Label::createWithTTF("Store", "fonts/arial.ttf", 60);
+    auto storeL = Label::createWithTTF("Store", "fonts/arial.ttf", 70);
     storeL->setColor(Color3B::BLACK);
     storeL->setPosition(Vec2(origin.x + visibleSize.width/5, origin.y + visibleSize.height*5/7));
     this->addChild(storeL);
@@ -72,7 +72,7 @@ bool StoreScene::init()
     auto friend_bg = Sprite::create("friend-bg.png");
     friend_bg->setContentSize(Size(visibleSize.width/4 + 100, 600));
     friend_bg->setPosition(Vec2(origin.x + visibleSize.width*3/4, origin.y + visibleSize.height/2));
-    this->addChild(friend_bg);
+    this->addChild(friend_bg, 0);
     
     
     
@@ -95,14 +95,37 @@ void StoreScene::BackToLoooby(cocos2d::Ref*, cocos2d::ui::Widget::TouchEventType
     }
 }
 
-void StoreScene::set_description_L(const std::string str){
+void StoreScene::set_description_L(const std::string str, int cost){
+    this->removeChild(desL_);
+    
+    desL_ = Label::createWithTTF(str, "fonts/arial.ttf", 40);
+    desL_->setColor(Color3B::BLACK);
+    desL_->setDimensions(500, 700);
+    desL_->setPosition(Vec2(450, 50));
+    desL_->setVisible(true);
+    this->addChild(desL_);
+    
+    this->removeChild(costL_);
+    costL_ = Label::createWithTTF("$ : " + to_string(cost), "fonts/arial.ttf", 40);
+    costL_->setColor(Color3B::BLACK);
+    costL_->setPosition(Vec2(500, desL_->getPosition().y+100));
+    costL_->setVisible(true);
+    this->addChild(costL_);
     
 }
 //==========================================================================
-//Friend table scroll view
+//store table scroll view
 USING_NS_CC_EXT;
 
 void StoreTable::tableCellTouched(TableView *table, TableViewCell *cell){
+    auto runS = static_cast<StoreScene*>(Director::getInstance()->getRunningScene());
+    
+    int cost = Sdatabase->get_CardInfo(cell->getIdx())->get_Cost();
+    runS->set_description_L(Sdatabase->get_CardInfo(cell->getIdx())->get_Description(), cost);
+    //card cost
+    
+    
+    
     CCLOG("you touch cell index = %zd", cell->getIdx());
 }
 
@@ -133,13 +156,8 @@ TableViewCell* StoreTable::tableCellAtIndex(TableView *table, ssize_t idx){
     label->setPosition(Vec2(25, 0));
     label->setAnchorPoint(Vec2(0, 0));
     label->setColor(Color3B::BLACK);
-    cell->addChild(label);
+    cell->addChild(label, 1);
     
-    //card cost
-    int cost = Sdatabase->get_CardInfo(idx)->get_Cost();
-    auto costL = Label::createWithTTF(to_string(cost), "fonts/arial.ttf", 25);
-    costL->setPosition(Vec2(label->getPosition().x+ 250, label->getPosition().y + 20));
-    cell->addChild(costL);
     
     
     return cell;
